@@ -5,7 +5,7 @@ Version:	0.9.10
 Release:	1
 License:	XML-RPC C Library License
 Group:		Libraries
-Source0:	http://download.sourceforge.net/xmlrpc-c//%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/xmlrpc-c//%{name}-%{version}.tar.gz
 # Source0-md5:	847410fae881f0fb641a186db6c8c015
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-libxml2-support.patch
@@ -14,15 +14,18 @@ Patch3:		%{name}-public-dispatch.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	w3c-libwww-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
+BuildRequires:	w3c-libwww-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_includedir	%{_prefix}/include/%{name}
 
 %description
-XML-RPC C library - an implementation of the xmlrpc protocol
+XML-RPC C library - an implementation of the xmlrpc protocol.
+
+%description -l pl
+Biblioteka XML-RPC C - implementacja protoko³u xmlrpc.
 
 %package devel
 Summary:	Header files etc to develop XML-RPC applications
@@ -83,13 +86,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc COPYING NEWS README BUGS PORTING REFACTORINGS SECURITY TESTING
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_mandir}/man1/*
 
 %files devel
 %defattr(644,root,root,755)
-%doc COPYING NEWS README BUGS PORTING REFACTORINGS SECURITY TESTING
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}
 %{_mandir}/man7/*
