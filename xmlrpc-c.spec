@@ -65,7 +65,8 @@ rm -f missing
 	--disable-cplusplus \
 	--disable-abyss-server \
 	--disable-cgi-server \
-	--enable-libxml2-backend
+	--enable-libxml2-backend \
+	--disable-libwww-client
 %{__make}
 
 %install
@@ -91,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING NEWS README BUGS PORTING REFACTORINGS SECURITY TESTING
 %{_libdir}/lib*.la
 %{_includedir}
+%{_mandir}/man7/*
 
 %files static
 %defattr(644,root,root,755)
