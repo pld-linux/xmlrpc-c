@@ -1,21 +1,21 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl):	Biblioteka XML-RPC C - implementacja protoko³u xmlrpc
 Name:		xmlrpc-c
-Version:	0.9.10
-Release:	3
+Version:	1.03.10
+Release:	1
 License:	XML-RPC C Library License
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xmlrpc-c//%{name}-%{version}.tar.gz
-# Source0-md5:	847410fae881f0fb641a186db6c8c015
+Source0:	http://dl.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
+# Source0-md5:	b7857fba0cbdc970d51c0b32efa6bfb9
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-libxml2-support.patch
-Patch2:		%{name}-preinvoke.patch
-Patch3:		%{name}-public-dispatch.patch
-Patch4:		%{name}-soname.patch
+Patch2:		%{name}-public-dispatch.patch
+Patch3:		%{name}-soname.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+BuildRequires:	curl-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	w3c-libwww-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,20 +58,22 @@ Biblioteki statyczne XML-RPC C.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
-%{__automake}
 %configure \
-	--disable-cplusplus \
-	--disable-abyss-server \
-	--disable-cgi-server \
+	--enable-abyss-server \
+	--enable-cgi-server \
+	--enable-cplusplus \
 	--enable-libxml2-backend \
-	--enable-libwww-client
+	--enable-curl-client \
+	--enable-libwww-client \
+	--enable-unicode \
+	--enable-abyss-threads
+
 %{__make}
 
 %install
@@ -79,6 +81,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+ln -s oldxmlrpc.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc.h
+ln -s oldcppwrapper.hpp $RPM_BUILD_ROOT%{_includedir}/%{name}/XmlRpcCpp.h
+ln -s server_cgi.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_cgi.h
+ln -s client.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_client.h
+ln -s server.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_server.h
+ln -s server_abyss.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_server_abyss.h
+ln -s server_w32httpsys.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_server_w32httpsys.h
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -88,18 +98,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING NEWS README BUGS PORTING REFACTORINGS SECURITY TESTING
+%doc README doc/{COPYING,CREDITS,HISTORY,SECURITY,TESTING,TODO}
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_mandir}/man1/*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
+%doc doc/DEVELOPING
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
-%{_includedir}
-%{_mandir}/man7/*
+%{_libdir}/lib*\+\+.a
+%{_includedir}/%{name}
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/lib*[^\+\+].a
