@@ -382,7 +382,7 @@ diff -ur xmlrpc-c-1.03.10/xmlrpc-c-config.in xmlrpc-c-1.03.10.soname/xmlrpc-c-co
  the_rpath=
  the_wl_rpath=
  cpp_libs=
-@@ -68,37 +68,37 @@
+@@ -68,38 +68,38 @@
  while test $# -gt 0; do
    case $1 in
      c++)
@@ -426,7 +426,8 @@ diff -ur xmlrpc-c-1.03.10/xmlrpc-c-config.in xmlrpc-c-1.03.10.soname/xmlrpc-c-co
 +        the_libs="-lxmlrpc-c_server_abyss++ $the_libs"
          fi
        ;;
-     client)
+     client|libwww-client)
+       # libwww-client is for backward compatibility
 -      the_libs="-lxmlrpc_client $the_libs"
 +      the_libs="-lxmlrpc-c_client $the_libs"
  
