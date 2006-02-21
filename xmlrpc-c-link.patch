@@ -1,0 +1,40 @@
+--- xmlrpc-c-1.03.11/tools/xmlrpc/Makefile~	2005-04-19 00:25:03.000000000 +0200
++++ xmlrpc-c-1.03.11/tools/xmlrpc/Makefile	2006-02-21 14:55:17.068480002 +0100
+@@ -20,8 +20,8 @@
+ UTIL_OBJS = casprintf.o cmdline_parser.o getoptx.o
+ UTILS = $(UTIL_OBJS:%=$(UTIL_DIR)/%)
+ 
+-xmlrpc:%:%.o $(LIBXMLRPC_CLIENT) $(LIBXMLRPC) $(LIBXML) $(UTILS)
+-	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LDFLAGS) $^
++xmlrpc:%:%.o $(LIBXMLRPC_CLIENT) $(LIBXMLRPC) $(UTILS)
++	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LDFLAGS) $(LIBXML) $^
+ 
+ %.o:%.c
+ 	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $<
+--- xmlrpc-c-1.03.11/tools/xmlrpc_transport/Makefile~	2005-04-19 00:25:03.000000000 +0200
++++ xmlrpc-c-1.03.11/tools/xmlrpc_transport/Makefile	2006-02-21 14:56:52.170829521 +0100
+@@ -20,8 +20,8 @@
+ UTIL_OBJS = casprintf.o cmdline_parser.o getoptx.o
+ UTILS = $(UTIL_OBJS:%=$(UTIL_DIR)/%)
+ 
+-xmlrpc_transport:%:%.o $(LIBXMLRPC_CLIENT) $(LIBXMLRPC) $(LIBXML) $(UTILS)
+-	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LDFLAGS) $^
++xmlrpc_transport:%:%.o $(LIBXMLRPC_CLIENT) $(LIBXMLRPC) $(UTILS)
++	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LDFLAGS) $(LIBXML) $^
+ 
+ %.o:%.c
+ 	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $<
+--- xmlrpc-c-1.03.11/tools/xml-rpc-api2cpp/Makefile~	2005-06-06 02:27:11.000000000 +0200
++++ xmlrpc-c-1.03.11/tools/xml-rpc-api2cpp/Makefile	2006-02-21 15:01:10.957492028 +0100
+@@ -29,9 +29,8 @@
+   $(LIBXMLRPC_CLIENT) \
+   $(LIBXMLRPC_SERVER) \
+   $(LIBXMLRPC) \
+-  $(LIBXMLRPC_CPP) \
+-  $(LIBXML)
+-	$(LIBTOOL) --mode=link $(CXXLD) -o $@ $(LDFLAGS) $^
++  $(LIBXMLRPC_CPP)
++	$(LIBTOOL) --mode=link $(CXXLD) -o $@ $(LDFLAGS) $(LIBXML) $^
+ 
+ %.o:%.cpp
+ 	$(LIBTOOL) --mode=compile $(CXX) -c $(CXXFLAGS) $<
