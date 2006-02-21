@@ -1,0 +1,40 @@
+--- configure.in~	2006-02-21 13:28:31.976379405 +0100
++++ configure.in	2006-02-21 13:35:35.881402139 +0100
+@@ -422,7 +422,7 @@
+        WININET_LIBDIR="`$WININET_CONFIG --rpath-dir`"
+     else
+        dnl Yawn. We're using the regular boring version.
+-       WININET_LIBDIR="`$WININET_CONFIG --prefix`/lib"
++       WININET_LIBDIR="`$WININET_CONFIG --prefix`/lib64"
+     fi
+     AC_MSG_RESULT($WININET_LIBDIR)
+     AC_SUBST(WININET_LIBDIR)
+@@ -493,7 +493,7 @@
+        LIBWWW_LIBDIR="`$LIBWWW_CONFIG --rpath-dir`"
+     else
+        dnl Yawn. We're using the regular boring version.
+-       LIBWWW_LIBDIR="`$LIBWWW_CONFIG --prefix`/lib"
++       LIBWWW_LIBDIR="`$LIBWWW_CONFIG --prefix`/lib64"
+     fi
+     AC_MSG_RESULT($LIBWWW_LIBDIR)
+     AC_SUBST(LIBWWW_LIBDIR)
+@@ -545,7 +545,7 @@
+     dnl adjust the search patch manually. Just gag me with a backquote, OK?
+     AC_MSG_CHECKING(for curl library directory)
+     dnl Yawn. We're using the regular boring version.
+-    CURL_LIBDIR="`$CURL_CONFIG --prefix`/lib"
++    CURL_LIBDIR="`$CURL_CONFIG --prefix`/lib64"
+ 
+     AC_MSG_RESULT($CURL_LIBDIR)
+     AC_SUBST(CURL_LIBDIR)
+--- configure.in~	2006-02-21 13:37:17.413218039 +0100
++++ configure.in	2006-02-21 13:42:16.950873944 +0100
+@@ -599,7 +599,7 @@
+     AC_SUBST(LIBXML2_CFLAGS)
+     CFLAGS="$CFLAGS $LIBXML2_CFLAGS"
+ 
+-    LIBXML2_LIBS=`pkg-config --libs libxml-2.0`
++    LIBXML2_LIBS=`pkg-config --libs libxml-2.0 | sed 's|-L/usr/lib64||'`
+     AC_SUBST(LIBXML2_LIBS)
+ 
+     EXTRA_XML_LIBS="$LIBXML2_LIBS"
