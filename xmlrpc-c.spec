@@ -1,17 +1,14 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl):	Biblioteka XML-RPC C - implementacja protoko³u xmlrpc
 Name:		xmlrpc-c
-Version:	1.03.11
-Release:	2
+Version:	1.06.04
+Release:	1
 License:	XML-RPC C Library License
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
-# Source0-md5:	f360fd8c42f0c7b85ce9903a07e64d55
+# Source0-md5:	25c43707810525b077c6ad64e25dd978
 Patch0:		%{name}-fastdep.patch
-Patch1:		%{name}-libxml2-support.patch
-Patch2:		%{name}-public-dispatch.patch
-Patch3:		%{name}-soname.patch
-Patch4:		%{name}-link.patch
+Patch1:		%{name}-soname.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -61,9 +58,6 @@ Biblioteki statyczne XML-RPC C.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 rm -f missing
@@ -106,16 +100,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README doc/{COPYING,CREDITS,HISTORY,SECURITY,TESTING,TODO}
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/DEVELOPING
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
-%{_libdir}/lib*\+\+.a
 %{_includedir}/%{name}
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*[^\+\+].a
+%{_libdir}/lib*.a
