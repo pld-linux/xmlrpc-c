@@ -13,8 +13,8 @@ Patch2:		%{name}-cflags.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool
 BuildRequires:	curl-devel
+BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	w3c-libwww-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -31,11 +31,11 @@ Biblioteka XML-RPC C - implementacja protoko³u xmlrpc.
 Summary:	Header files etc to develop XML-RPC applications
 Summary(pl):	Pliki nag³ówkowe do tworzenia aplikacji XML-RPC
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
-Requires:	w3c-libwww-devel
-Requires:	expat-devel
+Requires:	%{name} = %{version}-%{release}
 Requires:	curl-devel
+Requires:	expat-devel
 Requires:	libxml2-devel
+Requires:	w3c-libwww-devel
 
 %description devel
 Header files etc needed to develop XML-RPC applications.
@@ -47,7 +47,7 @@ Pliki nag³ówkowe potrzebne do tworzenia aplikacji u¿ywaj±cych XML-RPC.
 Summary:	Static XML-RPC C libraries
 Summary(pl):	Biblioteki statyczne XML-RPC C
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static XML-RPC C libraries.
