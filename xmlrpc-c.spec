@@ -1,5 +1,5 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
-Summary(pl.UTF-8):   Biblioteka XML-RPC C - implementacja protokołu xmlrpc
+Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
 Version:	1.06.04
 Release:	2
@@ -29,7 +29,7 @@ Biblioteka XML-RPC C - implementacja protokołu xmlrpc.
 
 %package devel
 Summary:	Header files etc to develop XML-RPC applications
-Summary(pl.UTF-8):   Pliki nagłówkowe do tworzenia aplikacji XML-RPC
+Summary(pl.UTF-8):	Pliki nagłówkowe do tworzenia aplikacji XML-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	curl-devel
@@ -45,7 +45,7 @@ Pliki nagłówkowe potrzebne do tworzenia aplikacji używających XML-RPC.
 
 %package static
 Summary:	Static XML-RPC C libraries
-Summary(pl.UTF-8):   Biblioteki statyczne XML-RPC C
+Summary(pl.UTF-8):	Biblioteki statyczne XML-RPC C
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
