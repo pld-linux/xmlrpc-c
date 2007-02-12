@@ -1,5 +1,5 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
-Summary(pl):	Biblioteka XML-RPC C - implementacja protoko≥u xmlrpc
+Summary(pl.UTF-8):   Biblioteka XML-RPC C - implementacja protoko≈Çu xmlrpc
 Name:		xmlrpc-c
 Version:	1.06.04
 Release:	2
@@ -24,12 +24,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 XML-RPC C library - an implementation of the xmlrpc protocol.
 
-%description -l pl
-Biblioteka XML-RPC C - implementacja protoko≥u xmlrpc.
+%description -l pl.UTF-8
+Biblioteka XML-RPC C - implementacja protoko≈Çu xmlrpc.
 
 %package devel
 Summary:	Header files etc to develop XML-RPC applications
-Summary(pl):	Pliki nag≥Ûwkowe do tworzenia aplikacji XML-RPC
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe do tworzenia aplikacji XML-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	curl-devel
@@ -40,19 +40,19 @@ Requires:	w3c-libwww-devel
 %description devel
 Header files etc needed to develop XML-RPC applications.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe potrzebne do tworzenia aplikacji uøywaj±cych XML-RPC.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe potrzebne do tworzenia aplikacji u≈ºywajƒÖcych XML-RPC.
 
 %package static
 Summary:	Static XML-RPC C libraries
-Summary(pl):	Biblioteki statyczne XML-RPC C
+Summary(pl.UTF-8):   Biblioteki statyczne XML-RPC C
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static XML-RPC C libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteki statyczne XML-RPC C.
 
 %prep
