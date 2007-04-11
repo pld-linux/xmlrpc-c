@@ -334,10 +334,10 @@ diff -urN xmlrpc-c-1.06.04/src/Makefile xmlrpc-c-1.06.04-soname/src/Makefile
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
  	  $(LIBXMLRPC_SERVER_CGI_OBJS) $(LIBXMLRPC_SERVER_CGI_LIBDEP)
  
-diff -urN xmlrpc-c-1.06.04/src/cpp/Makefile xmlrpc-c-1.06.04-soname/src/cpp/Makefile
---- xmlrpc-c-1.06.04/src/cpp/Makefile	2006-06-19 16:16:46.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/src/cpp/Makefile	2006-09-04 13:43:05.000000000 +0200
-@@ -14,15 +14,15 @@
+diff -urN xmlrpc-c-1.06.11.org/src/cpp/Makefile xmlrpc-c-1.06.11/src/cpp/Makefile
+--- xmlrpc-c-1.06.11.org/src/cpp/Makefile	2006-11-06 02:51:07.000000000 +0100
++++ xmlrpc-c-1.06.11/src/cpp/Makefile	2007-04-11 08:42:31.403373583 +0200
+@@ -14,17 +14,17 @@
  
  default: all
  
@@ -350,16 +350,18 @@ diff -urN xmlrpc-c-1.06.04/src/cpp/Makefile xmlrpc-c-1.06.04-soname/src/cpp/Make
 -  libxmlrpc++ \
 -  libxmlrpc_server++ \
 -  libxmlrpc_server_abyss++ \
--  libxmlrpc_client++ \
 +  libxmlrpc-c_cpp \
 +  libxmlrpc-c++ \
 +  libxmlrpc-c_server++ \
 +  libxmlrpc-c_server_abyss++ \
-+  libxmlrpc-c_client++ \
+ 
+ ifeq ($(MUST_BUILD_CLIENT),yes)
+-  TARGET_LIBRARY_NAMES += libxmlrpc_client++
++  TARGET_LIBRARY_NAMES += libxmlrpc-c_client++
+ endif
  
  STATIC_LIBRARIES_TO_INSTALL = $(TARGET_STATIC_LIBRARIES)
- 
-@@ -107,27 +107,27 @@
+@@ -110,27 +110,27 @@
  
  all: $(TARGET_LIBRARIES)
  
