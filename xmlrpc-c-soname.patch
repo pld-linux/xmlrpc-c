@@ -1,90 +1,7 @@
-diff -urN xmlrpc-c-1.06.04/Makefile.common xmlrpc-c-1.06.04-soname/Makefile.common
---- xmlrpc-c-1.06.04/Makefile.common	2006-08-30 04:59:05.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/Makefile.common	2006-09-04 13:39:06.000000000 +0200
-@@ -65,12 +65,12 @@
- #   B is the revision number
- #   A minus C is the major number.
- #
--# So you would get libxmlrpc.so.A-C.C.B .
-+# So you would get libxmlrpc-c.so.A-C.C.B .
- #
- # Our strategy is to make the library version numbers the same as the
- # Xmlrpc-c version numbers except that we update the major number when and
- # only when we make a non-backward-compatible change to the library.  So
--# e.g. libxmlrpc for Xmlrpc-c 1.06.01 is named libxmlrpc.so.3.6.1.
-+# e.g. libxmlrpc-c for Xmlrpc-c 1.06.01 is named libxmlrpc-c.so.3.6.1.
- 
- LDFLAGS_VERSINFO = -version-info 9:4:6  # 3.6.4
- 
-@@ -79,29 +79,29 @@
-   CURDIR := $(shell /bin/pwd)
- endif
- 
--LIBXMLRPC_UTIL           = $(BUILDDIR)/lib/libutil/libxmlrpc_util.la
--LIBXMLRPC                = $(BUILDDIR)/src/libxmlrpc.la
--LIBXMLRPC_CLIENT         = $(BUILDDIR)/src/libxmlrpc_client.la
--LIBXMLRPC_SERVER         = $(BUILDDIR)/src/libxmlrpc_server.la
--LIBXMLRPC_SERVER_ABYSS   = $(BUILDDIR)/src/libxmlrpc_server_abyss.la
--LIBXMLRPC_SERVER_CGI     = $(BUILDDIR)/src/libxmlrpc_server_cgi.la
--LIBXMLRPC_ABYSS          = $(BUILDDIR)/lib/abyss/src/libxmlrpc_abyss.la
--LIBXMLRPC_XMLPARSE       = $(BUILDDIR)/lib/expat/xmlparse/libxmlrpc_xmlparse.la
--LIBXMLRPC_XMLTOK         = $(BUILDDIR)/lib/expat/xmltok/libxmlrpc_xmltok.la
--LIBXMLRPC_UTIL_A         = $(BUILDDIR)/lib/libutil/.libs/libxmlrpc_util.a
--LIBXMLRPC_A              = $(BUILDDIR)/src/.libs/libxmlrpc.a
--LIBXMLRPC_CLIENT_A       = $(BUILDDIR)/src/.libs/libxmlrpc_client.a
--LIBXMLRPC_SERVER_A       = $(BUILDDIR)/src/.libs/libxmlrpc_server.a
--LIBXMLRPC_SERVER_ABYSS_A = $(BUILDDIR)/src/.libs/libxmlrpc_server_abyss.a
--LIBXMLRPC_SERVER_CGI_A   = $(BUILDDIR)/src/.libs/libxmlrpc_server_cgi.a
--LIBXMLRPC_ABYSS_A        = $(BUILDDIR)/lib/abyss/src/.libs/libxmlrpc_abyss.a
--LIBXMLRPC_XMLPARSE_A     = $(BUILDDIR)/lib/expat/xmlparse/.libs/libxmlrpc_xmlparse.a
--LIBXMLRPC_XMLTOK_A       = $(BUILDDIR)/lib/expat/xmltok/.libs/libxmlrpc_xmltok.a
--LIBXMLRPC_CPP            = $(BUILDDIR)/src/cpp/libxmlrpc_cpp.a
--LIBXMLRPC++              = $(BUILDDIR)/src/cpp/libxmlrpc++.a
--LIBXMLRPC_CLIENT++       = $(BUILDDIR)/src/cpp/libxmlrpc_client++.a
--LIBXMLRPC_SERVER++       = $(BUILDDIR)/src/cpp/libxmlrpc_server++.a
--LIBXMLRPC_SERVER_ABYSS++ = $(BUILDDIR)/src/cpp/libxmlrpc_server_abyss++.a
-+LIBXMLRPC_UTIL           = $(BUILDDIR)/lib/libutil/libxmlrpc-c_util.la
-+LIBXMLRPC                = $(BUILDDIR)/src/libxmlrpc-c.la
-+LIBXMLRPC_CLIENT         = $(BUILDDIR)/src/libxmlrpc-c_client.la
-+LIBXMLRPC_SERVER         = $(BUILDDIR)/src/libxmlrpc-c_server.la
-+LIBXMLRPC_SERVER_ABYSS   = $(BUILDDIR)/src/libxmlrpc-c_server_abyss.la
-+LIBXMLRPC_SERVER_CGI     = $(BUILDDIR)/src/libxmlrpc-c_server_cgi.la
-+LIBXMLRPC_ABYSS          = $(BUILDDIR)/lib/abyss/src/libxmlrpc-c_abyss.la
-+LIBXMLRPC_XMLPARSE       = $(BUILDDIR)/lib/expat/xmlparse/libxmlrpc-c_xmlparse.la
-+LIBXMLRPC_XMLTOK         = $(BUILDDIR)/lib/expat/xmltok/libxmlrpc-c_xmltok.la
-+LIBXMLRPC_UTIL_A         = $(BUILDDIR)/lib/libutil/.libs/libxmlrpc-c_util.a
-+LIBXMLRPC_A              = $(BUILDDIR)/src/.libs/libxmlrpc-c.a
-+LIBXMLRPC_CLIENT_A       = $(BUILDDIR)/src/.libs/libxmlrpc-c_client.a
-+LIBXMLRPC_SERVER_A       = $(BUILDDIR)/src/.libs/libxmlrpc-c_server.a
-+LIBXMLRPC_SERVER_ABYSS_A = $(BUILDDIR)/src/.libs/libxmlrpc-c_server_abyss.a
-+LIBXMLRPC_SERVER_CGI_A   = $(BUILDDIR)/src/.libs/libxmlrpc-c_server_cgi.a
-+LIBXMLRPC_ABYSS_A        = $(BUILDDIR)/lib/abyss/src/.libs/libxmlrpc-c_abyss.a
-+LIBXMLRPC_XMLPARSE_A     = $(BUILDDIR)/lib/expat/xmlparse/.libs/libxmlrpc-c_xmlparse.a
-+LIBXMLRPC_XMLTOK_A       = $(BUILDDIR)/lib/expat/xmltok/.libs/libxmlrpc-c_xmltok.a
-+LIBXMLRPC_CPP            = $(BUILDDIR)/src/cpp/libxmlrpc-c_cpp.a
-+LIBXMLRPC++              = $(BUILDDIR)/src/cpp/libxmlrpc-c++.a
-+LIBXMLRPC_CLIENT++       = $(BUILDDIR)/src/cpp/libxmlrpc-c_client++.a
-+LIBXMLRPC_SERVER++       = $(BUILDDIR)/src/cpp/libxmlrpc-c_server++.a
-+LIBXMLRPC_SERVER_ABYSS++ = $(BUILDDIR)/src/cpp/libxmlrpc-c_server_abyss++.a
- 
- CASPRINTF                = $(BUILDDIR)/lib/util/casprintf.o
- 
-@@ -117,9 +117,9 @@
-   LIBXMLRPC_XML = $(LIBXMLRPC_XMLPARSE) $(LIBXMLRPC_XMLTOK)
-   LDLIBS_XML = \
-         -L$(BUILDDIR)/lib/expat/xmlparse/.libs \
--	-lxmlrpc_xmlparse \
-+	-lxmlrpc-c_xmlparse \
-         -L$(BUILDDIR)/lib/expat/xmltok/.libs \
--	-lxmlrpc_xmltok
-+	-lxmlrpc-c_xmltok
- else
-   LDLIBS_XML = $(shell xml2-config --libs)
- endif
-diff -urN xmlrpc-c-1.06.04/configure.in xmlrpc-c-1.06.04-soname/configure.in
---- xmlrpc-c-1.06.04/configure.in	2006-09-04 13:37:42.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/configure.in	2006-09-04 13:39:40.000000000 +0200
-@@ -104,7 +104,7 @@
+diff -urN xmlrpc-c-1.10.00.org/configure.in xmlrpc-c-1.10.00/configure.in
+--- xmlrpc-c-1.10.00.org/configure.in	2007-03-08 04:05:29.000000000 +0100
++++ xmlrpc-c-1.10.00/configure.in	2007-04-11 09:07:07.778242073 +0200
+@@ -94,7 +94,7 @@
  
  dnl Set up the appropriate Makefile substitutions.
  
@@ -93,7 +10,7 @@ diff -urN xmlrpc-c-1.06.04/configure.in xmlrpc-c-1.06.04-soname/configure.in
  AC_SUBST(LIBXMLRPC_CLIENT_LA)
  CLIENTTEST=clienttest
  AC_SUBST(CLIENTTEST)
-@@ -150,7 +150,7 @@
+@@ -140,7 +140,7 @@
  if test x"$enable_abyss_server" != xno; then
      FEATURE_LIST="abyss-server $FEATURE_LIST"
      ABYSS_SUBDIR=abyss
@@ -102,7 +19,7 @@ diff -urN xmlrpc-c-1.06.04/configure.in xmlrpc-c-1.06.04-soname/configure.in
      SERVERTEST=servertest
      VALIDATEE=validatee
      XMLRPC_ABYSS_H=xmlrpc_abyss.h
-@@ -190,7 +190,7 @@
+@@ -180,7 +180,7 @@
  INTEROP_CLIENT_SUBDIR=
  if test x"$enable_cplusplus" != xno; then
      FEATURE_LIST="c++ $FEATURE_LIST"
@@ -111,55 +28,90 @@ diff -urN xmlrpc-c-1.06.04/configure.in xmlrpc-c-1.06.04-soname/configure.in
      CPPTEST=cpptest
      XMLRPCCPP_H=XmlRpcCpp.h
  
-diff -urN xmlrpc-c-1.06.04/lib/abyss/src/Makefile xmlrpc-c-1.06.04-soname/lib/abyss/src/Makefile
---- xmlrpc-c-1.06.04/lib/abyss/src/Makefile	2006-06-10 18:51:46.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/lib/abyss/src/Makefile	2006-09-04 13:39:59.000000000 +0200
-@@ -18,12 +18,12 @@
- 
- INCLUDES = -I$(SRCDIR) -I$(SRCDIR)/include -I$(SRCDIR)/lib/util/include
- 
--LTLIBRARIES_TO_INSTALL = libxmlrpc_abyss.la
-+LTLIBRARIES_TO_INSTALL = libxmlrpc-c_abyss.la
+diff -urN xmlrpc-c-1.10.00.org/lib/abyss/src/Makefile xmlrpc-c-1.10.00/lib/abyss/src/Makefile
+--- xmlrpc-c-1.10.00.org/lib/abyss/src/Makefile	2007-03-01 02:05:55.000000000 +0100
++++ xmlrpc-c-1.10.00/lib/abyss/src/Makefile	2007-04-11 09:07:51.635931285 +0200
+@@ -11,12 +11,12 @@
  
  default: all
+ 
+-TARGET_LIBRARY_NAMES := libxmlrpc_abyss
++TARGET_LIBRARY_NAMES := libxmlrpc-c_abyss
+ 
+-STATIC_LIBRARIES_TO_INSTALL = libxmlrpc_abyss.a
++STATIC_LIBRARIES_TO_INSTALL = libxmlrpc-c_abyss.a
+ 
+-SHARED_LIBS_TO_BUILD := libxmlrpc_abyss
+-SHARED_LIBS_TO_INSTALL := libxmlrpc_abyss
++SHARED_LIBS_TO_BUILD := libxmlrpc-c_abyss
++SHARED_LIBS_TO_INSTALL := libxmlrpc-c_abyss
+ 
+ ifeq ($(ENABLE_ABYSS_THREADS),yes)
+   THREAD_MODULE = thread_pthread
+@@ -52,13 +52,13 @@
+ 
+ INCLUDES = -Iblddir -Isrcdir -Isrcdir/include -Isrcdir/lib/util/include
+ 
+-ABYSS_SHLIB = $(call shlibfn,libxmlrpc_abyss)
+-#ABYSS_SHLIB is e.g. libxmlrpc_abyss.so.3.1
+-ABYSS_SHLIBLE = $(call shliblefn,libxmlrpc_abyss)
+-#ABYSS_SHLIBLE is e.g. libxmlrpc_abyss.so
++ABYSS_SHLIB = $(call shlibfn,libxmlrpc-c_abyss)
++#ABYSS_SHLIB is e.g. libxmlrpc-c_abyss.so.3.1
++ABYSS_SHLIBLE = $(call shliblefn,libxmlrpc-c_abyss)
++#ABYSS_SHLIBLE is e.g. libxmlrpc-c_abyss.so
+ 
+-# LIBDEP is the shared libraries on which libxmlrpc_abyss depends.
+-# The runtime loader should load these libraries when it loads libxmlrpc_abyss.
++# LIBDEP is the shared libraries on which libxmlrpc-c_abyss depends.
++# The runtime loader should load these libraries when it loads libxmlrpc-c_abyss.
+ 
+ LIBDEP = $(LIBXMLRPC_UTIL)
+ 
+@@ -72,7 +72,7 @@
+ $(SRCDIR)/Makefile.common: srcdir blddir
  
  .PHONY: all
--all: libxmlrpc_abyss.la
-+all: libxmlrpc-c_abyss.la
+-all: libxmlrpc_abyss.a $(TARGET_SHARED_LIBS) $(TARGET_SHARED_LE_LIBS)
++all: libxmlrpc-c_abyss.a $(TARGET_SHARED_LIBS) $(TARGET_SHARED_LE_LIBS)
  
  
- ABYSS_OBJS = \
-@@ -43,7 +43,7 @@
-   trace.lo \
+ # Rule for this is in Makefile.common, courtesy of TARGET_SHARED_LIBRARIES:
+@@ -81,8 +81,8 @@
  
+ # Rule for this is in Makefile.common, courtesy of TARGET_STATIC_LIBRARIES:
  
--libxmlrpc_abyss.la: $(ABYSS_OBJS)
-+libxmlrpc-c_abyss.la: $(ABYSS_OBJS)
- 	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) $^
+-libxmlrpc_abyss.a: $(TARGET_MODS:%=%.o)
+-libxmlrpc_abyss.a: LIBOBJECTS = $(TARGET_MODS:%=%.o)
++libxmlrpc-c_abyss.a: $(TARGET_MODS:%=%.o)
++libxmlrpc-c_abyss.a: LIBOBJECTS = $(TARGET_MODS:%=%.o)
  
- $(ABYSS_OBJS):%.lo:%.c
-diff -urN xmlrpc-c-1.06.04/lib/expat/xmlparse/Makefile xmlrpc-c-1.06.04-soname/lib/expat/xmlparse/Makefile
---- xmlrpc-c-1.06.04/lib/expat/xmlparse/Makefile	2006-06-18 19:34:34.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/lib/expat/xmlparse/Makefile	2006-09-04 13:42:01.000000000 +0200
-@@ -16,7 +16,7 @@
+ #-----------------------------------------------------------------------------
+ #  RULES TO COMPILE OBJECT MODULES FOR LIBRARIES
+diff -urN xmlrpc-c-1.10.00.org/lib/expat/xmlparse/Makefile xmlrpc-c-1.10.00/lib/expat/xmlparse/Makefile
+--- xmlrpc-c-1.10.00.org/lib/expat/xmlparse/Makefile	2007-03-22 21:59:48.000000000 +0100
++++ xmlrpc-c-1.10.00/lib/expat/xmlparse/Makefile	2007-04-11 09:07:51.639264696 +0200
+@@ -18,7 +18,7 @@
  
- default: all
+ include $(SRCDIR)/Makefile.common
  
 -all: libxmlrpc_xmlparse.la
 +all: libxmlrpc-c_xmlparse.la
  
  LIBXMLRPC_XMLPARSE_OBJS = xmlparse.lo
  
-@@ -26,7 +26,7 @@
+@@ -26,16 +26,16 @@
  
- LIBLDFLAGS = $(LDFLAGS_VERSINFO) -rpath $(LIBINST_DIR) $(LADD)
+ LIBLDFLAGS = $(LDFLAGS_VERSINFO) -L../xmltok/.libs $(RPATH) $(LADD)
  
--libxmlrpc_xmlparse.la: $(LIBXMLRPC_XMLPARSE_OBJS)
-+libxmlrpc-c_xmlparse.la: $(LIBXMLRPC_XMLPARSE_OBJS)
- 	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) $^
+-libxmlrpc_xmlparse.la: $(LIBXMLRPC_XMLPARSE_OBJS) $(LIBXMLRPC_XMLTOK)
++libxmlrpc-c_xmlparse.la: $(LIBXMLRPC_XMLPARSE_OBJS) $(LIBXMLRPC_XMLTOK)
+ 	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
+-	  $(LIBXMLRPC_XMLPARSE_OBJS) -lxmlrpc_xmltok
++	  $(LIBXMLRPC_XMLPARSE_OBJS) -lxmlrpc-c_xmltok
  
  CFLAGS = $(CFLAGS_COMMON) $(CFLAGS_PERSONAL) $(CADD)
-@@ -34,7 +34,7 @@
+ 
  $(LIBXMLRPC_XMLPARSE_OBJS):%.lo:%.c
  	$(LIBTOOL) --mode=compile $(CC) -c $(INCLUDES) $(CFLAGS) $<
  
@@ -168,10 +120,10 @@ diff -urN xmlrpc-c-1.06.04/lib/expat/xmlparse/Makefile xmlrpc-c-1.06.04-soname/l
  
  .PHONY: install
  install: install-common
-diff -urN xmlrpc-c-1.06.04/lib/expat/xmltok/Makefile xmlrpc-c-1.06.04-soname/lib/expat/xmltok/Makefile
---- xmlrpc-c-1.06.04/lib/expat/xmltok/Makefile	2005-09-24 22:45:15.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/lib/expat/xmltok/Makefile	2006-09-04 13:42:13.000000000 +0200
-@@ -20,7 +20,7 @@
+diff -urN xmlrpc-c-1.10.00.org/lib/expat/xmltok/Makefile xmlrpc-c-1.10.00/lib/expat/xmltok/Makefile
+--- xmlrpc-c-1.10.00.org/lib/expat/xmltok/Makefile	2006-11-02 02:49:58.000000000 +0100
++++ xmlrpc-c-1.10.00/lib/expat/xmltok/Makefile	2007-04-11 09:07:51.639264696 +0200
+@@ -29,7 +29,7 @@
  include $(SRCDIR)/Makefile.common
  
  .PHONY: all
@@ -180,7 +132,7 @@ diff -urN xmlrpc-c-1.06.04/lib/expat/xmltok/Makefile xmlrpc-c-1.06.04-soname/lib
  
  .PHONY: clean
  clean: clean-common
-@@ -41,11 +41,11 @@
+@@ -50,11 +50,11 @@
  .PHONY: dep
  dep: dep-common
  
@@ -194,9 +146,9 @@ diff -urN xmlrpc-c-1.06.04/lib/expat/xmltok/Makefile xmlrpc-c-1.06.04-soname/lib
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) $^
  
  $(LIBXMLRPC_XMLTOK_OBJS):%.lo:%.c
-diff -urN xmlrpc-c-1.06.04/lib/libutil/Makefile xmlrpc-c-1.06.04-soname/lib/libutil/Makefile
---- xmlrpc-c-1.06.04/lib/libutil/Makefile	2006-04-23 02:55:40.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/lib/libutil/Makefile	2006-09-04 13:42:26.000000000 +0200
+diff -urN xmlrpc-c-1.10.00.org/lib/libutil/Makefile xmlrpc-c-1.10.00/lib/libutil/Makefile
+--- xmlrpc-c-1.10.00.org/lib/libutil/Makefile	2007-03-05 03:01:54.000000000 +0100
++++ xmlrpc-c-1.10.00/lib/libutil/Makefile	2007-04-11 09:07:51.629264463 +0200
 @@ -1,5 +1,5 @@
  ###############################################################################
 -# This directory builds libxmlrpc_util, which contains utility
@@ -204,36 +156,61 @@ diff -urN xmlrpc-c-1.06.04/lib/libutil/Makefile xmlrpc-c-1.06.04-soname/lib/libu
  # functions that are used by the Xmlprc-c # libraries, and also
  # directly by Xmlrpc-c programs.
  #
-@@ -23,7 +23,7 @@
+@@ -20,12 +20,12 @@
  
  default: all
  
--all: libxmlrpc_util.la
-+all: libxmlrpc-c_util.la
+-TARGET_LIBRARY_NAMES := libxmlrpc_util
++TARGET_LIBRARY_NAMES := libxmlrpc-c_util
  
- LIBXMLRPC_UTIL_OBJS = \
-   casprintf.lo \
-@@ -40,7 +40,7 @@
+-STATIC_LIBRARIES_TO_INSTALL = libxmlrpc_util.a
++STATIC_LIBRARIES_TO_INSTALL = libxmlrpc-c_util.a
  
- LIBLDFLAGS = $(LDFLAGS_VERSINFO) -rpath $(LIBINST_DIR) $(LADD)
+-SHARED_LIBS_TO_BUILD := libxmlrpc_util
+-SHARED_LIBS_TO_INSTALL := libxmlrpc_util
++SHARED_LIBS_TO_BUILD := libxmlrpc-c_util
++SHARED_LIBS_TO_INSTALL := libxmlrpc-c_util
  
--libxmlrpc_util.la: $(LIBXMLRPC_UTIL_OBJS)
-+libxmlrpc-c_util.la: $(LIBXMLRPC_UTIL_OBJS)
- 	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) $^
+ TARGET_MODS = \
+   casprintf \
+@@ -45,10 +45,10 @@
+ INCLUDES = -I$(BLDDIR) -Isrcdir \
+            -I$(BLDDIR)/include -Isrcdir/include -Isrcdir/lib/util/include
  
- CFLAGS = $(CFLAGS_COMMON) $(CFLAGS_PERSONAL) $(CADD)
-@@ -48,7 +48,7 @@
- $(LIBXMLRPC_UTIL_OBJS):%.lo:%.c
- 	$(LIBTOOL) --mode=compile $(CC) -c $(INCLUDES) $(CFLAGS) $<
+-UTIL_SHLIB = $(call shlibfn,libxmlrpc_util)
+-#UTIL_SHLIB is e.g. libxmlrpc_util.so.3.1
+-UTIL_SHLIBLE = $(call shliblefn,libxmlrpc_util)
+-#UTIL_SHLIBLE is e.g. libxmlrpc_util.so
++UTIL_SHLIB = $(call shlibfn,libxmlrpc-c_util)
++#UTIL_SHLIB is e.g. libxmlrpc-c_util.so.3.1
++UTIL_SHLIBLE = $(call shliblefn,libxmlrpc-c_util)
++#UTIL_SHLIBLE is e.g. libxmlrpc-c_util.so
  
--LTLIBRARIES_TO_INSTALL = libxmlrpc_util.la
-+LTLIBRARIES_TO_INSTALL = libxmlrpc-c_util.la
+ ifneq ($(SHARED_LIB_TYPE),NONE)
+   TARGET_SHARED_LIBS := $(UTIL_SHLIB) $(UTIL_SHLIBLE)
+@@ -60,7 +60,7 @@
+ $(SRCDIR)/Makefile.common: srcdir blddir
  
- .PHONY: install
- install: install-common
-diff -urN xmlrpc-c-1.06.04/lib/util/Makefile xmlrpc-c-1.06.04-soname/lib/util/Makefile
---- xmlrpc-c-1.06.04/lib/util/Makefile	2005-10-05 20:05:07.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/lib/util/Makefile	2006-09-04 13:42:42.000000000 +0200
+ .PHONY: all
+-all: libxmlrpc_util.a $(TARGET_SHARED_LIBS) $(TARGET_SHARED_LE_LIBS)
++all: libxmlrpc-c_util.a $(TARGET_SHARED_LIBS) $(TARGET_SHARED_LE_LIBS)
+ 
+ # Rule for this is in Makefile.common, courtesy of TARGET_SHARED_LIBRARIES:
+ $(UTIL_SHLIB): $(TARGET_MODS:%=%.osh)
+@@ -68,8 +68,8 @@
+ 
+ # Rule for this is in Makefile.common, courtesy of TARGET_STATIC_LIBRARIES:
+ 
+-libxmlrpc_util.a: $(TARGET_MODS:%=%.o)
+-libxmlrpc_util.a: LIBOBJECTS = $(TARGET_MODS:%=%.o)
++libxmlrpc-c_util.a: $(TARGET_MODS:%=%.o)
++libxmlrpc-c_util.a: LIBOBJECTS = $(TARGET_MODS:%=%.o)
+ 
+ #-----------------------------------------------------------------------------
+ #  RULES TO COMPILE OBJECT MODULES FOR LIBRARIES
+diff -urN xmlrpc-c-1.10.00.org/lib/util/Makefile xmlrpc-c-1.10.00/lib/util/Makefile
+--- xmlrpc-c-1.10.00.org/lib/util/Makefile	2007-02-26 04:46:23.000000000 +0100
++++ xmlrpc-c-1.10.00/lib/util/Makefile	2007-04-11 09:07:51.629264463 +0200
 @@ -7,7 +7,7 @@
  # modules, the libraries will conflict with each other.
  #
@@ -243,55 +220,272 @@ diff -urN xmlrpc-c-1.06.04/lib/util/Makefile xmlrpc-c-1.06.04-soname/lib/util/Ma
  # for many Xmlrpc-c libraries, gets included in a program link only once,
  # and uses external symbol names that have the "xmlrpc_" prefix to avoid
  # collision with users' code.
-@@ -49,4 +49,4 @@
- .PHONY: dep
- dep: dep-common
+diff -urN xmlrpc-c-1.10.00.org/Makefile.common xmlrpc-c-1.10.00/Makefile.common
+--- xmlrpc-c-1.10.00.org/Makefile.common	2007-03-23 03:02:14.000000000 +0100
++++ xmlrpc-c-1.10.00/Makefile.common	2007-04-11 09:07:51.619264230 +0200
+@@ -72,12 +72,12 @@
+ #   B is the revision number
+ #   A minus C is the major number.
+ #
+-# So you would get libxmlrpc.so.A-C.C.B .
++# So you would get libxmlrpc-c.so.A-C.C.B .
+ #
+ # Our strategy is to make the library version numbers the same as the
+ # Xmlrpc-c version numbers except that we update the major number when and
+ # only when we make a non-backward-compatible change to the library.  So
+-# e.g. libxmlrpc for Xmlrpc-c 1.06.01 is named libxmlrpc.so.3.6.1.
++# e.g. libxmlrpc-c for Xmlrpc-c 1.06.01 is named libxmlrpc-c.so.3.6.1.
  
--install:
-\ No newline at end of file
-+install:
-diff -urN xmlrpc-c-1.06.04/src/Makefile xmlrpc-c-1.06.04-soname/src/Makefile
---- xmlrpc-c-1.06.04/src/Makefile	2006-07-30 05:07:28.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/src/Makefile	2006-09-04 13:44:50.000000000 +0200
-@@ -69,17 +69,17 @@
- # may require the necessary -L options in addition.
+ LDFLAGS_VERSINFO = -version-info 13:0:10  # 3.9.0
+ 
+@@ -157,60 +157,60 @@
+ 
+ ifneq ($(OMIT_LIBXMLRPC_UTIL_RULE),Y)
+ LIBXMLRPC_UTIL           = \
+-  $(call shliblefn, $(LIBXMLRPC_UTIL_DIR)/libxmlrpc_util)
+-LIBXMLRPC_UTIL_A         = $(LIBXMLRPC_UTIL_DIR)/libxmlrpc_util.a
++  $(call shliblefn, $(LIBXMLRPC_UTIL_DIR)/libxmlrpc-c_util)
++LIBXMLRPC_UTIL_A         = $(LIBXMLRPC_UTIL_DIR)/libxmlrpc-c_util.a
+ endif
+ 
+ ifneq ($(OMIT_XMLRPC_LIB_RULE),Y)
+ 
+-LIBXMLRPC                = $(BLDDIR)/src/libxmlrpc.la
+-LIBXMLRPC_CLIENT         = $(BLDDIR)/src/libxmlrpc_client.la
+-LIBXMLRPC_SERVER         = $(BLDDIR)/src/libxmlrpc_server.la
+-LIBXMLRPC_SERVER_ABYSS   = $(BLDDIR)/src/libxmlrpc_server_abyss.la
+-LIBXMLRPC_SERVER_CGI     = $(BLDDIR)/src/libxmlrpc_server_cgi.la
+-
+-LIBXMLRPC_A              = $(BLDDIR)/src/.libs/libxmlrpc.a
+-LIBXMLRPC_CLIENT_A       = $(BLDDIR)/src/.libs/libxmlrpc_client.a
+-LIBXMLRPC_SERVER_A       = $(BLDDIR)/src/.libs/libxmlrpc_server.a
+-LIBXMLRPC_SERVER_ABYSS_A = $(BLDDIR)/src/.libs/libxmlrpc_server_abyss.a
+-LIBXMLRPC_SERVER_CGI_A   = $(BLDDIR)/src/.libs/libxmlrpc_server_cgi.a
++LIBXMLRPC                = $(BLDDIR)/src/libxmlrpc-c.la
++LIBXMLRPC_CLIENT         = $(BLDDIR)/src/libxmlrpc-c_client.la
++LIBXMLRPC_SERVER         = $(BLDDIR)/src/libxmlrpc-c_server.la
++LIBXMLRPC_SERVER_ABYSS   = $(BLDDIR)/src/libxmlrpc-c_server_abyss.la
++LIBXMLRPC_SERVER_CGI     = $(BLDDIR)/src/libxmlrpc-c_server_cgi.la
++
++LIBXMLRPC_A              = $(BLDDIR)/src/.libs/libxmlrpc-c.a
++LIBXMLRPC_CLIENT_A       = $(BLDDIR)/src/.libs/libxmlrpc-c_client.a
++LIBXMLRPC_SERVER_A       = $(BLDDIR)/src/.libs/libxmlrpc-c_server.a
++LIBXMLRPC_SERVER_ABYSS_A = $(BLDDIR)/src/.libs/libxmlrpc-c_server_abyss.a
++LIBXMLRPC_SERVER_CGI_A   = $(BLDDIR)/src/.libs/libxmlrpc-c_server_cgi.a
+ 
+ endif
+ 
+ ifneq ($(OMIT_XMLTOK_LIB_RULE),Y)
+-LIBXMLRPC_XMLTOK         = $(BLDDIR)/lib/expat/xmltok/libxmlrpc_xmltok.la
+-LIBXMLRPC_XMLTOK_A       = $(BLDDIR)/lib/expat/xmltok/.libs/libxmlrpc_xmltok.a
++LIBXMLRPC_XMLTOK         = $(BLDDIR)/lib/expat/xmltok/libxmlrpc-c_xmltok.la
++LIBXMLRPC_XMLTOK_A       = $(BLDDIR)/lib/expat/xmltok/.libs/libxmlrpc-c_xmltok.a
+ endif
+ 
+ ifneq ($(OMIT_XMLPARSE_LIB_RULE),Y)
+-LIBXMLRPC_XMLPARSE       = $(BLDDIR)/lib/expat/xmlparse/libxmlrpc_xmlparse.la
+-LIBXMLRPC_XMLPARSE_A     = $(BLDDIR)/lib/expat/xmlparse/.libs/libxmlrpc_xmlparse.a
++LIBXMLRPC_XMLPARSE       = $(BLDDIR)/lib/expat/xmlparse/libxmlrpc-c_xmlparse.la
++LIBXMLRPC_XMLPARSE_A     = $(BLDDIR)/lib/expat/xmlparse/.libs/libxmlrpc-c_xmlparse.a
+ endif
+ 
+ LIBXMLRPC_ABYSS_DIR = $(BLDDIR)/lib/abyss/src
+ 
+ ifneq ($(OMIT_ABYSS_LIB_RULE),Y)
+ LIBXMLRPC_ABYSS          = \
+-  $(call shliblefn, $(LIBXMLRPC_ABYSS_DIR)/libxmlrpc_abyss)
+-LIBXMLRPC_ABYSS_A        = $(LIBXMLRPC_ABYSS_DIR)/libxmlrpc_abyss.a
++  $(call shliblefn, $(LIBXMLRPC_ABYSS_DIR)/libxmlrpc-c_abyss)
++LIBXMLRPC_ABYSS_A        = $(LIBXMLRPC_ABYSS_DIR)/libxmlrpc-c_abyss.a
+ endif
+ 
+ ifneq ($(OMIT_CPP_LIB_RULES),Y)
+ LIBXMLRPC_CPP              = \
+-  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc_cpp)
+-LIBXMLRPC_CPP_A            = $(BLDDIR)/src/cpp/libxmlrpc_cpp.a
++  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc-c_cpp)
++LIBXMLRPC_CPP_A            = $(BLDDIR)/src/cpp/libxmlrpc-c_cpp.a
+ LIBXMLRPCPP                = \
+-  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc++)
+-LIBXMLRPCPP_A              = $(BLDDIR)/src/cpp/libxmlrpc++.a
++  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc-c++)
++LIBXMLRPCPP_A              = $(BLDDIR)/src/cpp/libxmlrpc-c++.a
+ LIBXMLRPC_CLIENTPP         =  \
+-  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc_client++)
+-LIBXMLRPC_CLIENTPP_A       = $(BLDDIR)/src/cpp/libxmlrpc_client++.a
++  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc-c_client++)
++LIBXMLRPC_CLIENTPP_A       = $(BLDDIR)/src/cpp/libxmlrpc-c_client++.a
+ LIBXMLRPC_SERVERPP         = \
+-  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc_server++)
+-LIBXMLRPC_SERVERPP_A       = $(BLDDIR)/src/cpp/libxmlrpc_server++.a
++  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc-c_server++)
++LIBXMLRPC_SERVERPP_A       = $(BLDDIR)/src/cpp/libxmlrpc-c_server++.a
+ LIBXMLRPC_SERVER_ABYSSPP   = \
+-  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc_server_abyss++)
+-LIBXMLRPC_SERVER_ABYSSPP_A = $(BLDDIR)/src/cpp/libxmlrpc_server_abyss++.a
++  $(call shliblefn, $(BLDDIR)/src/cpp/libxmlrpc-c_server_abyss++)
++LIBXMLRPC_SERVER_ABYSSPP_A = $(BLDDIR)/src/cpp/libxmlrpc-c_server_abyss++.a
+ endif
+ 
+ CASPRINTF                = $(BLDDIR)/lib/util/casprintf.o
+@@ -228,9 +228,9 @@
+   LIBXMLRPC_XML = $(LIBXMLRPC_XMLPARSE) $(LIBXMLRPC_XMLTOK)
+   LDLIBS_XML = \
+         -L$(BLDDIR)/lib/expat/xmlparse/.libs \
+-	-lxmlrpc_xmlparse \
++	-lxmlrpc-c-c_xmlparse \
+         -L$(BLDDIR)/lib/expat/xmltok/.libs \
+-	-lxmlrpc_xmltok
++	-lxmlrpc-c-c_xmltok
+ else
+   LDLIBS_XML = $(shell xml2-config --libs)
+ endif
+diff -urN xmlrpc-c-1.10.00.org/src/cpp/Makefile xmlrpc-c-1.10.00/src/cpp/Makefile
+--- xmlrpc-c-1.10.00.org/src/cpp/Makefile	2007-02-23 23:01:07.000000000 +0100
++++ xmlrpc-c-1.10.00/src/cpp/Makefile	2007-04-11 09:07:51.632597874 +0200
+@@ -10,17 +10,17 @@
+ 
+ default: all
+ 
+-# libxmlrpc_cpp is the legacy C++ wrapper library.  The others are the
++# libxmlrpc-c_cpp is the legacy C++ wrapper library.  The others are the
+ # more elaborate replacements.
+ 
+ TARGET_LIB_NAMES_PP := \
+-  libxmlrpc_cpp \
+-  libxmlrpc++ \
+-  libxmlrpc_server++ \
+-  libxmlrpc_server_abyss++ \
++  libxmlrpc-c_cpp \
++  libxmlrpc-c++ \
++  libxmlrpc-c_server++ \
++  libxmlrpc-c_server_abyss++ \
+ 
+ ifeq ($(MUST_BUILD_CLIENT),yes)
+-  TARGET_LIB_NAMES_PP += libxmlrpc_client++
++  TARGET_LIB_NAMES_PP += libxmlrpc-c_client++
+ endif
+ 
+ STATIC_LIBRARIES_TO_INSTALL = $(TARGET_STATIC_LIBRARIES)
+@@ -78,13 +78,13 @@
+   -Isrcdir/lib/util/include
+ 
+ 
+-# LIBXMLRPC_CPP is e.g. "libxmlrpc_cpp.so.3.1"
++# LIBXMLRPC_CPP is e.g. "libxmlrpc-c_cpp.so.3.1"
+ 
+-LIBXMLRPC_CPP            = $(call shlibfn, libxmlrpc_cpp)
+-LIBXMLRPCPP              = $(call shlibfn, libxmlrpc++)
+-LIBXMLRPC_SERVERPP       = $(call shlibfn, libxmlrpc_server++)
+-LIBXMLRPC_SERVER_ABYSSPP = $(call shlibfn, libxmlrpc_server_abyss++)
+-LIBXMLRPC_CLIENTPP       = $(call shlibfn, libxmlrpc_client++)
++LIBXMLRPC_CPP            = $(call shlibfn, libxmlrpc-c_cpp)
++LIBXMLRPCPP              = $(call shlibfn, libxmlrpc-c++)
++LIBXMLRPC_SERVERPP       = $(call shlibfn, libxmlrpc-c_server++)
++LIBXMLRPC_SERVER_ABYSSPP = $(call shlibfn, libxmlrpc-c_server_abyss++)
++LIBXMLRPC_CLIENTPP       = $(call shlibfn, libxmlrpc-c_client++)
+ 
+ 
+ # TARGET_STATIC_LIBARIES, etc. are set by Makefile.common, based on
+@@ -119,20 +119,20 @@
+ 
+ # Rules for these are in Makefile.common, courtesy of TARGET_LIB_NAMES_PP:
+ 
+-libxmlrpc_cpp.a: XmlRpcCpp.o
+-libxmlrpc_cpp.a: LIBOBJECTS = XmlRpcCpp.o
++libxmlrpc-c_cpp.a: XmlRpcCpp.o
++libxmlrpc-c_cpp.a: LIBOBJECTS = XmlRpcCpp.o
+ 
+-libxmlrpc++.a: $(LIBXMLRPCPP_MODS:%=%.o)
+-libxmlrpc++.a: LIBOBJECTS = $(LIBXMLRPCPP_MODS:%=%.o)
++libxmlrpc-c++.a: $(LIBXMLRPCPP_MODS:%=%.o)
++libxmlrpc-c++.a: LIBOBJECTS = $(LIBXMLRPCPP_MODS:%=%.o)
+ 
+-libxmlrpc_server++.a: $(LIBXMLRPC_SERVERPP_MODS:%=%.o)
+-libxmlrpc_server++.a: LIBOBJECTS = $(LIBXMLRPC_SERVERPP_MODS:%=%.o)
++libxmlrpc-c_server++.a: $(LIBXMLRPC_SERVERPP_MODS:%=%.o)
++libxmlrpc-c_server++.a: LIBOBJECTS = $(LIBXMLRPC_SERVERPP_MODS:%=%.o)
+ 
+-libxmlrpc_server_abyss++.a: $(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.o)
+-libxmlrpc_server_abyss++.a: LIBOBJECTS=$(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.o)
++libxmlrpc-c_server_abyss++.a: $(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.o)
++libxmlrpc-c_server_abyss++.a: LIBOBJECTS=$(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.o)
+ 
+-libxmlrpc_client++.a: $(LIBXMLRPC_CLIENTPP_MODS:%=%.o)
+-libxmlrpc_client++.a: LIBOBJECTS = $(LIBXMLRPC_CLIENTPP_MODS:%=%.o)
++libxmlrpc-c_client++.a: $(LIBXMLRPC_CLIENTPP_MODS:%=%.o)
++libxmlrpc-c_client++.a: LIBOBJECTS = $(LIBXMLRPC_CLIENTPP_MODS:%=%.o)
+ 
+ #-----------------------------------------------------------------------------
+ #  RULES TO COMPILE OBJECT MODULES FOR LIBRARIES
+diff -urN xmlrpc-c-1.10.00.org/src/Makefile xmlrpc-c-1.10.00/src/Makefile
+--- xmlrpc-c-1.10.00.org/src/Makefile	2007-02-26 05:25:51.000000000 +0100
++++ xmlrpc-c-1.10.00/src/Makefile	2007-04-11 09:07:51.622597641 +0200
+@@ -57,7 +57,7 @@
+   XML_PARSER_LIBDEP_DEP =
+ else
+   XMLRPC_XML_PARSER = xmlrpc_expat.lo
+-  XML_PARSER_LIBDEP = -L$(BLDDIR)/lib/expat/xmlparse/.libs -lxmlrpc_xmlparse
++  XML_PARSER_LIBDEP = -L$(BLDDIR)/lib/expat/xmlparse/.libs -lxmlrpc-c_xmlparse
+   XML_PARSER_LIBDEP_DEP = $(LIBXMLRPC_XMLPARSE)
+ endif
+ 
+@@ -76,23 +76,23 @@
+ # ".../libfoo.so".
  
  LIBXMLRPC_CLIENT_OBJS = xmlrpc_client.lo xmlrpc_client_global.lo
 -LIBXMLRPC_CLIENT_LIBDEP = -lxmlrpc_util -lxmlrpc
 +LIBXMLRPC_CLIENT_LIBDEP = -lxmlrpc-c_util -lxmlrpc-c
+ LIBXMLRPC_CLIENT_LIBDEP_DEP = $(LIBXMLRPC_UTIL) $(LIBXMLRPC)
  
- LIBXMLRPC_SERVER_OBJS = registry.lo system_method.lo
+ LIBXMLRPC_SERVER_OBJS = registry.lo method.lo system_method.lo
 -LIBXMLRPC_SERVER_LIBDEP = -lxmlrpc_util -lxmlrpc
 +LIBXMLRPC_SERVER_LIBDEP = -lxmlrpc-c_util -lxmlrpc-c
+ LIBXMLRPC_SERVER_LIBDEP_DEP = $(LIBXMLRPC_UTIL) $(LIBXMLRPC)
  
  LIBXMLRPC_SERVER_ABYSS_OBJS = xmlrpc_server_abyss.lo
  LIBXMLRPC_SERVER_ABYSS_LIBDEP = \
--  -lxmlrpc_util -lxmlrpc_server -L$(ABYSS_LIBDIR) -lxmlrpc_abyss -lxmlrpc
-+  -lxmlrpc-c_util -lxmlrpc-c_server -L$(ABYSS_LIBDIR) -lxmlrpc-c_abyss -lxmlrpc-c
+-  -lxmlrpc_util -lxmlrpc_server -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss \
+-  -lxmlrpc
++  -lxmlrpc-c_util -lxmlrpc-c_server -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc-c_abyss \
++  -lxmlrpc-c
+ LIBXMLRPC_SERVER_ABYSS_LIBDEP_DEP = \
+   $(LIBXMLRPC_UTIL) $(LIBXMLRPC_SERVER) $(LIBXMLRPC_ABYSS) \
+   $(LIBXMLRPC)
  
  LIBXMLRPC_SERVER_CGI_OBJS = xmlrpc_server_cgi.lo
 -LIBXMLRPC_SERVER_CGI_LIBDEP = -lxmlrpc_util -lxmlrpc_server -lxmlrpc
 +LIBXMLRPC_SERVER_CGI_LIBDEP = -lxmlrpc-c_util -lxmlrpc-c_server -lxmlrpc-c
+ LIBXMLRPC_SERVER_CGI_LIBDEP_DEP = \
+   $(LIBXMRPC_UTIL) $(LIBXMLRPC_SERVER) $(LIBXMLRPC)
  
- LIBXMLRPC_OBJS = \
- 	trace.lo \
-@@ -95,7 +95,7 @@
+@@ -112,7 +112,7 @@
  	xmlrpc_utf8.lo \
  	xmlrpc_authcookie.lo \
  
--LIBXMLRPC_LIBDEP = -lxmlrpc_util
-+LIBXMLRPC_LIBDEP = -lxmlrpc-c_util
+-LIBXMLRPC_LIBDEP = -lxmlrpc_util $(XML_PARSER_LIBDEP)
++LIBXMLRPC_LIBDEP = -lxmlrpc-c_util $(XML_PARSER_LIBDEP)
+ LIBXMLRPC_LIBDEP_DEP = $(LIBXMLRPC_UTIL) $(XML_PARSER_LIBDEP_DEP)
  
  LIB_OBJS = $(LIBXMLRPC_CLIENT_OBJS) $(LIBXMLRPC_SERVER_OBJS)
+@@ -131,22 +131,22 @@
+   $(TRANSPORT_INCLUDES) \
+   $(LIBXML_INCLUDES) \
  
-@@ -117,15 +117,15 @@
- # some code that exploits an Abyss server, and you don't need to have a
- # built Abyss server to build it.
+-TARGET_LTLIBRARIES = libxmlrpc.la libxmlrpc_server.la
++TARGET_LTLIBRARIES = libxmlrpc-c.la libxmlrpc-c_server.la
  
--TARGET_LTLIBRARIES = libxmlrpc.la libxmlrpc_server.la \
--     libxmlrpc_server_abyss.la
-+TARGET_LTLIBRARIES = libxmlrpc-c.la libxmlrpc-c_server.la \
-+     libxmlrpc-c_server_abyss.la
+-# We cannot build libxmlrpc_server_abyss if we can't also build Abyss,
+-# because we need libxmlrpc_abyss in order to build the proper runtime
+-# dependencies into libxmlrpc_server_abyss.
++# We cannot build libxmlrpc-c_server_abyss if we can't also build Abyss,
++# because we need libxmlrpc-c_abyss in order to build the proper runtime
++# dependencies into libxmlrpc-c_server_abyss.
+ 
+ ifeq ($(ENABLE_ABYSS_SERVER),yes)
+-  TARGET_LTLIBRARIES += libxmlrpc_server_abyss.la
++  TARGET_LTLIBRARIES += libxmlrpc-c_server_abyss.la
+ endif
  
  ifeq ($(MUST_BUILD_CLIENT),yes)
 -  TARGET_LTLIBRARIES += libxmlrpc_client.la
@@ -304,159 +498,66 @@ diff -urN xmlrpc-c-1.06.04/src/Makefile xmlrpc-c-1.06.04-soname/src/Makefile
  endif
  
  all: $(TARGET_LTLIBRARIES) $(SUBDIRS:%=%/all)
-@@ -137,24 +137,24 @@
- LIBLDFLAGS = $(LDFLAGS_VERSINFO) -rpath $(LIBINST_DIR) $(LIBPATHS) $(LADD)
+@@ -164,26 +164,26 @@
+ LIBLDFLAGS = $(LDFLAGS_VERSINFO) $(RPATH) $(LIBPATHS) $(LADD)
  
  
--libxmlrpc.la: $(LIBXMLRPC_OBJS)
-+libxmlrpc-c.la: $(LIBXMLRPC_OBJS)
+-libxmlrpc.la: $(LIBXMLRPC_OBJS) $(LIBXMLRPC_LIBDEP_DEP)
++libxmlrpc-c.la: $(LIBXMLRPC_OBJS) $(LIBXMLRPC_LIBDEP_DEP)
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
  	  $(LIBXMLRPC_OBJS) $(LIBXMLRPC_LIBDEP) 
  
--libxmlrpc_client.la: $(LIBXMLRPC_CLIENT_OBJS) $(TRANSPORT_OBJS)
-+libxmlrpc-c_client.la: $(LIBXMLRPC_CLIENT_OBJS) $(TRANSPORT_OBJS)
+-libxmlrpc_client.la: \
++libxmlrpc-c_client.la: \
+   $(LIBXMLRPC_CLIENT_OBJS) $(TRANSPORT_OBJS) $(LIBXMLRPC_CLIENT_LIBDEP_DEP)
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
  	  $(LIBXMLRPC_CLIENT_OBJS) $(TRANSPORT_OBJS) \
  	  $(LIBXMLRPC_CLIENT_LIBDEP) $(TRANSPORT_LIBDEP) \
  
--libxmlrpc_server.la: $(LIBXMLRPC_SERVER_OBJS)
-+libxmlrpc-c_server.la: $(LIBXMLRPC_SERVER_OBJS)
+-libxmlrpc_server.la: $(LIBXMLRPC_SERVER_OBJS) $(LIBXMLRPC_SERVER_LIBDEP_DEP)
++libxmlrpc-c_server.la: $(LIBXMLRPC_SERVER_OBJS) $(LIBXMLRPC_SERVER_LIBDEP_DEP)
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
  	  $(LIBXMLRPC_SERVER_OBJS) $(LIBXMLRPC_SERVER_LIBDEP)
  
--libxmlrpc_server_abyss.la: $(LIBXMLRPC_SERVER_ABYSS_OBJS)
-+libxmlrpc-c_server_abyss.la: $(LIBXMLRPC_SERVER_ABYSS_OBJS)
+-libxmlrpc_server_abyss.la: \
++libxmlrpc-c_server_abyss.la: \
+   $(LIBXMLRPC_SERVER_ABYSS_OBJS) $(LIBXMLRPC_SERVER_ABYSS_LIBDEP_DEP)
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
  	  $(LIBXMLRPC_SERVER_ABYSS_OBJS) $(LIBXMLRPC_SERVER_ABYSS_LIBDEP)
  
--libxmlrpc_server_cgi.la: $(LIBXMLRPC_SERVER_CGI_OBJS)
-+libxmlrpc-c_server_cgi.la: $(LIBXMLRPC_SERVER_CGI_OBJS)
+-libxmlrpc_server_cgi.la: \
++libxmlrpc-c_server_cgi.la: \
+   $(LIBXMLRPC_SERVER_CGI_OBJS) $(LIBXMLRPC_SERVER_CGI_LIBDEP_DEP)
  	$(LIBTOOL) --mode=link $(CCLD) -o $@ $(LIBLDFLAGS) \
  	  $(LIBXMLRPC_SERVER_CGI_OBJS) $(LIBXMLRPC_SERVER_CGI_LIBDEP)
+diff -urN xmlrpc-c-1.10.00.org/tools/Makefile.common xmlrpc-c-1.10.00/tools/Makefile.common
+--- xmlrpc-c-1.10.00.org/tools/Makefile.common	2007-03-01 17:46:09.000000000 +0100
++++ xmlrpc-c-1.10.00/tools/Makefile.common	2007-04-11 09:07:51.625931052 +0200
+@@ -11,7 +11,7 @@
  
-diff -urN xmlrpc-c-1.06.11.org/src/cpp/Makefile xmlrpc-c-1.06.11/src/cpp/Makefile
---- xmlrpc-c-1.06.11.org/src/cpp/Makefile	2006-11-06 02:51:07.000000000 +0100
-+++ xmlrpc-c-1.06.11/src/cpp/Makefile	2007-04-11 08:42:31.403373583 +0200
-@@ -14,17 +14,17 @@
+ CLIENT_LDLIBS = -L$(BLDDIR)/src/.libs -L$(BLDDIR)/lib/libutil
  
- default: all
- 
--# libxmlrpc_cpp is the legacy C++ wrapper library.  The others are the
-+# libxmlrpc-c_cpp is the legacy C++ wrapper library.  The others are the
- # more elaborate replacements.
- 
- TARGET_LIBRARY_NAMES := \
--  libxmlrpc_cpp \
--  libxmlrpc++ \
--  libxmlrpc_server++ \
--  libxmlrpc_server_abyss++ \
-+  libxmlrpc-c_cpp \
-+  libxmlrpc-c++ \
-+  libxmlrpc-c_server++ \
-+  libxmlrpc-c_server_abyss++ \
- 
- ifeq ($(MUST_BUILD_CLIENT),yes)
--  TARGET_LIBRARY_NAMES += libxmlrpc_client++
-+  TARGET_LIBRARY_NAMES += libxmlrpc-c_client++
- endif
- 
- STATIC_LIBRARIES_TO_INSTALL = $(TARGET_STATIC_LIBRARIES)
-@@ -110,27 +110,27 @@
- 
- all: $(TARGET_LIBRARIES)
- 
--libxmlrpc_cpp.a: XmlRpcCpp.o
-+libxmlrpc-c_cpp.a: XmlRpcCpp.o
- 	-rm -f $@
- 	$(AR) cru $@ $^
- 	$(RANLIB) $@
- 
--libxmlrpc++.a: $(LIBXMLRPCPP_OBJS)
-+libxmlrpc-c++.a: $(LIBXMLRPCPP_OBJS)
- 	-rm -f $@
- 	$(AR) cru $@ $^
- 	$(RANLIB) $@
- 
--libxmlrpc_server++.a: $(LIBXMLRPC_SERVERPP_OBJS)
-+libxmlrpc-c_server++.a: $(LIBXMLRPC_SERVERPP_OBJS)
- 	-rm -f $@
- 	$(AR) cru $@ $^
- 	$(RANLIB) $@
- 
--libxmlrpc_server_abyss++.a: $(LIBXMLRPC_SERVER_ABYSSPP_OBJS)
-+libxmlrpc-c_server_abyss++.a: $(LIBXMLRPC_SERVER_ABYSSPP_OBJS)
- 	-rm -f $@
- 	$(AR) cru $@ $^
- 	$(RANLIB) $@
- 
--libxmlrpc_client++.a: $(LIBXMLRPC_CLIENTPP_OBJS)
-+libxmlrpc-c_client++.a: $(LIBXMLRPC_CLIENTPP_OBJS)
- 	-rm -f $@
- 	$(AR) cru $@ $^
- 	$(RANLIB) $@
-diff -urN xmlrpc-c-1.06.04/src/cpp/unix.make xmlrpc-c-1.06.04-soname/src/cpp/unix.make
---- xmlrpc-c-1.06.04/src/cpp/unix.make	2005-12-08 01:10:15.000000000 +0100
-+++ xmlrpc-c-1.06.04-soname/src/cpp/unix.make	2006-09-04 13:43:58.000000000 +0200
-@@ -6,18 +6,18 @@
- # This is to be included by 'Makefile'.  Most of the make variables here
- # come from the main make file.
- 
--libxmlrpc_cpp.$(SHLIB_SUFFIX).$(MAJ).$(MIN): XmlRpcCpp.o
-+libxmlrpc-c_cpp.$(SHLIB_SUFFIX).$(MAJ).$(MIN): XmlRpcCpp.o
- 	$(SHLIB_RULE)
- 
--libxmlrpc++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): $(LIBXMLRPCPP_OBJS)
-+libxmlrpc-c++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): $(LIBXMLRPCPP_OBJS)
- 	$(SHLIB_RULE)
- 
--libxmlrpc_server++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): $(LIBXMLRPC_SERVERPP_OBJS)
-+libxmlrpc-c_server++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): $(LIBXMLRPC_SERVERPP_OBJS)
- 	$(SHLIB_RULE)
- 
--libxmlrpc_server_abyss++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): \
-+libxmlrpc-c_server_abyss++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): \
-   $(LIBXMLRPC_SERVER_ABYSSPP_OBJS)
- 	$(SHLIB_RULE)
- 
--libxmlrpc_client++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): $(LIBXMLRPC_CLIENTPP_OBJS)
-+libxmlrpc-c_client++.$(SHLIB_SUFFIX).$(MAJ).$(MIN): $(LIBXMLRPC_CLIENTPP_OBJS)
- 	$(SHLIB_RULE)
-diff -urN xmlrpc-c-1.06.04/tools/Makefile.common xmlrpc-c-1.06.04-soname/tools/Makefile.common
---- xmlrpc-c-1.06.04/tools/Makefile.common	2006-07-30 05:07:28.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/tools/Makefile.common	2006-09-04 13:46:15.000000000 +0200
-@@ -1,6 +1,6 @@
- # -*-makefile-*-    <-- an Emacs control
- 
--CLIENT_LDLIBS = -L$(BUILDDIR)/src/.libs -lxmlrpc_client -lxmlrpc
-+CLIENT_LDLIBS = -L$(BUILDDIR)/src/.libs -lxmlrpc-c_client -lxmlrpc-c
+-CLIENT_LDLIBS += -lxmlrpc_client -lxmlrpc -lxmlrpc_util
++CLIENT_LDLIBS += -lxmlrpc-c_client -lxmlrpc-c -lxmlrpc-c_util
  
  ifeq ($(MUST_BUILD_LIBWWW_CLIENT),yes)
    CLIENT_LDLIBS += $(shell libwww-config --libs)
-@@ -14,7 +14,7 @@
- 
- CLIENT_LDLIBS += $(LDLIBS_XML)
- 
--CLIENT_LDLIBS += -L$(BUILDDIR)/lib/libutil/.libs -lxmlrpc_util
-+CLIENT_LDLIBS += -L$(BUILDDIR)/lib/libutil/.libs -lxmlrpc-c_util
- 
- 
- UTIL_DIR = $(BUILDDIR)/lib/util
-diff -urN xmlrpc-c-1.06.04/tools/xml-rpc-api2cpp/Makefile xmlrpc-c-1.06.04-soname/tools/xml-rpc-api2cpp/Makefile
---- xmlrpc-c-1.06.04/tools/xml-rpc-api2cpp/Makefile	2006-07-30 05:07:28.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/tools/xml-rpc-api2cpp/Makefile	2006-09-04 13:46:27.000000000 +0200
-@@ -19,7 +19,7 @@
+diff -urN xmlrpc-c-1.10.00.org/tools/xml-rpc-api2cpp/Makefile xmlrpc-c-1.10.00/tools/xml-rpc-api2cpp/Makefile
+--- xmlrpc-c-1.10.00.org/tools/xml-rpc-api2cpp/Makefile	2006-10-31 18:08:25.000000000 +0100
++++ xmlrpc-c-1.10.00/tools/xml-rpc-api2cpp/Makefile	2007-04-11 09:07:51.635931285 +0200
+@@ -18,7 +18,7 @@
  
  LDFLAGS = $(LADD)
  
--LDLIBS = -Lblddir/src/cpp -lxmlrpc_cpp -lxmlrpc_server $(CLIENT_LDLIBS)
-+LDLIBS = -Lblddir/src/cpp -lxmlrpc-c_cpp -lxmlrpc-c_server $(CLIENT_LDLIBS)
+-LDLIBS = -L$(BLDDIR)/src/cpp -lxmlrpc_cpp -lxmlrpc_server $(CLIENT_LDLIBS)
++LDLIBS = -L$(BLDDIR)/src/cpp -lxmlrpc-c_cpp -lxmlrpc-c_server $(CLIENT_LDLIBS)
  
- all: xml-rpc-api2cpp
+ PROGS :=
  
-diff -urN xmlrpc-c-1.06.04/xmlrpc-c-config.in xmlrpc-c-1.06.04-soname/xmlrpc-c-config.in
---- xmlrpc-c-1.06.04/xmlrpc-c-config.in	2006-06-10 18:15:36.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/xmlrpc-c-config.in	2006-09-04 13:46:01.000000000 +0200
-@@ -47,7 +47,7 @@
+diff -urN xmlrpc-c-1.10.00.org/xmlrpc-c-config.main xmlrpc-c-1.10.00/xmlrpc-c-config.main
+--- xmlrpc-c-1.10.00.org/xmlrpc-c-config.main	2007-03-12 02:57:15.000000000 +0100
++++ xmlrpc-c-1.10.00/xmlrpc-c-config.main	2007-04-11 09:07:51.612597408 +0200
+@@ -27,7 +27,7 @@
  if test "${ENABLE_LIBXML2_BACKEND}" = "yes"; then
    LIBXML=$(xml2-config --libs)
  else
@@ -465,16 +566,16 @@ diff -urN xmlrpc-c-1.06.04/xmlrpc-c-config.in xmlrpc-c-1.06.04-soname/xmlrpc-c-c
  fi
  
  needCpp=no
-@@ -58,7 +58,7 @@
- # path on this system, you should remove the following line:
+@@ -42,7 +42,7 @@
+ 
  the_libdirs="-L$libdir $the_libdirs"
  
 -the_libs="-lxmlrpc -lxmlrpc_util ${LIBXML}"
 +the_libs="-lxmlrpc-c -lxmlrpc-c_util ${LIBXML}"
- the_rpath=
- the_wl_rpath=
- cpp_libs=
-@@ -71,44 +71,44 @@
+ the_rpath="-R$libdir $the_rpath"
+ the_wl_rpath="-Wl,-rpath,$libdir $the_wl_rpath"
+ 
+@@ -54,44 +54,44 @@
  while test $# -gt 0; do
    case $1 in
      c++)
@@ -532,9 +633,9 @@ diff -urN xmlrpc-c-1.06.04/xmlrpc-c-config.in xmlrpc-c-1.06.04-soname/xmlrpc-c-c
 +      the_libs="-lxmlrpc-c_client $the_libs"
  
        if test "${MUST_BUILD_WININET_CLIENT}" = "yes"; then
-         the_libs="@WININET_LDADD@ $the_libs"
-@@ -126,7 +126,7 @@
-         the_wl_rpath="@LIBWWW_WL_RPATH@ $the_wl_rpath"
+         the_libs="$WININET_LDADD $the_libs"
+@@ -109,7 +109,7 @@
+         the_wl_rpath="$LIBWWW_WL_RPATH $the_wl_rpath"
        fi
        if test "${needCpp}" = "yes"; then
 -        the_libs="-lxmlrpc_client++ $the_libs"
@@ -542,90 +643,89 @@ diff -urN xmlrpc-c-1.06.04/xmlrpc-c-config.in xmlrpc-c-1.06.04-soname/xmlrpc-c-c
          fi
        ;;
      --version)
-diff -urN xmlrpc-c-1.06.04/xmlrpc-c-config.test.in xmlrpc-c-1.06.04-soname/xmlrpc-c-config.test.in
---- xmlrpc-c-1.06.04/xmlrpc-c-config.test.in	2006-05-26 05:24:19.000000000 +0200
-+++ xmlrpc-c-1.06.04-soname/xmlrpc-c-config.test.in	2006-09-04 13:45:27.000000000 +0200
-@@ -28,16 +28,16 @@
+diff -urN xmlrpc-c-1.10.00.org/xmlrpc-c-config.test.main xmlrpc-c-1.10.00/xmlrpc-c-config.test.main
+--- xmlrpc-c-1.10.00.org/xmlrpc-c-config.test.main	2007-03-12 02:57:15.000000000 +0100
++++ xmlrpc-c-1.10.00/xmlrpc-c-config.test.main	2007-04-11 09:07:51.615930819 +0200
+@@ -20,16 +20,16 @@
  if test "${ENABLE_LIBXML2_BACKEND}" = "yes"; then
    LIBXML=$(xml2-config --libs)
  else
--  LIBXML="${BUILDDIR}/lib/expat/xmlparse/.libs/libxmlrpc_xmlparse.a"
-+  LIBXML="${BUILDDIR}/lib/expat/xmlparse/.libs/libxmlrpc-c_xmlparse.a"
-   sopath="${BUILDDIR}/lib/expat/xmlparse/.libs:$sopath"
--  LIBXML="${LIBXML} ${BUILDDIR}/lib/expat/xmltok/.libs/libxmlrpc_xmltok.a"
-+  LIBXML="${LIBXML} ${BUILDDIR}/lib/expat/xmltok/.libs/libxmlrpc-c_xmltok.a"
-   sopath="${BUILDDIR}/lib/expat/xmltok/.libs:$sopath"
+-  LIBXML="${BLDDIR}/lib/expat/xmlparse/.libs/libxmlrpc_xmlparse.a"
++  LIBXML="${BLDDIR}/lib/expat/xmlparse/.libs/libxmlrpc-c_xmlparse.a"
+   sopath="${BLDDIR}/lib/expat/xmlparse/.libs:$sopath"
+-  LIBXML="${LIBXML} ${BLDDIR}/lib/expat/xmltok/.libs/libxmlrpc_xmltok.a"
++  LIBXML="${LIBXML} ${BLDDIR}/lib/expat/xmltok/.libs/libxmlrpc-c_xmltok.a"
+   sopath="${BLDDIR}/lib/expat/xmltok/.libs:$sopath"
  fi
  
  needCpp=no
  
--LIBXMLRPC="${BUILDDIR}/src/.libs/libxmlrpc.a"
--LIBXMLRPC_UTIL="${BUILDDIR}/lib/libutil/.libs/libxmlrpc_util.a"
-+LIBXMLRPC="${BUILDDIR}/src/.libs/libxmlrpc-c.a"
-+LIBXMLRPC_UTIL="${BUILDDIR}/lib/libutil/.libs/libxmlrpc-c_util.a"
+-LIBXMLRPC="${BLDDIR}/src/.libs/libxmlrpc.a"
+-LIBXMLRPC_UTIL="${BLDDIR}/lib/libutil/libxmlrpc_util.a"
++LIBXMLRPC="${BLDDIR}/src/.libs/libxmlrpc-c.a"
++LIBXMLRPC_UTIL="${BLDDIR}/lib/libutil/libxmlrpc-c_util.a"
  
- the_libs="${LIBXMLRPC} ${LIBXMLRPC_UTIL} ${LIBXML}"
- the_includes="-I${SRCDIR}/include"
-@@ -51,39 +51,39 @@
+ the_libs="${LIBXMLRPC} ${LIBXMLRPC_UTIL} ${LIBXML} $the_libs"
+ the_includes="-I${BLDDIR}/include -I${ABS_SRCDIR}/include $the_includes"
+@@ -43,38 +43,38 @@
        # and server.  So all legacy C++ programs get linked with client
        # and server libraries, whether they need them or not.
  
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server_abyss.a $the_libs"
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_client.a $the_libs"
--      the_libs="${BUILDDIR}/src/cpp/libxmlrpc_cpp.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server_abyss.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_client.a $the_libs"
-+      the_libs="${BUILDDIR}/src/cpp/libxmlrpc-c_cpp.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server_abyss.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_client.a $the_libs"
+-      the_libs="${BLDDIR}/src/cpp/libxmlrpc_cpp.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server_abyss.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_client.a $the_libs"
++      the_libs="${BLDDIR}/src/cpp/libxmlrpc-c_cpp.a $the_libs"
        ;;
      c++2)
        needCpp=yes
--      the_libs="${BUILDDIR}/src/cpp/libxmlrpc++.a $the_libs"
-+      the_libs="${BUILDDIR}/src/cpp/libxmlrpc-c++.a $the_libs"
+-      the_libs="${BLDDIR}/src/cpp/libxmlrpc++.a $the_libs"
++      the_libs="${BLDDIR}/src/cpp/libxmlrpc-c++.a $the_libs"
        ;;
      server-util)
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
        ;;
      cgi-server)
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server_cgi.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server_cgi.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server_cgi.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server_cgi.a $the_libs"
        ;;
      abyss-server)
        if test "${ENABLE_ABYSS_THREADS}" = "yes"; then
          the_libs="-lpthread $the_libs"
          fi
        the_libs="${LSOCKET} $the_libs"
--      the_libs="${BUILDDIR}/lib/abyss/src/.libs/libxmlrpc_abyss.a $the_libs"
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_server_abyss.a $the_libs"
-+      the_libs="${BUILDDIR}/lib/abyss/src/.libs/libxmlrpc-c_abyss.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_server_abyss.a $the_libs"
+-      the_libs="${BLDDIR}/lib/abyss/src/libxmlrpc_abyss.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_server_abyss.a $the_libs"
++      the_libs="${BLDDIR}/lib/abyss/src/libxmlrpc-c_abyss.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_server_abyss.a $the_libs"
        if test "${needCpp}" = "yes"; then
--        the_libs="${BUILDDIR}/src/cpp/libxmlrpc_server++.a $the_libs"
--        the_libs="${BUILDDIR}/src/cpp/libxmlrpc_server_abyss++.a $the_libs"
-+        the_libs="${BUILDDIR}/src/cpp/libxmlrpc-c_server++.a $the_libs"
-+        the_libs="${BUILDDIR}/src/cpp/libxmlrpc-c_server_abyss++.a $the_libs"
+-        the_libs="${BLDDIR}/src/cpp/libxmlrpc_server++.a $the_libs"
+-        the_libs="${BLDDIR}/src/cpp/libxmlrpc_server_abyss++.a $the_libs"
++        the_libs="${BLDDIR}/src/cpp/libxmlrpc-c_server++.a $the_libs"
++        the_libs="${BLDDIR}/src/cpp/libxmlrpc-c_server_abyss++.a $the_libs"
          fi
-       the_includes="-I${SRCDIR}/lib/abyss/src $the_includes"
-       sopath="${BUILDDIR}/lib/abyss/src/.libs:$sopath"
+       sopath="${BLDDIR}/lib/abyss/src/.libs:$sopath"
        ;;
      client)
--      the_libs="${BUILDDIR}/src/.libs/libxmlrpc_client.a $the_libs"
-+      the_libs="${BUILDDIR}/src/.libs/libxmlrpc-c_client.a $the_libs"
+-      the_libs="${BLDDIR}/src/.libs/libxmlrpc_client.a $the_libs"
++      the_libs="${BLDDIR}/src/.libs/libxmlrpc-c_client.a $the_libs"
        if test "${MUST_BUILD_WININET_CLIENT}" = "yes"; then
-         the_libs="@WININET_LDADD@ $the_libs"
-         the_rpath="@WININET_RPATH@ $the_rpath"
-@@ -100,7 +100,7 @@
-         the_wl_rpath="@LIBWWW_WL_RPATH@ $the_wl_rpath"
+         the_libs="$WININET_LDADD $the_libs"
+         the_rpath="$WININET_RPATH $the_rpath"
+@@ -91,7 +91,7 @@
+         the_wl_rpath="$LIBWWW_WL_RPATH $the_wl_rpath"
          fi
        if test "${needCpp}" = "yes"; then
--        the_libs="${BUILDDIR}/src/cpp/libxmlrpc_client++.a $the_libs"
-+        the_libs="${BUILDDIR}/src/cpp/libxmlrpc-c_client++.a $the_libs"
+-        the_libs="${BLDDIR}/src/cpp/libxmlrpc_client++.a $the_libs"
++        the_libs="${BLDDIR}/src/cpp/libxmlrpc-c_client++.a $the_libs"
          fi
        ;;
      --version)
