@@ -105,13 +105,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc README doc/{COPYING,CREDITS,HISTORY,SECURITY,TESTING,TODO}
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
+%ghost %attr(755,root,root) %{_libdir}/lib*.so.[0-9]
+%ghost %attr(755,root,root) %{_libdir}/lib*.so.[0-9]
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/DEVELOPING
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
-%{_includedir}/%{name}
+%{_includedir}
 
 %files static
 %defattr(644,root,root,755)
