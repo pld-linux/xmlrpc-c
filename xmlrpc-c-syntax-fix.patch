@@ -1,0 +1,17 @@
+--- xmlrpc-c-1.10.00/xmlrpc-c-config.main~	2007-12-06 10:27:16.653399101 +0100
++++ xmlrpc-c-1.10.00/xmlrpc-c-config.main	2007-12-06 10:27:34.764219414 +0100
+@@ -126,11 +126,11 @@
+       ;;
+     --libs)
+       if test "$NEED_WL_RPATH" = "yes"; then
+-          $rpath=$the_wl_rpath
++          rpath=$the_wl_rpath
+       elif test "$NEED_RPATH" = "yes"; then
+-          $rpath=$the_rpath
++          rpath=$the_rpath
+       else
+-          $rpath=
++          rpath=
+       fi
+ 
+       echo "$the_libdirs  $rpath $the_libs"
