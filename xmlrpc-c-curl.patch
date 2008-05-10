@@ -1,0 +1,11 @@
+--- lib/curl_transport/xmlrpc_curl_transport.c	2007-03-20 02:53:34.000000000 +0100
++++ lib/curl_transport/xmlrpc_curl_transport.c-new	2008-05-10 18:14:41.000000000 +0200
+@@ -1284,7 +1284,7 @@
+             curl_easy_setopt(curlSessionP, CURLOPT_SSLENGINE,
+                              curlSetupP->sslEngine);
+         if (curlSetupP->sslEngineDefault)
+-            curl_easy_setopt(curlSessionP, CURLOPT_SSLENGINE_DEFAULT);
++            curl_easy_setopt(curlSessionP, CURLOPT_SSLENGINE_DEFAULT, 0);
+         if (curlSetupP->sslVersion != XMLRPC_SSLVERSION_DEFAULT)
+             curl_easy_setopt(curlSessionP, CURLOPT_SSLVERSION,
+                              curlSetupP->sslVersion);
