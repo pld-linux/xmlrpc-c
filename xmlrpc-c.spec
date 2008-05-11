@@ -1,17 +1,18 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.10.00
-Release:	4
+Version:	1.14.2
+Release:	0.1
 License:	XML-RPC C Library License
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
-# Source0-md5:	84e0c7854d6204d1b0ab3135ab863036
+Source0:	%{name}-%{version}.tar.bz2
+# Source0-md5:	cbd9675dc48819d5f745b775fca7d425
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
 Patch3:		%{name}-syntax-fix.patch
-Patch4:		%{name}-curl.patch
+Patch4:		%{name}-fixed-broken-format-string-modifiers-for-size_t-type.patch  
+Patch5:         %{name}-use-proper-datatypes.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -60,10 +61,11 @@ Biblioteki statyczne XML-RPC C.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p0
+#%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 rm -f missing
@@ -90,14 +92,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-ln -s oldxmlrpc.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc.h
-ln -s oldcppwrapper.hpp $RPM_BUILD_ROOT%{_includedir}/%{name}/XmlRpcCpp.h
-ln -s server_cgi.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_cgi.h
-ln -s client.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_client.h
-ln -s server.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_server.h
-ln -s server_abyss.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_server_abyss.h
-ln -s server_w32httpsys.h $RPM_BUILD_ROOT%{_includedir}/%{name}/xmlrpc_server_w32httpsys.h
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -110,13 +104,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %ghost %attr(755,root,root) %{_libdir}/lib*.so.[0-9]
-%ghost %attr(755,root,root) %{_libdir}/lib*.so.[0-9]
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/DEVELOPING
 %attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+#%{_libdir}/lib*.la
 %{_includedir}
 
 %files static
