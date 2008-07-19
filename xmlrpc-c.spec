@@ -16,9 +16,10 @@ URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	curl-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	w3c-libwww-devel
+BuildRequires:	w3c-libwww-devel >= 5.2.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -34,6 +35,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	curl-devel
 Requires:	expat-devel
+Requires:	libstdc++-devel
 Requires:	libxml2-devel >= 2.0
 Requires:	w3c-libwww-devel
 
