@@ -1,5 +1,5 @@
 --- xmlrpc-c-1.14.2/src/Makefile.orig	2008-04-18 18:22:02.000000000 +0200
-+++ xmlrpc-c-1.14.2/src/Makefile	2008-05-14 18:00:46.261646516 +0200
++++ xmlrpc-c-1.14.2/src/Makefile	2008-07-20 00:02:46.000000000 +0200
 @@ -15,7 +15,7 @@
    SUBDIRS += cpp
  endif
@@ -18,7 +18,7 @@
  
  $(LIBXMLRPC): $(LIBXMLRPC_MODS:%=%.osh) \
    $(LIBXMLRPC_UTIL) \
-@@ -156,7 +156,7 @@
+@@ -156,10 +156,10 @@
  $(LIBXMLRPC_SERVER): \
    $(LIBXMLRPC_SERVER_MODS:%=%.osh) \
    $(LIBXMLRPC_UTIL) \
@@ -26,8 +26,12 @@
 +  $(call shliblefn, libxmlrpc-c)
  $(LIBXMLRPC_SERVER): LIBOBJECTS = $(LIBXMLRPC_SERVER_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER): LIBDEP = \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc
-@@ -168,7 +168,7 @@
+-  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc
++  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVER_ABYSS = $(call shlibfn, libxmlrpc_server_abyss)
+ 
+@@ -168,13 +168,13 @@
    $(LIBXMLRPC_UTIL) \
    $(LIBXMLRPC_ABYSS) \
    $(call shliblefn, libxmlrpc_server) \
@@ -36,7 +40,14 @@
  $(LIBXMLRPC_SERVER_ABYSS): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSS_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_ABYSS): LIBDEP = \
    -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
-@@ -182,7 +182,7 @@
+   -L. -lxmlrpc_server \
+   -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss \
+-  -lxmlrpc
++  -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVER_CGI = $(call shlibfn, libxmlrpc_server_cgi)
+ 
+@@ -182,10 +182,10 @@
    $(LIBXMLRPC_SERVER_CGI_MODS:%=%.osh) \
    $(LIBXMRPC_UTIL) \
    $(call shliblefn, libxmlrpc_server) \
@@ -44,8 +55,12 @@
 +  $(call shliblefn, libxmlrpc-c)
  $(LIBXMLRPC_SERVER_CGI): LIBOBJECTS = $(LIBXMLRPC_SERVER_CGI_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_CGI): LIBDEP = \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc
-@@ -193,7 +193,7 @@
+-  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc
++  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc-c
+ 
+ LIBXMLRPC_CLIENT = $(call shlibfn, libxmlrpc_client)
+ 
+@@ -193,18 +193,18 @@
    $(LIBXMLRPC_CLIENT_MODS:%=%.osh) \
    $(TRANSPORT_MODS:%=%.osh) \
    $(LIBXMLRPC_UTIL) \
@@ -54,7 +69,10 @@
  $(LIBXMLRPC_CLIENT): LIBOBJECTS = \
    $(LIBXMLRPC_CLIENT_MODS:%=%.osh) \
    $(TRANSPORT_MODS:%=%.osh)
-@@ -203,8 +203,8 @@
+ $(LIBXMLRPC_CLIENT): LIBDEP = \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+-  -L. -lxmlrpc \
++  -L. -lxmlrpc-c \
    $(TRANSPORT_LIBDEP)
  
  
