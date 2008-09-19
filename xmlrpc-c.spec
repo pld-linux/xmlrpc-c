@@ -2,7 +2,7 @@ Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
 Version:	1.14.2
-Release:	0.1
+Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 Source0:	%{name}-%{version}.tar.bz2
@@ -80,6 +80,7 @@ OPTCXXFLAGS="%{rpmcxxflags}" ; export OPTCXXFLAGS
 	--enable-libxml2-backend \
 	--enable-curl-client \
 	--enable-libwww-client \
+	--with-libwww-ssl \
 	--enable-abyss-threads
 
 %{__make} -j1
@@ -88,7 +89,8 @@ OPTCXXFLAGS="%{rpmcxxflags}" ; export OPTCXXFLAGS
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -j1 install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	LIBINST_DIR=%{_libdir}
 
 rm $RPM_BUILD_ROOT%{_includedir}/xmlrpc_server_w32httpsys.h \
 	$RPM_BUILD_ROOT%{_includedir}/xmlrpc-c/server_w32httpsys.h
