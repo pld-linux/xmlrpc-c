@@ -71,8 +71,6 @@ Biblioteki statyczne XML-RPC C.
 cp -f /usr/share/automake/{missing,config.*} .
 %{__aclocal}
 %{__autoconf}
-OPTCFLAGS="%{rpmcflags}" ; export OPTCFLAGS
-OPTCXXFLAGS="%{rpmcxxflags}" ; export OPTCXXFLAGS
 %configure \
 	--enable-abyss-server \
 	--enable-cgi-server \
@@ -83,7 +81,8 @@ OPTCXXFLAGS="%{rpmcxxflags}" ; export OPTCXXFLAGS
 	--with-libwww-ssl \
 	--enable-abyss-threads
 
-%{__make} -j1
+%{__make} -j1 \
+	CFLAGS_PERSONAL="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
