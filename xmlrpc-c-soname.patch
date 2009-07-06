@@ -1,0 +1,156 @@
+--- xmlrpc-c-1.14.2/src/Makefile.orig	2008-04-18 18:22:02.000000000 +0200
++++ xmlrpc-c-1.14.2/src/Makefile	2008-07-20 00:02:46.000000000 +0200
+@@ -15,7 +15,7 @@
+   SUBDIRS += cpp
+ endif
+ 
+-TARGET_LIBRARY_NAMES := libxmlrpc libxmlrpc_server
++TARGET_LIBRARY_NAMES := libxmlrpc-c libxmlrpc_server
+ 
+ # We cannot build libxmlrpc_server_abyss if we can't also build Abyss,
+ # because we need libxmlrpc_abyss in order to build the proper runtime
+@@ -141,7 +141,7 @@
+ # shlibfn generates e.g. libxmlrpc.so.3.1
+ # shliblefn generates e.g. libxmlrpc.so
+ 
+-LIBXMLRPC = $(call shlibfn, libxmlrpc)
++LIBXMLRPC = $(call shlibfn, libxmlrpc-c)
+ 
+ $(LIBXMLRPC): $(LIBXMLRPC_MODS:%=%.osh) \
+   $(LIBXMLRPC_UTIL) \
+@@ -156,10 +156,10 @@
+ $(LIBXMLRPC_SERVER): \
+   $(LIBXMLRPC_SERVER_MODS:%=%.osh) \
+   $(LIBXMLRPC_UTIL) \
+-  $(call shliblefn, libxmlrpc)
++  $(call shliblefn, libxmlrpc-c)
+ $(LIBXMLRPC_SERVER): LIBOBJECTS = $(LIBXMLRPC_SERVER_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER): LIBDEP = \
+-  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc
++  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVER_ABYSS = $(call shlibfn, libxmlrpc_server_abyss)
+ 
+@@ -168,13 +168,13 @@
+   $(LIBXMLRPC_UTIL) \
+   $(LIBXMLRPC_ABYSS) \
+   $(call shliblefn, libxmlrpc_server) \
+-  $(call shliblefn, libxmlrpc)
++  $(call shliblefn, libxmlrpc-c)
+ $(LIBXMLRPC_SERVER_ABYSS): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSS_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER_ABYSS): LIBDEP = \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+   -L. -lxmlrpc_server \
+   -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss \
+-  -lxmlrpc
++  -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVER_CGI = $(call shlibfn, libxmlrpc_server_cgi)
+ 
+@@ -182,10 +182,10 @@
+   $(LIBXMLRPC_SERVER_CGI_MODS:%=%.osh) \
+   $(LIBXMRPC_UTIL) \
+   $(call shliblefn, libxmlrpc_server) \
+-  $(call shliblefn, libxmlrpc)
++  $(call shliblefn, libxmlrpc-c)
+ $(LIBXMLRPC_SERVER_CGI): LIBOBJECTS = $(LIBXMLRPC_SERVER_CGI_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER_CGI): LIBDEP = \
+-  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc
++  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc-c
+ 
+ LIBXMLRPC_CLIENT = $(call shlibfn, libxmlrpc_client)
+ 
+@@ -193,18 +193,18 @@
+   $(LIBXMLRPC_CLIENT_MODS:%=%.osh) \
+   $(TRANSPORT_MODS:%=%.osh) \
+   $(LIBXMLRPC_UTIL) \
+-  $(call shliblefn, libxmlrpc)
++  $(call shliblefn, libxmlrpc-c)
+ $(LIBXMLRPC_CLIENT): LIBOBJECTS = \
+   $(LIBXMLRPC_CLIENT_MODS:%=%.osh) \
+   $(TRANSPORT_MODS:%=%.osh)
+ $(LIBXMLRPC_CLIENT): LIBDEP = \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+-  -L. -lxmlrpc \
++  -L. -lxmlrpc-c \
+   $(TRANSPORT_LIBDEP)
+ 
+ 
+-libxmlrpc.a: $(LIBXMLRPC_MODS:%=%.o)
+-libxmlrpc.a: LIBOBJECTS = $(LIBXMLRPC_MODS:%=%.o)
++libxmlrpc-c.a: $(LIBXMLRPC_MODS:%=%.o)
++libxmlrpc-c.a: LIBOBJECTS = $(LIBXMLRPC_MODS:%=%.o)
+ 
+ libxmlrpc_server.a: $(LIBXMLRPC_SERVER_MODS:%=%.o)
+ libxmlrpc_server.a: LIBOBJECTS = $(LIBXMLRPC_SERVER_MODS:%=%.o)
+--- xmlrpc-c-1.14.2/tools/Makefile.common.orig	2008-03-27 19:17:42.000000000 +0100
++++ xmlrpc-c-1.14.2/tools/Makefile.common	2008-05-14 18:01:21.855674904 +0200
+@@ -11,7 +11,7 @@
+ 
+ CLIENT_LDLIBS = -L$(BLDDIR)/src -L$(BLDDIR)/lib/libutil
+ 
+-CLIENT_LDLIBS += -lxmlrpc_client -lxmlrpc -lxmlrpc_util
++CLIENT_LDLIBS += -lxmlrpc_client -lxmlrpc-c -lxmlrpc_util
+ 
+ ifeq ($(MUST_BUILD_LIBWWW_CLIENT),yes)
+   CLIENT_LDLIBS += $(shell libwww-config --libs)
+--- xmlrpc-c-1.14.2/Makefile.common.orig	2008-05-14 17:43:31.882708000 +0200
++++ xmlrpc-c-1.14.2/Makefile.common	2008-05-14 17:59:12.072278970 +0200
+@@ -142,7 +142,7 @@
+ ifneq ($(OMIT_XMLRPC_LIB_RULE),Y)
+ 
+ LIBXMLRPC              = \
+-  $(call shliblefn, $(BLDDIR)/src/libxmlrpc)
++  $(call shliblefn, $(BLDDIR)/src/libxmlrpc-c)
+ LIBXMLRPC_CLIENT       = \
+   $(call shliblefn, $(BLDDIR)/src/libxmlrpc_client)
+ LIBXMLRPC_SERVER       = \
+@@ -152,7 +152,7 @@
+ LIBXMLRPC_SERVER_CGI   = \
+   $(call shliblefn, $(BLDDIR)/src/libxmlrpc_server_cgi)
+ 
+-LIBXMLRPC_A              = $(BLDDIR)/src/libxmlrpc.a
++LIBXMLRPC_A              = $(BLDDIR)/src/libxmlrpc-c.a
+ LIBXMLRPC_CLIENT_A       = $(BLDDIR)/src/libxmlrpc_client.a
+ LIBXMLRPC_SERVER_A       = $(BLDDIR)/src/libxmlrpc_server.a
+ LIBXMLRPC_SERVER_ABYSS_A = $(BLDDIR)/src/libxmlrpc_server_abyss.a
+--- xmlrpc-c-1.14.2/xmlrpc-c-config.main.orig	2008-04-18 18:22:02.000000000 +0200
++++ xmlrpc-c-1.14.2/xmlrpc-c-config.main	2008-05-14 18:02:04.022081182 +0200
+@@ -45,7 +45,7 @@
+ 
+ the_libdirs="-L$LIBINST_DIR $the_libdirs"
+ 
+-the_libs="-lxmlrpc -lxmlrpc_util ${LIBXML}"
++the_libs="-lxmlrpc-c -lxmlrpc_util ${LIBXML}"
+ the_rpath="-R$LIBINST_DIR $the_rpath"
+ the_wl_rpath="-Wl,-rpath,$LIBINST_DIR $the_wl_rpath"
+ 
+--- xmlrpc-c-1.14.2/src/cpp/Makefile.orig	2008-03-27 19:17:42.000000000 +0100
++++ xmlrpc-c-1.14.2/src/cpp/Makefile	2008-05-14 18:23:45.688255558 +0200
+@@ -114,7 +114,7 @@
+ $(LIBXMLRPCPP): $(LIBXMLRPCPP_MODS:%=%.osh) \
+   $(LIBXMLRPC)
+ $(LIBXMLRPCPP): LIBOBJECTS = $(LIBXMLRPCPP_MODS:%=%.osh)
+-$(LIBXMLRPCPP): LIBDEP = -Lblddir/src -lxmlrpc
++$(LIBXMLRPCPP): LIBDEP = -Lblddir/src -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVERPP = $(call shlibfn, libxmlrpc_server++)
+ 
+@@ -122,7 +122,7 @@
+   $(LIBXMLRPC_SERVER) \
+   $(LIBXMLRPC)
+ $(LIBXMLRPC_SERVERPP): LIBOBJECTS = $(LIBXMLRPC_SERVERPP_MODS:%=%.osh)
+-$(LIBXMLRPC_SERVERPP): LIBDEP = -Lblddir/src -lxmlrpc_server -lxmlrpc
++$(LIBXMLRPC_SERVERPP): LIBDEP = -Lblddir/src -lxmlrpc_server -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVER_ABYSSPP = $(call shlibfn, libxmlrpc_server_abyss++)
+ 
+@@ -131,7 +131,7 @@
+   $(LIBXMLRPC)
+ $(LIBXMLRPC_SERVER_ABYSSPP): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER_ABYSSPP): LIBDEP = \
+-  -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss -Lblddir/src -lxmlrpc
++  -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss -Lblddir/src -lxmlrpc-c
+ 
+ LIBXMLRPC_SERVER_PSTREAMPP = $(call shlibfn, libxmlrpc_server_pstream++)
+ 
