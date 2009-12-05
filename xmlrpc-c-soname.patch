@@ -1,5 +1,5 @@
---- xmlrpc-c-1.14.2/src/Makefile.orig	2008-04-18 18:22:02.000000000 +0200
-+++ xmlrpc-c-1.14.2/src/Makefile	2008-07-20 00:02:46.000000000 +0200
+--- xmlrpc-c-1.20.3/src/Makefile~	2009-10-03 03:58:24.000000000 +0000
++++ xmlrpc-c-1.20.3/src/Makefile	2009-12-05 21:20:45.038553497 +0000
 @@ -15,7 +15,7 @@
    SUBDIRS += cpp
  endif
@@ -9,7 +9,7 @@
  
  # We cannot build libxmlrpc_server_abyss if we can't also build Abyss,
  # because we need libxmlrpc_abyss in order to build the proper runtime
-@@ -141,7 +141,7 @@
+@@ -148,7 +148,7 @@
  # shlibfn generates e.g. libxmlrpc.so.3.1
  # shliblefn generates e.g. libxmlrpc.so
  
@@ -18,7 +18,7 @@
  
  $(LIBXMLRPC): $(LIBXMLRPC_MODS:%=%.osh) \
    $(LIBXMLRPC_UTIL) \
-@@ -156,10 +156,10 @@
+@@ -163,10 +163,10 @@
  $(LIBXMLRPC_SERVER): \
    $(LIBXMLRPC_SERVER_MODS:%=%.osh) \
    $(LIBXMLRPC_UTIL) \
@@ -26,12 +26,12 @@
 +  $(call shliblefn, libxmlrpc-c)
  $(LIBXMLRPC_SERVER): LIBOBJECTS = $(LIBXMLRPC_SERVER_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER): LIBDEP = \
--  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc
-+  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc-c
+-   -L. -lxmlrpc $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
++   -L. -lxmlrpc-c $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
  LIBXMLRPC_SERVER_ABYSS = $(call shlibfn, libxmlrpc_server_abyss)
  
-@@ -168,13 +168,13 @@
+@@ -175,12 +175,12 @@
    $(LIBXMLRPC_UTIL) \
    $(LIBXMLRPC_ABYSS) \
    $(call shliblefn, libxmlrpc_server) \
@@ -39,15 +39,14 @@
 +  $(call shliblefn, libxmlrpc-c)
  $(LIBXMLRPC_SERVER_ABYSS): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSS_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_ABYSS): LIBDEP = \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
    -L. -lxmlrpc_server \
    -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss \
--  -lxmlrpc
-+  -lxmlrpc-c
+-  -L. -lxmlrpc $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
++  -L. -lxmlrpc-c $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
  LIBXMLRPC_SERVER_CGI = $(call shlibfn, libxmlrpc_server_cgi)
  
-@@ -182,10 +182,10 @@
+@@ -188,11 +188,11 @@
    $(LIBXMLRPC_SERVER_CGI_MODS:%=%.osh) \
    $(LIBXMRPC_UTIL) \
    $(call shliblefn, libxmlrpc_server) \
@@ -55,12 +54,13 @@
 +  $(call shliblefn, libxmlrpc-c)
  $(LIBXMLRPC_SERVER_CGI): LIBOBJECTS = $(LIBXMLRPC_SERVER_CGI_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_CGI): LIBDEP = \
--  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc
-+  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util -L. -lxmlrpc_server -lxmlrpc-c
+   -L. -lxmlrpc_server \
+-  -L. -lxmlrpc $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
++  -L. -lxmlrpc-c $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
  LIBXMLRPC_CLIENT = $(call shlibfn, libxmlrpc_client)
  
-@@ -193,18 +193,18 @@
+@@ -200,16 +200,16 @@
    $(LIBXMLRPC_CLIENT_MODS:%=%.osh) \
    $(TRANSPORT_MODS:%=%.osh) \
    $(LIBXMLRPC_UTIL) \
@@ -70,11 +70,9 @@
    $(LIBXMLRPC_CLIENT_MODS:%=%.osh) \
    $(TRANSPORT_MODS:%=%.osh)
  $(LIBXMLRPC_CLIENT): LIBDEP = \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
--  -L. -lxmlrpc \
-+  -L. -lxmlrpc-c \
-   $(TRANSPORT_LIBDEP)
- 
+   $(TRANSPORT_LIBDEP) \
+-  -L. -lxmlrpc $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
++  -L. -lxmlrpc-c $(XML_PARSER_LIBDEP) -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
 -libxmlrpc.a: $(LIBXMLRPC_MODS:%=%.o)
 -libxmlrpc.a: LIBOBJECTS = $(LIBXMLRPC_MODS:%=%.o)
@@ -83,8 +81,8 @@
  
  libxmlrpc_server.a: $(LIBXMLRPC_SERVER_MODS:%=%.o)
  libxmlrpc_server.a: LIBOBJECTS = $(LIBXMLRPC_SERVER_MODS:%=%.o)
---- xmlrpc-c-1.14.2/tools/Makefile.common.orig	2008-03-27 19:17:42.000000000 +0100
-+++ xmlrpc-c-1.14.2/tools/Makefile.common	2008-05-14 18:01:21.855674904 +0200
+--- xmlrpc-c-1.14.2/tools/common.mk	2008-03-27 19:17:42.000000000 +0100
++++ xmlrpc-c-1.14.2/tools/common.mk	2008-05-14 18:01:21.855674904 +0200
 @@ -11,7 +11,7 @@
  
  CLIENT_LDLIBS = -L$(BLDDIR)/src -L$(BLDDIR)/lib/libutil
@@ -94,8 +92,8 @@
  
  ifeq ($(MUST_BUILD_LIBWWW_CLIENT),yes)
    CLIENT_LDLIBS += $(shell libwww-config --libs)
---- xmlrpc-c-1.14.2/Makefile.common.orig	2008-05-14 17:43:31.882708000 +0200
-+++ xmlrpc-c-1.14.2/Makefile.common	2008-05-14 17:59:12.072278970 +0200
+--- xmlrpc-c-1.14.2/common.mk	2008-05-14 17:43:31.882708000 +0200
++++ xmlrpc-c-1.14.2/common.mk	2008-05-14 17:59:12.072278970 +0200
 @@ -142,7 +142,7 @@
  ifneq ($(OMIT_XMLRPC_LIB_RULE),Y)
  
@@ -125,32 +123,150 @@
  the_rpath="-R$LIBINST_DIR $the_rpath"
  the_wl_rpath="-Wl,-rpath,$LIBINST_DIR $the_wl_rpath"
  
---- xmlrpc-c-1.14.2/src/cpp/Makefile.orig	2008-03-27 19:17:42.000000000 +0100
-+++ xmlrpc-c-1.14.2/src/cpp/Makefile	2008-05-14 18:23:45.688255558 +0200
-@@ -114,7 +114,7 @@
- $(LIBXMLRPCPP): $(LIBXMLRPCPP_MODS:%=%.osh) \
-   $(LIBXMLRPC)
- $(LIBXMLRPCPP): LIBOBJECTS = $(LIBXMLRPCPP_MODS:%=%.osh)
--$(LIBXMLRPCPP): LIBDEP = -Lblddir/src -lxmlrpc
-+$(LIBXMLRPCPP): LIBDEP = -Lblddir/src -lxmlrpc-c
+--- xmlrpc-c-1.20.3/src/cpp/Makefile~	2009-07-01 17:39:59.000000000 +0000
++++ xmlrpc-c-1.20.3/src/cpp/Makefile	2009-12-05 21:25:08.455609267 +0000
+@@ -127,7 +127,7 @@
+   $(LIBXMLRPC_UTIL)
+ $(LIBXMLRPC_CPP_SH): LIBOBJECTS = XmlRpcCpp.osh
+ $(LIBXMLRPC_CPP_SH): LIBDEP = \
+-  -Lblddir/src  -lxmlrpc_server -lxmlrpc \
++  -Lblddir/src  -lxmlrpc_server -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
- LIBXMLRPC_SERVERPP = $(call shlibfn, libxmlrpc_server++)
+@@ -138,7 +138,7 @@
+   $(LIBXMLRPC_UTIL)
+ $(LIBXMLRPCPP_SH): LIBOBJECTS = $(LIBXMLRPCPP_MODS:%=%.osh)
+ $(LIBXMLRPCPP_SH): LIBDEP = \
+-  -Lblddir/src -lxmlrpc \
++  -Lblddir/src -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
-@@ -122,7 +122,7 @@
-   $(LIBXMLRPC_SERVER) \
-   $(LIBXMLRPC)
- $(LIBXMLRPC_SERVERPP): LIBOBJECTS = $(LIBXMLRPC_SERVERPP_MODS:%=%.osh)
--$(LIBXMLRPC_SERVERPP): LIBDEP = -Lblddir/src -lxmlrpc_server -lxmlrpc
-+$(LIBXMLRPC_SERVERPP): LIBDEP = -Lblddir/src -lxmlrpc_server -lxmlrpc-c
+@@ -153,7 +153,7 @@
+ $(LIBXMLRPC_SERVERPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVERPP_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVERPP_SH): LIBDEP = \
+   -L. -l$(LIBXMLRPCPP_NAME) \
+-  -Lblddir/src -lxmlrpc_server -lxmlrpc \
++  -Lblddir/src -lxmlrpc_server -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
- LIBXMLRPC_SERVER_ABYSSPP = $(call shlibfn, libxmlrpc_server_abyss++)
+@@ -169,7 +169,7 @@
+ $(LIBXMLRPC_SERVER_ABYSSPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER_ABYSSPP_SH): LIBDEP = \
+    -L. -lxmlrpc_server++  -l$(LIBXMLRPCPP_NAME) \
+-   -Lblddir/src -lxmlrpc_server_abyss -lxmlrpc_server -lxmlrpc \
++   -Lblddir/src -lxmlrpc_server_abyss -lxmlrpc_server -lxmlrpc-c \
+    $(XML_PARSER_LIBDEP) \
+    -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss \
+    -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+@@ -183,7 +183,7 @@
+ $(LIBXMLRPC_SERVER_CGIPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVER_CGIPP_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER_CGIPP_SH): LIBDEP = \
+   -L. -lxmlrpc_server++  -l$(LIBXMLRPCPP_NAME) \
+-  -Lblddir/src -lxmlrpc_server -lxmlrpc \
++  -Lblddir/src -lxmlrpc_server -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
  
-@@ -131,7 +131,7 @@
-   $(LIBXMLRPC)
- $(LIBXMLRPC_SERVER_ABYSSPP): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.osh)
- $(LIBXMLRPC_SERVER_ABYSSPP): LIBDEP = \
--  -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss -Lblddir/src -lxmlrpc
-+  -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss -Lblddir/src -lxmlrpc-c
+@@ -197,7 +197,7 @@
+ $(LIBXMLRPC_SERVER_PSTREAMPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVER_PSTREAMPP_MODS:%=%.osh)
+ $(LIBXMLRPC_SERVER_PSTREAMPP_SH): LIBDEP = \
+   -L. -lxmlrpc_server++ -l$(LIBXMLRPCPP_NAME) -lxmlrpc_packetsocket \
+-  -Lblddir/src -lxmlrpc_server -lxmlrpc \
++  -Lblddir/src -lxmlrpc_server -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
  
- LIBXMLRPC_SERVER_PSTREAMPP = $(call shlibfn, libxmlrpc_server_pstream++)
+@@ -212,7 +212,7 @@
+ $(LIBXMLRPC_CLIENTPP_SH): LIBOBJECTS = $(LIBXMLRPC_CLIENTPP_MODS:%=%.osh)
+ $(LIBXMLRPC_CLIENTPP_SH): LIBDEP = \
+   -L. -l$(LIBXMLRPCPP_NAME) -lxmlrpc_packetsocket \
+-  -Lblddir/src -lxmlrpc_client -lxmlrpc \
++  -Lblddir/src -lxmlrpc_client -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
+ 
+@@ -223,7 +223,7 @@
+ $(LIBXMLRPC_PACKETSOCKET_SH): LIBOBJECTS = $(LIBXMLRPC_PACKETSOCKET_MODS:%=%.osh)
+ $(LIBXMLRPC_PACKETSOCKET_SH): LIBDEP = \
+   -L. -l$(LIBXMLRPCPP_NAME) \
+-  -Lblddir/src -lxmlrpc \
++  -Lblddir/src -lxmlrpc-c \
+   $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
+ 
+--- xmlrpc-c-1.20.3/src/xmlrpc.pc.cmake~	2009-12-05 22:00:03.000000000 +0000
++++ xmlrpc-c-1.20.3/src/xmlrpc.pc.cmake	2009-12-05 22:00:41.931645906 +0000
+@@ -8,5 +8,5 @@
+ Version:     @XMLRPC_C_VERSION@
+ 
+ Requires.private:	@xmlrpc_pkgconfig_req@ xmlrpc_util
+-Libs:   		-L${libdir} -lxmlrpc @xmlrpc_pkgconfig_libs@
++Libs:   		-L${libdir} -lxmlrpc-c @xmlrpc_pkgconfig_libs@
+ Cflags:			-I${includedir}
+--- xmlrpc-c-1.20.3/src/CMakeLists.txt	2009-12-05 22:06:26.335153315 +0000
++++ xmlrpc-c-1.20.3/src/CMakeLists.txt	2009-12-05 22:09:49.944925301 +0000
+@@ -51,8 +51,8 @@
+ 
+ 
+ 
+-### libxmlrpc.so
+-add_library(xmlrpc SHARED
++### libxmlrpc-c.so
++add_library(xmlrpc-c SHARED
+   double.c parse_datetime.c parse_value.c resource.c trace.c version.c
+   ${xmlrpc_xml_parser}
+   xmlrpc_data.c xmlrpc_datetime.c xmlrpc_string.c
+@@ -60,19 +60,19 @@
+   xmlrpc_build.c xmlrpc_decompose.c xmlrpc_parse.c xmlrpc_serialize.c
+   xmlrpc_base64.c xmlrpc_authcookie.c)
+ 
+-set_target_properties(xmlrpc
++set_target_properties(xmlrpc-c
+   PROPERTIES
+   COMPILE_FLAGS ${libxml_INCLUDES})
+ 
+ ensc_pkgconfig(xmlrpc)
+-target_link_libraries(xmlrpc ${libxml_LIBS} xmlrpc_util)
+-list(APPEND lib_TARGETS xmlrpc)
++target_link_libraries(xmlrpc-c ${libxml_LIBS} xmlrpc_util)
++list(APPEND lib_TARGETS xmlrpc-c)
+ 
+ ### libxmlrpc_client.so
+ add_library(xmlrpc_client SHARED
+   xmlrpc_client.c xmlrpc_client_global.c xmlrpc_server_info.c ${transport_SOURCES})
+ 
+-target_link_libraries(xmlrpc_client xmlrpc ${client_LIBS})
++target_link_libraries(xmlrpc_client xmlrpc-c ${client_LIBS})
+ set_target_properties(xmlrpc_client
+   PROPERTIES
+   COMPILE_FLAGS "${client_CFLAGS}")
+@@ -82,7 +82,7 @@
+ ### libxmlrpc_server.so
+ add_library(xmlrpc_server SHARED
+   registry.c method.c system_method.c)
+-target_link_libraries(xmlrpc_server xmlrpc)
++target_link_libraries(xmlrpc_server xmlrpc-c)
+ list(APPEND lib_TARGETS xmlrpc_server)
+ ensc_pkgconfig(xmlrpc_server)
+ 
+--- xmlrpc-c-1.20.3/src/cpp/CMakeLists.txt~	2009-12-05 22:10:18.000000000 +0000
++++ xmlrpc-c-1.20.3/src/cpp/CMakeLists.txt	2009-12-05 22:13:43.182401300 +0000
+@@ -4,13 +4,13 @@
+ add_library(xmlrpc++ SHARED
+   base64.cpp env_wrap.cpp fault.cpp girerr.cpp girmem.cpp
+   outcome.cpp param_list.cpp value.cpp xml.cpp)
+-target_link_libraries(xmlrpc++ xmlrpc)
++target_link_libraries(xmlrpc++ xmlrpc-c)
+ list(APPEND lib_TARGETS xmlrpc++)
+ ensc_pkgconfig(xmlrpc++)
+ 
+ ####### libxmlrpc_cpp.so
+ add_library(xmlrpc_cpp            SHARED XmlRpcCpp)
+-target_link_libraries(xmlrpc_cpp xmlrpc xmlrpc_server xmlrpc_client)
++target_link_libraries(xmlrpc_cpp xmlrpc-c xmlrpc_server xmlrpc_client)
+ list(APPEND lib_TARGETS xmlrpc_cpp)
+ ensc_pkgconfig(xmlrpc_cpp)
  

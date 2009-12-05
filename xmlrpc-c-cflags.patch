@@ -1,6 +1,5 @@
-diff -urN xmlrpc-c-1.10.00.org/Makefile.common xmlrpc-c-1.10.00/Makefile.common
---- xmlrpc-c-1.10.00.org/Makefile.common	2007-03-23 03:02:14.000000000 +0100
-+++ xmlrpc-c-1.10.00/Makefile.common	2007-04-11 09:05:10.452171013 +0200
+--- xmlrpc-c-1.10.00.org/common.mk	2007-03-23 03:02:14.000000000 +0100
++++ xmlrpc-c-1.10.00/common.mk	2007-04-11 09:05:10.452171013 +0200
 @@ -28,15 +28,15 @@
  # assertion and crash the program if it isn't really true.  You can add
  # -UNDEBUG (in any of various ways) to override this.
