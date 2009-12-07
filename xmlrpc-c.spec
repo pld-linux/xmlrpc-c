@@ -35,6 +35,7 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	ncurses-devel >= 5.7-21
 BuildRequires:	pkgconfig
+BuildRequires:	readline-devel
 BuildRequires:	w3c-libwww-devel >= 5.4.0-11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
