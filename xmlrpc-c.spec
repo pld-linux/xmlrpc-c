@@ -26,12 +26,9 @@ Patch6:		%{name}-uninit-curl.patch
 Patch7:		%{name}-va_list.patch
 Patch8:		%{name}-verbose-curl.patch
 URL:		http://xmlrpc-c.sourceforge.net/
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	cmake
 BuildRequires:	curl-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	ncurses-devel >= 5.7-21
 BuildRequires:	pkgconfig
