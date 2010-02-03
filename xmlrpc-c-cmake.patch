@@ -960,7 +960,7 @@ index 0000000..aa52d9e
 +if(MUST_BUILD_LIBWWW_CLIENT)
 +  list(APPEND transport_SOURCES
 +    ${CMAKE_CURRENT_SOURCE_DIR}/xmlrpc_libwww_transport.c
-+    ${CMAKE_CURRENT_SOURCE_DIR}/xmlrpc_libwww_transport.h)
++    )
 +endif(MUST_BUILD_LIBWWW_CLIENT)
 diff --git a/lib/util/CMakeLists.txt b/lib/util/CMakeLists.txt
 new file mode 100644
@@ -996,7 +996,7 @@ index 0000000..17535ab
 +if(MUST_BUILD_WININET_CLIENT)
 +  list(APPEND transport_SOURCES
 +    ${CMAKE_CURRENT_SOURCE_DIR}/xmlrpc_wininet_transport.c
-+    ${CMAKE_CURRENT_SOURCE_DIR}/xmlrpc_wininet_transport.h)
++    )
 +endif(MUST_BUILD_WININET_CLIENT)
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
 new file mode 100644
@@ -1022,13 +1022,13 @@ index 0000000..4c03b5b
 +  set(client_wininet_CFLAGS "")
 +  set(client_wininet_LIBS   "${WININET_LDADD}")
 +  list(APPEND transport_SOURCES
-+    ${wininet_srcdir}/xmlrpc_wininet_transport.c ${wininet_srcdir}/xmlrpc_wininet_transport.h)
++    ${wininet_srcdir}/xmlrpc_wininet_transport.c)
 +endif(MUST_BUILD_WININET_CLIENT)
 +
 +if(MUST_BUILD_LIBWWW_CLIENT)
 +  set(client_libwww_CFLAGS "${LIBWWW_CFLAGS}")
 +  set(client_libwww_LIBS   "${LIBWWW_LIBS}")
-+  list(APPEND transport_SOURCES ${libwww_srcdir}/xmlrpc_libwww_transport.c ${libwww_srcdir}/xmlrpc_libwww_transport.h)
++  list(APPEND transport_SOURCES ${libwww_srcdir}/xmlrpc_libwww_transport.c)
 +endif(MUST_BUILD_LIBWWW_CLIENT)
 +
 +if(MUST_BUILD_CURL_CLIENT)
