@@ -1719,10 +1719,10 @@ new file mode 100755
 index 0000000..327fad7
 --- /dev/null
 +++ b/xmlrpc-c-config
-@@ -0,0 +1,105 @@
+@@ -0,0 +1,104 @@
 +#! /bin/sh
 +
-+comp=
++comp="xmlrpc xmlrpc_util"
 +
 +need_cxx=
 +need_client=
@@ -1794,7 +1794,6 @@ index 0000000..327fad7
 +
 +test -z "$need_pstream"      || comp="$comp xmlrpc_server_pstream++"
 +test -z "$need_packetsocket" || comp="$comp xmlrpc_packetsocket"
-+test -n "$comp"              || comp="xmlrpc xmlrpc_util"
 +
 +case $1 in
 +  (--features|--modules)
