@@ -1719,7 +1719,7 @@ new file mode 100755
 index 0000000..327fad7
 --- /dev/null
 +++ b/xmlrpc-c-config
-@@ -0,0 +1,108 @@
+@@ -0,0 +1,105 @@
 +#! /bin/sh
 +
 +comp=
@@ -1794,8 +1794,7 @@ index 0000000..327fad7
 +
 +test -z "$need_pstream"      || comp="$comp xmlrpc_server_pstream++"
 +test -z "$need_packetsocket" || comp="$comp xmlrpc_packetsocket"
-+
-+dummy_comp=xmlrpc_client
++test -n "$comp"              || comp="xmlrpc xmlrpc_util"
 +
 +case $1 in
 +  (--features|--modules)
@@ -1824,8 +1823,6 @@ index 0000000..327fad7
 +  dummy_comp=
 +  ;;
 +esac
-+
-+test x"$comp" != x || comp=$dummy_comp
 +
 +exec pkg-config "$@" $comp
 diff --git a/xmlrpc_config.h.cmake b/xmlrpc_config.h.cmake
