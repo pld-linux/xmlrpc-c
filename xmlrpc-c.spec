@@ -117,6 +117,10 @@ w języku C++.
 Summary:	Sample XML-RPC applications
 Summary(pl.UTF-8):	Przykładowe aplikacje XML-RPC
 Group:		Applications/Networking
+Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-client = %{version}-%{release}
+Requires:	%{name}-client++ = %{version}-%{release}
 
 %description apps
 XML-RPC is a quick-and-easy way to make procedure calls over the
