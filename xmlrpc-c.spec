@@ -94,7 +94,8 @@ w języku C.
 Summary:	C++ client library for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteka kliencka C++ xmlrpc-c
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-client = %{version}-%{release}
 Conflicts:	xmlrpc-c < 1.20.3-1
 
 %description client++
@@ -193,11 +194,13 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT \
 
-chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so
+chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so*
 
+# Win32-specific
 %{__rm} $RPM_BUILD_ROOT%{_includedir}/xmlrpc_server_w32httpsys.h \
 	$RPM_BUILD_ROOT%{_includedir}/xmlrpc-c/server_w32httpsys.h
 
+# why??? man is still packaged  --q
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/xml-rpc-api2txt
 
 %clean
@@ -266,7 +269,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xml-rpc-api2cpp
 %attr(755,root,root) %{_bindir}/xmlrpc_cpp_proxy
 %attr(755,root,root) %{_bindir}/xmlrpc_pstream
-%{_mandir}/man1/*
+%{_mandir}/man1/xml-rpc-api2cpp.1*
+%{_mandir}/man1/xml-rpc-api2txt.1*
 
 %files devel
 %defattr(644,root,root,755)
