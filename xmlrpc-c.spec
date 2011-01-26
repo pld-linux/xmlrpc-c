@@ -27,6 +27,7 @@ BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	ncurses-devel >= 5.7-21
 BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
+BuildRequires:	rpmbuild(macros) >= 1.577
 BuildRequires:	w3c-libwww-devel >= 5.4.0-11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -173,13 +174,14 @@ mkdir -p build
 cd build
 %cmake .. \
 	-D_lib:STRING=%{_lib} \
+	-DCMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
+	-DCMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" \
 	-DMUST_BUILD_CURL_CLIENT:BOOL=ON \
 	-DMUST_BUILD_LIBWWW_CLIENT:BOOL=ON \
-	-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
 	-DBUILD_SHARED_LIBS:BOOL=ON \
 	-DENABLE_TOOLS:BOOL=ON
 
-%{__make} VERBOSE=1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
