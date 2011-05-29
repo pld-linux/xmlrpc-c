@@ -1,7 +1,7 @@
-From fceba968292c52b67e331384206652350d5331ea Mon Sep 17 00:00:00 2001
+From 4d3bbc5d59418666a5fc91c8fe3e301ee9c89b32 Mon Sep 17 00:00:00 2001
 From: Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>
 Date: Sat, 5 Apr 2008 11:41:34 +0200
-Subject: [PATCH 3/6] Use proper datatypes for 'long long'
+Subject: [PATCH 3/8] Use proper datatypes for 'long long'
 
 xmlrpc-c uses 'long long' at some places (e.g. in printf
 statements with PRId64) under the assumption that it has a
@@ -16,26 +16,24 @@ It is arguable whether 'int_least64_t' (and 'int_least32_t')
 would be a better choice for 'int64_t' (and 'int32_t'), but
 for now, the patch uses datatypes with exact widths.
 ---
- include/xmlrpc-c/base.h |   10 ++++++----
- src/cpp/param_list.cpp  |    8 ++++----
- src/cpp/value.cpp       |    2 +-
- 3 files changed, 11 insertions(+), 9 deletions(-)
+ include/xmlrpc-c/base.h     |    7 ++++---
+ lib/libutil/string_number.c |    1 +
+ src/cpp/param_list.cpp      |    8 ++++----
+ 3 files changed, 9 insertions(+), 7 deletions(-)
 
 diff --git a/include/xmlrpc-c/base.h b/include/xmlrpc-c/base.h
-index a768b70..0069fc2 100644
+index cdc9161..cbdf3d0 100644
 --- a/include/xmlrpc-c/base.h
 +++ b/include/xmlrpc-c/base.h
-@@ -5,7 +5,9 @@
+@@ -5,6 +5,7 @@
  
  #include <stddef.h>
  #include <stdarg.h>
 +#include <stdint.h>
  #include <time.h>
-+#include <stdint.h>
+ #include <xmlrpc-c/c_util.h>
  #include <xmlrpc-c/util.h>
- #include <xmlrpc-c/config.h>
-   /* Defines XMLRPC_HAVE_WCHAR, XMLRPC_INT64, XMLRPC_HAVE_TIMEVAL */
-@@ -40,9 +42,9 @@ extern unsigned int const xmlrpc_version_point;
+@@ -50,9 +51,9 @@ xmlrpc_version(unsigned int * const majorP,
  
  typedef signed int xmlrpc_int;  
      /* An integer of the type defined by XML-RPC <int>; i.e. 32 bit */
@@ -47,24 +45,27 @@ index a768b70..0069fc2 100644
      /* An integer of the type defined by "XML-RPC" <i8>; i.e. 64 bit */
  typedef int xmlrpc_bool;
      /* A boolean (of the type defined by XML-RPC <boolean>, but there's
-@@ -130,7 +132,7 @@ extern xmlrpc_type xmlrpc_value_type (xmlrpc_value* const value);
+@@ -89,7 +90,7 @@ typedef int xmlrpc_socket;
+ #define XMLRPC_INT32_MAX 0x7fffffff
+ #define XMLRPC_INT32_MIN (-XMLRPC_INT32_MAX - 1)
  
- xmlrpc_value *
- xmlrpc_int_new(xmlrpc_env * const envP,
--               int          const intValue);
-+               xmlrpc_int32 const intValue);
+-#define XMLRPC_INT64_MAX 0x7fffffffffffffffll
++#define XMLRPC_INT64_MAX ((xmlrpc_int64)0x7fffffffffffffffll)
+ #define XMLRPC_INT64_MIN (-XMLRPC_INT64_MAX - 1)
  
- xmlrpc_value *
- xmlrpc_i8_new(xmlrpc_env * const envP, 
-@@ -139,7 +141,7 @@ xmlrpc_i8_new(xmlrpc_env * const envP,
- void 
- xmlrpc_read_int(xmlrpc_env *         const envP,
-                 const xmlrpc_value * const valueP,
--                int *                const intValueP);
-+                xmlrpc_int32 *       const intValueP);
  
- xmlrpc_value *
- xmlrpc_bool_new(xmlrpc_env * const envP,
+diff --git a/lib/libutil/string_number.c b/lib/libutil/string_number.c
+index 1c284af..a7e78ad 100644
+--- a/lib/libutil/string_number.c
++++ b/lib/libutil/string_number.c
+@@ -6,6 +6,7 @@
+ ============================================================================*/
+ #include <stdlib.h>
+ #include <string.h>
++#include <inttypes.h>
+ #include <errno.h>
+ 
+ #include <xmlrpc-c/base.h>
 diff --git a/src/cpp/param_list.cpp b/src/cpp/param_list.cpp
 index 67c636b..60f7df9 100644
 --- a/src/cpp/param_list.cpp
@@ -92,19 +93,6 @@ index 67c636b..60f7df9 100644
          value_i8(this->paramVector[paramNumber])));
  
      if (longlongvalue < minimum)
-diff --git a/src/cpp/value.cpp b/src/cpp/value.cpp
-index e952a5f..fa2e5ce 100644
---- a/src/cpp/value.cpp
-+++ b/src/cpp/value.cpp
-@@ -265,7 +265,7 @@ value_int::value_int(xmlrpc_c::value const baseValue) {
- 
- value_int::operator int() const {
- 
--    int retval;
-+    xmlrpc_int32 retval;
-     env_wrap env;
- 
-     xmlrpc_read_int(&env.env_c, this->cValueP, &retval);
 -- 
-1.6.5.2
+1.7.4
 

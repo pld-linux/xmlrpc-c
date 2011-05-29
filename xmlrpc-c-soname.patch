@@ -252,14 +252,14 @@
  list(APPEND lib_TARGETS xmlrpc_server)
  ensc_pkgconfig(xmlrpc_server)
  
---- xmlrpc-c-1.20.3/src/cpp/CMakeLists.txt~	2009-12-05 22:10:18.000000000 +0000
-+++ xmlrpc-c-1.20.3/src/cpp/CMakeLists.txt	2009-12-05 22:13:43.182401300 +0000
+--- xmlrpc-c/src/cpp/CMakeLists.txt.orig	2011-03-20 15:41:37.000000000 +0100
++++ xmlrpc-c/src/cpp/CMakeLists.txt	2011-03-20 15:42:37.524711244 +0100
 @@ -4,13 +4,13 @@
  add_library(xmlrpc++ SHARED
    base64.cpp env_wrap.cpp fault.cpp girerr.cpp girmem.cpp
    outcome.cpp param_list.cpp value.cpp xml.cpp)
--target_link_libraries(xmlrpc++ xmlrpc)
-+target_link_libraries(xmlrpc++ xmlrpc-c)
+-target_link_libraries(xmlrpc++ xmlrpc pthread)
++target_link_libraries(xmlrpc++ xmlrpc-c pthread)
  list(APPEND lib_TARGETS xmlrpc++)
  ensc_pkgconfig(xmlrpc++)
  
@@ -269,4 +269,15 @@
 +target_link_libraries(xmlrpc_cpp xmlrpc-c xmlrpc_server xmlrpc_client)
  list(APPEND lib_TARGETS xmlrpc_cpp)
  ensc_pkgconfig(xmlrpc_cpp)
+ 
+--- xmlrpc-c/examples/CMakeLists.txt.orig	2011-03-20 17:08:15.832709568 +0100
++++ xmlrpc-c/examples/CMakeLists.txt	2011-03-20 17:12:17.396709568 +0100
+@@ -21,7 +21,7 @@
+ endif(ENABLE_CPLUSPLUS)
+ 
+ 
+-set(base_LIBS xmlrpc)
++set(base_LIBS xmlrpc-c)
+ ensc_add_example(json               c base)
+ ensc_add_example(gen_sample_add_xml c base)
  
