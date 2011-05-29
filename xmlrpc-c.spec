@@ -50,34 +50,27 @@ zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
 
 Ta biblioteka udostepnia modularną implementacją XML-RPC dla języka C.
 
-%package c++
-Summary:	C++ libraries for xmlrpc-c
-Summary(pl.UTF-8):	Biblioteki C++ xmlrpc-c
-Group:		Libraries
+%package devel
+Summary:	C header files for xmlrpc-c base libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c 
+Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Conflicts:	xmlrpc-c < 1.20.3-1
+Requires:	curl-devel
+Requires:	expat-devel
+Requires:	libxml2-devel >= 2.0
+Requires:	w3c-libwww-devel
 
-%description c++
-XML-RPC is a quick-and-easy way to make procedure calls over the
-Internet. It converts the procedure call into XML document, sends it
-to a remote server using HTTP, and gets back the response as XML.
+%description devel
+C header files for xmlrpc-c base libraries.
 
-This library provides a modular implementation of XML-RPC for C++.
-
-%description c++ -l pl.UTF-8
-XML-RPC to szybki i łatwy w użyciu sposób wywoływania procedur poprzez
-Internet. Przekształca wywołanie procedury na dokument XML, wysyła do
-zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
-
-Ta biblioteka udostepnia modularną implementacją XML-RPC dla języka
-C++.
+%description devel -l pl.UTF-8
+Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c.
 
 %package client
 Summary:	C client library for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteka kliencka C xmlrpc-c
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Conflicts:	xmlrpc-c < 1.20.3-1
 
 %description client
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -95,13 +88,95 @@ zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
 Ta biblioteka udostepnia modularną implementacją XML-RPC dla klientów
 w języku C.
 
+%package client-devel
+Summary:	C header files for xmlrpc-c client library
+Summary(pl.UTF-8):	Pliki nagłówkowe C dla biblioteki klienckiej xmlrpc-c
+Group:		Development/Libraries
+Requires:	%{name}-client = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description client-devel
+C header files for xmlrpc-c client library.
+
+%description client-devel -l pl.UTF-8
+Pliki nagłówkowe C dla biblioteki klienckiej xmlrpc-c.
+
+%package server
+Summary:	C server libraries for xmlrpc-c
+Summary(pl.UTF-8):	Biblioteki serwerowe C xmlrpc-c
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description server
+XML-RPC is a quick-and-easy way to make procedure calls over the
+Internet. It converts the procedure call into XML document, sends it
+to a remote server using HTTP, and gets back the response as XML.
+
+These libraries provide a modular implementation of XML-RPC for C
+servers.
+
+%description server -l pl.UTF-8
+XML-RPC to szybki i łatwy w użyciu sposób wywoływania procedur poprzez
+Internet. Przekształca wywołanie procedury na dokument XML, wysyła do
+zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
+
+Te biblioteki udostepniają modularną implementacją XML-RPC dla
+serwerów w języku C.
+
+%package server-devel
+Summary:	C header files for xmlrpc-c server libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c
+Group:		Development/Libraries
+Requires:	%{name}-server = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description server-devel
+C header files for xmlrpc-c server libraries.
+
+%description server-devel -l pl.UTF-8
+Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c.
+
+%package c++
+Summary:	C++ libraries for xmlrpc-c
+Summary(pl.UTF-8):	Biblioteki C++ xmlrpc-c
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	libstdc++-devel
+
+%description c++
+XML-RPC is a quick-and-easy way to make procedure calls over the
+Internet. It converts the procedure call into XML document, sends it
+to a remote server using HTTP, and gets back the response as XML.
+
+This library provides a modular implementation of XML-RPC for C++.
+
+%description c++ -l pl.UTF-8
+XML-RPC to szybki i łatwy w użyciu sposób wywoływania procedur poprzez
+Internet. Przekształca wywołanie procedury na dokument XML, wysyła do
+zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
+
+Ta biblioteka udostepnia modularną implementacją XML-RPC dla języka
+C++.
+
+%package c++-devel
+Summary:	C++ header files for xmlrpc-c base libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe C++ głównych bibliotek xmlrpc-c
+Group:		Development/Libraries
+Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description c++-devel
+C++ header files for xmlrpc-c base libraries.
+
+%description c++-devel -l pl.UTF-8
+Pliki nagłówkowe C++ głównych bibliotek xmlrpc-c.
+
 %package client++
 Summary:	C++ client library for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteka kliencka C++ xmlrpc-c
 Group:		Libraries
 Requires:	%{name}-c++ = %{version}-%{release}
 Requires:	%{name}-client = %{version}-%{release}
-Conflicts:	xmlrpc-c < 1.20.3-1
 
 %description client++
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -118,6 +193,57 @@ zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
 
 Ta biblioteka udostepnia modularną implementacją XML-RPC dla klientów
 w języku C++.
+
+%package client++-devel
+Summary:	C++ header files for xmlrpc-c client library
+Summary(pl.UTF-8):	Pliki nagłówkowe C++ biblioteki klienckiej xmlrpc-c
+Group:		Development/Libraries
+Requires:	%{name}-c++-devel = %{version}-%{release}
+Requires:	%{name}-client++ = %{version}-%{release}
+Requires:	%{name}-client-devel = %{version}-%{release}
+
+%description client++-devel
+C++ header files for xmlrpc-c client library.
+
+%description client++-devel -l pl.UTF-8
+Pliki nagłówkowe C++ biblioteki klienckiej xmlrpc-c.
+
+%package server++
+Summary:	C++ server libraries for xmlrpc-c
+Summary(pl.UTF-8):	Biblioteki serwerowe C++ xmlrpc-c
+Group:		Libraries
+Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-server = %{version}-%{release}
+
+%description server++
+XML-RPC is a quick-and-easy way to make procedure calls over the
+Internet. It converts the procedure call into XML document, sends it
+to a remote server using HTTP, and gets back the response as XML.
+
+These libraries provide a modular implementation of XML-RPC for C++
+servers.
+
+%description server++ -l pl.UTF-8
+XML-RPC to szybki i łatwy w użyciu sposób wywoływania procedur poprzez
+Internet. Przekształca wywołanie procedury na dokument XML, wysyła do
+zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
+
+Te biblioteki udostepniają modularną implementacją XML-RPC dla
+serwerów w języku C++.
+
+%package server++-devel
+Summary:	C++ header files for xmlrpc-c server libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c
+Group:		Development/Libraries
+Requires:	%{name}-c++-devel = %{version}-%{release}
+Requires:	%{name}-server++ = %{version}-%{release}
+Requires:	%{name}-server-devel = %{version}-%{release}
+
+%description server++-devel
+C++ header files for xmlrpc-c server libraries.
+
+%description server++-devel -l pl.UTF-8
+Pliki nagłówkowe C++ dla bibliotek serwerowych xmlrpc-c.
 
 %package apps
 Summary:	Sample XML-RPC applications
@@ -142,27 +268,6 @@ zdalnego serwera poprzez HTTP i odbiera odpowiedź jako XML.
 
 Ten pakiet zawiera kilka podręcznych aplikacji demonstracyjnych
 XML-RPC.
-
-%package devel
-Summary:	Header files etc to develop XML-RPC applications
-Summary(pl.UTF-8):	Pliki nagłówkowe do tworzenia aplikacji XML-RPC
-Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-c++ = %{version}-%{release}
-Requires:	%{name}-client = %{version}-%{release}
-Requires:	%{name}-client++ = %{version}-%{release}
-Requires:	curl-devel
-Requires:	expat-devel
-Requires:	libstdc++-devel
-Requires:	libxml2-devel >= 2.0
-Requires:	w3c-libwww-devel
-Obsoletes:	xmlrpc-c-static
-
-%description devel
-Header files etc needed to develop XML-RPC applications.
-
-%description devel -l pl.UTF-8
-Pliki nagłówkowe potrzebne do tworzenia aplikacji używających XML-RPC.
 
 %prep
 %setup -q -n %{name}
@@ -215,11 +320,17 @@ rm -rf $RPM_BUILD_ROOT
 %post	client -p /sbin/ldconfig
 %postun client -p /sbin/ldconfig
 
+%post	server -p /sbin/ldconfig
+%postun server -p /sbin/ldconfig
+
 %post	c++ -p /sbin/ldconfig
 %postun	c++ -p /sbin/ldconfig
 
 %post	client++ -p /sbin/ldconfig
 %postun	client++ -p /sbin/ldconfig
+
+%post	server++ -p /sbin/ldconfig
+%postun	server++ -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -228,19 +339,66 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc-c.so.3
 %attr(755,root,root) %{_libdir}/libxmlrpc_abyss.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_abyss.so.3
+%attr(755,root,root) %{_libdir}/libxmlrpc_util.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_util.so.3
+
+%files devel
+%defattr(644,root,root,755)
+%doc doc/{DEVELOPING,TESTING}
+%attr(755,root,root) %{_bindir}/xmlrpc-c-config
+%attr(755,root,root) %{_libdir}/libxmlrpc-c.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_abyss.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_util.so
+%dir %{_includedir}/xmlrpc-c
+%{_includedir}/xmlrpc-c/abyss*.h
+%{_includedir}/xmlrpc-c/base.h
+%{_includedir}/xmlrpc-c/c_util.h
+%{_includedir}/xmlrpc-c/config.h
+%{_includedir}/xmlrpc-c/inttypes.h
+%{_includedir}/xmlrpc-c/json.h
+%{_includedir}/xmlrpc-c/oldxmlrpc.h
+%{_includedir}/xmlrpc-c/transport.h
+%{_includedir}/xmlrpc-c/util.h
+%{_includedir}/xmlrpc.h
+%{_includedir}/xmlrpc_abyss.h
+%{_includedir}/xmlrpc_cgi.h
+%{_pkgconfigdir}/xmlrpc.pc
+%{_pkgconfigdir}/xmlrpc_abyss.pc
+%{_pkgconfigdir}/xmlrpc_util.pc
+
+%files client
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libxmlrpc_client.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client.so.3
+
+%files client-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libxmlrpc_client.so
+%{_includedir}/xmlrpc-c/client*.h
+%{_includedir}/xmlrpc_client.h
+%{_pkgconfigdir}/xmlrpc_client.pc
+
+%files server
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc_server.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server.so.3
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_abyss.so.3
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_cgi.so.3
-%attr(755,root,root) %{_libdir}/libxmlrpc_util.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_util.so.3
 
-%files client
+%files server-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_client.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client.so.3
+%attr(755,root,root) %{_libdir}/libxmlrpc_server.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi.so
+%{_includedir}/xmlrpc-c/server.h
+%{_includedir}/xmlrpc-c/server_abyss.h
+%{_includedir}/xmlrpc-c/server_cgi.h
+%{_includedir}/xmlrpc_server.h
+%{_pkgconfigdir}/xmlrpc_server.pc
+%{_pkgconfigdir}/xmlrpc_server_abyss.pc
+%{_pkgconfigdir}/xmlrpc_server_cgi.pc
 
 %files c++
 %defattr(644,root,root,755)
@@ -250,6 +408,38 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_cpp.so.7
 %attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_packetsocket.so.7
+
+%files c++-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libxmlrpc++.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so
+%{_includedir}/xmlrpc-c/base.hpp
+%{_includedir}/xmlrpc-c/girerr.hpp
+%{_includedir}/xmlrpc-c/girmem.hpp
+%{_includedir}/xmlrpc-c/oldcppwrapper.hpp
+%{_includedir}/xmlrpc-c/packetsocket.hpp
+%{_includedir}/xmlrpc-c/registry.hpp
+%{_includedir}/xmlrpc-c/timeout.hpp
+%{_includedir}/xmlrpc-c/xml.hpp
+%{_includedir}/XmlRpcCpp.h
+%{_pkgconfigdir}/xmlrpc++.pc
+%{_pkgconfigdir}/xmlrpc_cpp.pc
+%{_pkgconfigdir}/xmlrpc_packetsocket.pc
+
+%files client++
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libxmlrpc_client++.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client++.so.7
+
+%files client++-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libxmlrpc_client++.so
+%{_includedir}/xmlrpc-c/client*.hpp
+%{_pkgconfigdir}/xmlrpc_client++.pc
+
+%files server++
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc_server++.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server++.so.7
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss++.so.*.*
@@ -259,10 +449,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_pstream++.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_pstream++.so.7
 
-%files client++
+%files server++-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_client++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client++.so.7
+%attr(755,root,root) %{_libdir}/libxmlrpc_server++.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss++.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi++.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_server_pstream++.so
+%{_includedir}/xmlrpc-c/server_abyss.hpp
+%{_includedir}/xmlrpc-c/server_pstream.hpp
+%{_pkgconfigdir}/xmlrpc_server++.pc
+%{_pkgconfigdir}/xmlrpc_server_abyss++.pc
+%{_pkgconfigdir}/xmlrpc_server_cgi++.pc
+%{_pkgconfigdir}/xmlrpc_server_pstream++.pc
 
 %files apps
 %defattr(644,root,root,755)
@@ -274,47 +472,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xmlrpc_pstream
 %{_mandir}/man1/xml-rpc-api2cpp.1*
 %{_mandir}/man1/xml-rpc-api2txt.1*
-
-%files devel
-%defattr(644,root,root,755)
-%doc doc/{DEVELOPING,TESTING}
-%attr(755,root,root) %{_bindir}/xmlrpc-c-config
-# C
-%attr(755,root,root) %{_libdir}/libxmlrpc-c.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_abyss.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_client.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_util.so
-%{_pkgconfigdir}/xmlrpc.pc
-%{_pkgconfigdir}/xmlrpc_abyss.pc
-%{_pkgconfigdir}/xmlrpc_client.pc
-%{_pkgconfigdir}/xmlrpc_cpp.pc
-%{_pkgconfigdir}/xmlrpc_packetsocket.pc
-%{_pkgconfigdir}/xmlrpc_server.pc
-%{_pkgconfigdir}/xmlrpc_server_abyss.pc
-%{_pkgconfigdir}/xmlrpc_server_cgi.pc
-%{_pkgconfigdir}/xmlrpc_util.pc
-%dir %{_includedir}/xmlrpc-c
-%{_includedir}/xmlrpc-c/*.h
-# legacy
-%{_includedir}/xmlrpc*.h
-# C++
-%attr(755,root,root) %{_libdir}/libxmlrpc_client++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_pstream++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc++.so
-%{_pkgconfigdir}/xmlrpc_client++.pc
-%{_pkgconfigdir}/xmlrpc++.pc
-%{_pkgconfigdir}/xmlrpc_server_abyss++.pc
-%{_pkgconfigdir}/xmlrpc_server_cgi++.pc
-%{_pkgconfigdir}/xmlrpc_server++.pc
-%{_pkgconfigdir}/xmlrpc_server_pstream++.pc
-%{_includedir}/xmlrpc-c/*.hpp
-# legacy
-%{_includedir}/XmlRpcCpp.h
