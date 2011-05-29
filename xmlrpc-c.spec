@@ -308,9 +308,6 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so*
 %{__rm} $RPM_BUILD_ROOT%{_includedir}/xmlrpc_server_w32httpsys.h \
 	$RPM_BUILD_ROOT%{_includedir}/xmlrpc-c/server_w32httpsys.h
 
-# why??? man is still packaged  --q
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/xml-rpc-api2txt
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -468,6 +465,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xmlrpc
 %attr(755,root,root) %{_bindir}/xmlrpc_transport
 %attr(755,root,root) %{_bindir}/xml-rpc-api2cpp
+%attr(755,root,root) %{_bindir}/xml-rpc-api2txt
 %attr(755,root,root) %{_bindir}/xmlrpc_cpp_proxy
 %attr(755,root,root) %{_bindir}/xmlrpc_pstream
 %{_mandir}/man1/xml-rpc-api2cpp.1*
