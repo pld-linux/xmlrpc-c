@@ -1,16 +1,16 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.26.2
-Release:	2
+Version:	1.28.10
+Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # svn co http://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/advanced xmlrpc-c
 # Unfortunately, upstream does not tag versions so we must fetch from the branch
 # and check which version was used for it
-# 1.26.2 is svn r2131
+# 1.28.10 is svn r2181
 Source0:	%{name}-%{version}.tar.xz
-# Source0-md5:	b61e1ace6c3c69b152fbad35fa7144de
+# Source0-md5:	b1d7d851bbd50169be668ef16817bc6b
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch

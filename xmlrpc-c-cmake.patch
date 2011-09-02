@@ -409,7 +409,7 @@ index 0000000..3bb9e03
 +add_subdirectory(examples)
 +add_subdirectory(include)
 +add_subdirectory(src)
-+
++add_subdirectory(test)
 +if (BUILD_TOOLS)
 +  add_subdirectory(tools)
 +endif()
@@ -1072,7 +1072,7 @@ index 0000000..7ac88b0
 +
 +
 +add_subdirectory(cpp)
-+add_subdirectory(test)
++
 +
 +
 +
@@ -1389,11 +1389,11 @@ index 0000000..da5639d
 +Requires.private:	xmlrpc_server++ xmlrpc_packetsocket xmlrpc++
 +Libs:   		-L${libdir} -lxmlrpc_server_pstream++
 +Cflags:			-I${includedir}
-diff --git a/src/test/CMakeLists.txt b/src/test/CMakeLists.txt
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
 new file mode 100644
 index 0000000..fdc6869
 --- /dev/null
-+++ b/src/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
 @@ -0,0 +1,39 @@
 +# -*- cmake -*-
 +
