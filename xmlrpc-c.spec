@@ -2,7 +2,7 @@ Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
 Version:	1.28.10
-Release:	1
+Release:	2
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # svn co http://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/advanced xmlrpc-c
@@ -357,8 +357,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/xmlrpc-c/transport.h
 %{_includedir}/xmlrpc-c/util.h
 %{_includedir}/xmlrpc.h
-%{_includedir}/xmlrpc_abyss.h
-%{_includedir}/xmlrpc_cgi.h
 %{_pkgconfigdir}/xmlrpc.pc
 %{_pkgconfigdir}/xmlrpc_abyss.pc
 %{_pkgconfigdir}/xmlrpc_util.pc
@@ -392,6 +390,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/xmlrpc-c/server.h
 %{_includedir}/xmlrpc-c/server_abyss.h
 %{_includedir}/xmlrpc-c/server_cgi.h
+%{_includedir}/xmlrpc_abyss.h
+%{_includedir}/xmlrpc_cgi.h
 %{_includedir}/xmlrpc_server.h
 %{_pkgconfigdir}/xmlrpc_server.pc
 %{_pkgconfigdir}/xmlrpc_server_abyss.pc
