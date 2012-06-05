@@ -141,7 +141,6 @@ Summary:	C++ libraries for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteki C++ xmlrpc-c
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libstdc++-devel
 
 %description c++
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -164,6 +163,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe C++ głównych bibliotek xmlrpc-c
 Group:		Development/Libraries
 Requires:	%{name}-c++ = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
+Requires:	libstdc++-devel
 
 %description c++-devel
 C++ header files for xmlrpc-c base libraries.
