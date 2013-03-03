@@ -15,6 +15,7 @@ Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
 Patch3:		%{name}-cmake-fix.patch
+Patch4:		%{name}-format.patch
 # patches 10+ come from Fedora
 Patch10:	%{name}-cmake.patch
 Patch11:	%{name}-printf-size_t.patch
@@ -283,6 +284,7 @@ XML-RPC.
 %patch16 -p1
 %patch1 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 mkdir -p build
