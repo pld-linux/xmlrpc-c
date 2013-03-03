@@ -1,19 +1,20 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.28.10
-Release:	2
+Version:	1.32.05
+Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # svn co http://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/advanced xmlrpc-c
 # Unfortunately, upstream does not tag versions so we must fetch from the branch
 # and check which version was used for it
-# 1.28.10 is svn r2181
+# 1.32.05 is svn r2451
 Source0:	%{name}-%{version}.tar.xz
-# Source0-md5:	b1d7d851bbd50169be668ef16817bc6b
+# Source0-md5:	c80cfb54a6e26247369de042474e08e0
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
+Patch3:		%{name}-cmake-fix.patch
 # patches 10+ come from Fedora
 Patch10:	%{name}-cmake.patch
 Patch11:	%{name}-printf-size_t.patch
@@ -281,6 +282,7 @@ XML-RPC.
 %patch15 -p1
 %patch16 -p1
 %patch1 -p1
+%patch3 -p1
 
 %build
 mkdir -p build
@@ -400,11 +402,11 @@ rm -rf $RPM_BUILD_ROOT
 %files c++
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc++.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc++.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_cpp.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_cpp.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_packetsocket.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_packetsocket.so.8
 
 %files c++-devel
 %defattr(644,root,root,755)
@@ -427,7 +429,7 @@ rm -rf $RPM_BUILD_ROOT
 %files client++
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc_client++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client++.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client++.so.8
 
 %files client++-devel
 %defattr(644,root,root,755)
@@ -438,13 +440,13 @@ rm -rf $RPM_BUILD_ROOT
 %files server++
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc_server++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server++.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server++.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_abyss++.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_abyss++.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_cgi++.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_cgi++.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_server_pstream++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_pstream++.so.7
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_pstream++.so.8
 
 %files server++-devel
 %defattr(644,root,root,755)
@@ -463,6 +465,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc tools/xmlrpc/xmlrpc.html tools/xmlrpc_transport/xmlrpc_transport.html
 %attr(755,root,root) %{_bindir}/xmlrpc
+%attr(755,root,root) %{_bindir}/xmlrpc_parsecall
 %attr(755,root,root) %{_bindir}/xmlrpc_transport
 %attr(755,root,root) %{_bindir}/xml-rpc-api2cpp
 %attr(755,root,root) %{_bindir}/xml-rpc-api2txt
