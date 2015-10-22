@@ -2,7 +2,7 @@ Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
 Version:	1.32.05
-Release:	3
+Release:	4
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # svn co http://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/advanced xmlrpc-c
@@ -34,7 +34,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
 BuildRequires:	rpmbuild(macros) >= 1.577
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	w3c-libwww-devel >= 5.4.0-11
+BuildRequires:	w3c-libwww-devel >= 5.4.0-20
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
