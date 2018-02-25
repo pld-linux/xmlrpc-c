@@ -1,29 +1,27 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.32.05
-Release:	5
+Version:	1.39.12
+Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
+# for feature versions:
 # svn co http://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/advanced xmlrpc-c
 # Unfortunately, upstream does not tag versions so we must fetch from the branch
-# and check which version was used for it
-# 1.32.05 is svn r2451
-Source0:	%{name}-%{version}.tar.xz
-# Source0-md5:	c80cfb54a6e26247369de042474e08e0
+# and check which version was used for it.
+# for "super stable" versions:
+Source0:	http://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
+# Source0-md5:	1e01d4a462198b6c0a4f44b66cbf7a93
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
-Patch3:		%{name}-cmake-fix.patch
-Patch4:		%{name}-format.patch
-# patches 10+ come from Fedora
+Patch3:		%{name}-format.patch
+# patches 10+ come from Fedora (cmake patch is updated from original version)
 Patch10:	%{name}-cmake.patch
 Patch11:	%{name}-printf-size_t.patch
 Patch12:	%{name}-longlong.patch
 Patch13:	%{name}-uninit-curl.patch
 Patch14:	%{name}-30x-redirect.patch
-Patch15:	%{name}-check-vasprintf-return-value.patch
-Patch16:	%{name}-include-string_int.h.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	cmake >= 2.6
 BuildRequires:	curl-devel
@@ -272,7 +270,7 @@ Ten pakiet zawiera kilka podręcznych aplikacji demonstracyjnych
 XML-RPC.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0 -p1
 %patch2 -p1
 %patch10 -p1
@@ -280,11 +278,8 @@ XML-RPC.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
-%patch16 -p1
 %patch1 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 mkdir -p build
@@ -405,17 +400,24 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc++.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc++.so.8
+%attr(755,root,root) %{_libdir}/libxmlrpc_abyss++.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_abyss++.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_cpp.so.8
 %attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxmlrpc_packetsocket.so.8
+%attr(755,root,root) %{_libdir}/libxmlrpc_util++.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_util++.so.8
 
 %files c++-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxmlrpc++.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_abyss++.so
 %attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so
 %attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so
+%attr(755,root,root) %{_libdir}/libxmlrpc_util++.so
 %{_includedir}/xmlrpc-c/base.hpp
+%{_includedir}/xmlrpc-c/base64.hpp
 %{_includedir}/xmlrpc-c/girerr.hpp
 %{_includedir}/xmlrpc-c/girmem.hpp
 %{_includedir}/xmlrpc-c/oldcppwrapper.hpp
@@ -425,8 +427,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/xmlrpc-c/xml.hpp
 %{_includedir}/XmlRpcCpp.h
 %{_pkgconfigdir}/xmlrpc++.pc
+%{_pkgconfigdir}/xmlrpc_abyss++.pc
 %{_pkgconfigdir}/xmlrpc_cpp.pc
 %{_pkgconfigdir}/xmlrpc_packetsocket.pc
+%{_pkgconfigdir}/xmlrpc_util++.pc
 
 %files client++
 %defattr(644,root,root,755)
@@ -465,7 +469,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files apps
 %defattr(644,root,root,755)
-%doc tools/xmlrpc/xmlrpc.html tools/xmlrpc_transport/xmlrpc_transport.html
+%doc tools/xmlrpc_transport/xmlrpc_transport.html
 %attr(755,root,root) %{_bindir}/xmlrpc
 %attr(755,root,root) %{_bindir}/xmlrpc_parsecall
 %attr(755,root,root) %{_bindir}/xmlrpc_transport

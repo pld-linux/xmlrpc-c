@@ -70,20 +70,6 @@ diff --git a/src/cpp/param_list.cpp b/src/cpp/param_list.cpp
 index 67c636b..60f7df9 100644
 --- a/src/cpp/param_list.cpp
 +++ b/src/cpp/param_list.cpp
-@@ -265,10 +265,10 @@ paramList::getNil(unsigned int const paramNumber) const {
- 
- 
- 
--long long
-+xmlrpc_int64
- paramList::getI8(unsigned int const paramNumber,
--                 long long    const minimum,
--                 long long    const maximum) const {
-+                 xmlrpc_int64 const minimum,
-+                 xmlrpc_int64 const maximum) const {
- 
-     if (paramNumber >= this->paramVector.size())
-         throw(fault("Not enough parameters", fault::CODE_TYPE));
 @@ -277,7 +277,7 @@ paramList::getI8(unsigned int const paramNumber,
          throw(fault("Parameter that is supposed to be 64-bit integer is not", 
                      fault::CODE_TYPE));
