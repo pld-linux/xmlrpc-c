@@ -26,7 +26,7 @@ index 0000000..2876dea
 +
 +set(XMLRPC_C_VERSION_MAJOR "1"  CACHE STRING "Version (major) of xmlrpc-c")
 +set(XMLRPC_C_VERSION_MINOR "39" CACHE STRING "Version (minor) of xmlrpc-c")
-+set(XMLRPC_C_VERSION_POINT "12"  CACHE STRING "Version (point) of xmlrpc-c")
++set(XMLRPC_C_VERSION_POINT "13"  CACHE STRING "Version (point) of xmlrpc-c")
 +
 +set(XMLRPC_C_VERSION
 +  "${XMLRPC_C_VERSION_MAJOR}.${XMLRPC_C_VERSION_MINOR}.${XMLRPC_C_VERSION_POINT}"
