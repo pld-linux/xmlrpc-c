@@ -10,7 +10,7 @@ Group:		Libraries
 # Unfortunately, upstream does not tag versions so we must fetch from the branch
 # and check which version was used for it.
 # for "super stable" versions:
-Source0:	http://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
+Source0:	https://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
 # Source0-md5:	393d5450c74baffc94b36a2a0c838c3b
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
