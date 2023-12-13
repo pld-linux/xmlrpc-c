@@ -30,7 +30,7 @@ BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	ncurses-devel >= 5.7-21
 BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
-BuildRequires:	rpmbuild(macros) >= 1.577
+BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	w3c-libwww-devel >= 5.4.0-20
 BuildRequires:	xz
@@ -52,7 +52,7 @@ Ta biblioteka udostepnia modularną implementacją XML-RPC dla języka C.
 
 %package devel
 Summary:	C header files for xmlrpc-c base libraries
-Summary(pl.UTF-8):	Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c 
+Summary(pl.UTF-8):	Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	curl-devel
