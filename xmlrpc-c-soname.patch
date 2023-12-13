@@ -120,36 +120,36 @@
  the_rpath="-R$LIBINST_DIR $the_rpath"
  the_wl_rpath="-Wl,-rpath,$LIBINST_DIR $the_wl_rpath"
  
---- xmlrpc-c/src/cpp/Makefile.orig	2013-03-03 16:31:11.000000000 +0100
-+++ xmlrpc-c/src/cpp/Makefile	2013-03-03 17:46:03.132099319 +0100
-@@ -119,7 +119,7 @@
+--- xmlrpc-c-1.39.13/src/cpp/Makefile.orig	2023-12-13 18:15:52.748772893 +0100
++++ xmlrpc-c-1.39.13/src/cpp/Makefile	2023-12-13 18:21:03.576428850 +0100
+@@ -122,7 +122,7 @@
    $(LIBXMLRPC_UTIL)
  $(LIBXMLRPC_CPP_SH): LIBOBJECTS = XmlRpcCpp.osh
  $(LIBXMLRPC_CPP_SH): LIBDEP = \
 -  -Lblddir/src  -lxmlrpc_server -lxmlrpc \
 +  -Lblddir/src  -lxmlrpc_server -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
+   $(LIBXMLRPC_UTIL_LIBDEP) \
  
-@@ -130,7 +130,7 @@
-   $(LIBXMLRPC_UTIL)
+@@ -136,7 +136,7 @@
  $(LIBXMLRPCPP_SH): LIBOBJECTS = $(LIBXMLRPCPP_MODS:%=%.osh)
+ 
  $(LIBXMLRPCPP_SH): LIBDEP = \
 -  -Lblddir/src -lxmlrpc \
 +  -Lblddir/src -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
- ifeq ($(MSVCRT),yes)
-@@ -147,7 +147,7 @@
+   -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+@@ -153,7 +153,7 @@
  $(LIBXMLRPC_SERVERPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVERPP_MODS:%=%.osh)
  $(LIBXMLRPC_SERVERPP_SH): LIBDEP = \
    -L. -l$(LIBXMLRPCPP_NAME) \
 -  -Lblddir/src -lxmlrpc_server -lxmlrpc \
 +  -Lblddir/src -lxmlrpc_server -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
- ifeq ($(MSVCRT),yes)
-@@ -166,7 +166,7 @@
+   -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+@@ -176,7 +176,7 @@
  $(LIBXMLRPC_SERVER_ABYSSPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVER_ABYSSPP_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_ABYSSPP_SH): LIBDEP = \
     -L. -lxmlrpc_server++  -l$(LIBXMLRPCPP_NAME) \
@@ -157,43 +157,43 @@
 +   -Lblddir/src -lxmlrpc_server_abyss -lxmlrpc_server -lxmlrpc-c \
     $(XML_PARSER_LIBDEP) \
     -L$(LIBXMLRPC_ABYSS_DIR) -lxmlrpc_abyss \
-    -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
-@@ -184,7 +184,7 @@
+    -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
+@@ -195,7 +195,7 @@
  $(LIBXMLRPC_SERVER_CGIPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVER_CGIPP_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_CGIPP_SH): LIBDEP = \
    -L. -lxmlrpc_server++  -l$(LIBXMLRPCPP_NAME) \
 -  -Lblddir/src -lxmlrpc_server -lxmlrpc \
 +  -Lblddir/src -lxmlrpc_server -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
-  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
- ifeq ($(MSVCRT),yes)
-@@ -201,7 +201,7 @@
+  -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
+  -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+@@ -214,7 +214,7 @@
  $(LIBXMLRPC_SERVER_PSTREAMPP_SH): LIBOBJECTS = $(LIBXMLRPC_SERVER_PSTREAMPP_MODS:%=%.osh)
  $(LIBXMLRPC_SERVER_PSTREAMPP_SH): LIBDEP = \
    -L. -lxmlrpc_server++ -l$(LIBXMLRPCPP_NAME) -lxmlrpc_packetsocket \
 -  -Lblddir/src -lxmlrpc_server -lxmlrpc \
 +  -Lblddir/src -lxmlrpc_server -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
+   -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
    -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
- 
-@@ -222,7 +222,7 @@
+@@ -237,7 +237,7 @@
  $(LIBXMLRPC_CLIENTPP_SH): LIBDEP = \
    -L. -l$(LIBXMLRPCPP_NAME) -lxmlrpc_packetsocket \
    $(shell cat blddir/src/libxmlrpc_client.ldflags) \
 -  -Lblddir/src -lxmlrpc_client -lxmlrpc \
 +  -Lblddir/src -lxmlrpc_client -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
- ifeq ($(MSVCRT),yes)
-@@ -236,7 +236,7 @@
+   -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
+@@ -253,7 +253,7 @@
  $(LIBXMLRPC_PACKETSOCKET_SH): LIBOBJECTS = $(LIBXMLRPC_PACKETSOCKET_MODS:%=%.osh)
  $(LIBXMLRPC_PACKETSOCKET_SH): LIBDEP = \
    -L. -l$(LIBXMLRPCPP_NAME) \
 -  -Lblddir/src -lxmlrpc \
 +  -Lblddir/src -lxmlrpc-c \
    $(XML_PARSER_LIBDEP) \
-   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util
- ifeq ($(MSVCRT),yes)
+   -L$(LIBXMLRPC_UTILPP_DIR) -lxmlrpc_util++ \
+   -L$(LIBXMLRPC_UTIL_DIR) -lxmlrpc_util \
 --- xmlrpc-c/src/xmlrpc.pc.cmake.orig	2013-03-03 17:06:35.285532023 +0100
 +++ xmlrpc-c/src/xmlrpc.pc.cmake	2013-03-03 17:46:37.542097875 +0100
 @@ -8,5 +8,5 @@
@@ -277,7 +277,7 @@
 +set(base_LIBS xmlrpc-c)
  ensc_add_example(json               c base)
  ensc_add_example(gen_sample_add_xml c base)
- 
+ ensc_add_example(parse_xml          c base)
 --- xmlrpc-c/tools/xml/CMakeLists.txt.orig	2013-03-03 17:51:15.572086205 +0100
 +++ xmlrpc-c/tools/xml/CMakeLists.txt	2013-03-03 17:56:38.495405989 +0100
 @@ -5,7 +5,7 @@

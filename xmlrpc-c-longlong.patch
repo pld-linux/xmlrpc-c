@@ -31,7 +31,7 @@ index cdc9161..cbdf3d0 100644
  #include <stdarg.h>
 +#include <stdint.h>
  #include <time.h>
- #include <xmlrpc-c/c_util.h>
+ #include <xmlrpc-c/c_util.h>  /* For XMLRPC_DLLEXPORT */
  #include <xmlrpc-c/util.h>
 @@ -50,9 +51,9 @@ xmlrpc_version(unsigned int * const majorP,
  

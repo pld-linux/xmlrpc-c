@@ -3,7 +3,7 @@ diff -Nuard xmlrpc-c-0.9.9.orig/configure.in xmlrpc-c-0.9.9/configure.in
 +++ xmlrpc-c-0.9.9/configure.in	2003-09-15 03:26:33.000000000 +0200
 @@ -147,6 +147,7 @@
  
- AC_SUBST(AVAILABLE_MODULES)
+ AC_SUBST(FEATURE_LIST)
  
 +AM_CONDITIONAL(am__fastdepCXX, test yes = $enable_cplusplus)
  

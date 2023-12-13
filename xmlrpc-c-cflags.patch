@@ -18,4 +18,4 @@
 +  CXXFLAGS_COMMON += $(GCC_CXX_WARNINGS)
  endif
  
- # This is the Libtool option to specify the runtime path of shared
+ # -qrtti tell the IBM compilers to allow dynamic type casting.  Without it,
