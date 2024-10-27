@@ -10,14 +10,14 @@ new file mode 100644
 index 0000000..2876dea
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,290 @@
+@@ -0,0 +1,295 @@
 +## -*- cmake -*-
 +project(xmlrpc-c)
 +include(FindPkgConfig)
 +include(CheckIncludeFile)
 +include(CheckFunctionExists)
 +
-+cmake_minimum_required(VERSION 2.4)
++cmake_minimum_required(VERSION 3.5)
 +
 +if(COMMAND cmake_policy)
 +  cmake_policy(SET CMP0003 NEW)
@@ -25,8 +25,8 @@ index 0000000..2876dea
 +
 +
 +set(XMLRPC_C_VERSION_MAJOR "1"  CACHE STRING "Version (major) of xmlrpc-c")
-+set(XMLRPC_C_VERSION_MINOR "39" CACHE STRING "Version (minor) of xmlrpc-c")
-+set(XMLRPC_C_VERSION_POINT "13"  CACHE STRING "Version (point) of xmlrpc-c")
++set(XMLRPC_C_VERSION_MINOR "43" CACHE STRING "Version (minor) of xmlrpc-c")
++set(XMLRPC_C_VERSION_POINT "08"  CACHE STRING "Version (point) of xmlrpc-c")
 +
 +set(XMLRPC_C_VERSION
 +  "${XMLRPC_C_VERSION_MAJOR}.${XMLRPC_C_VERSION_MINOR}.${XMLRPC_C_VERSION_POINT}"
@@ -97,9 +97,9 @@ index 0000000..2876dea
 +
 +if(tmp)
 +  set(MUST_BUILD_CLIENT 1)
-+  exec_program(${WININET_CONFIG_EXECUTABLE} ARGS --version OUTPUT_VARIABLE WININET_VERSION)
-+  exec_program(${WININET_CONFIG_EXECUTABLE} ARGS --cflags  OUTPUT_VARIABLE WININET_CFLAGS)
-+  exec_program(${WININET_CONFIG_EXECUTABLE} ARGS --libs    OUTPUT_VARIABLE WININET_LDADD)
++  execute_process(COMMAND ${WININET_CONFIG_EXECUTABLE} --version OUTPUT_VARIABLE WININET_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
++  execute_process(COMMAND ${WININET_CONFIG_EXECUTABLE} --cflags  OUTPUT_VARIABLE WININET_CFLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
++  execute_process(COMMAND ${WININET_CONFIG_EXECUTABLE} --libs    OUTPUT_VARIABLE WININET_LDADD OUTPUT_STRIP_TRAILING_WHITESPACE)
 +  message(STATUS "Using WinInet ${WININET_VERSION} transport")
 +endif(tmp)
 +
@@ -136,9 +136,9 @@ index 0000000..2876dea
 +
 +if(tmp)
 +  set(MUST_BUILD_CLIENT 1)
-+  exec_program(${LIBWWW_CONFIG_EXECUTABLE} ARGS --version OUTPUT_VARIABLE LIBWWW_VERSION)
-+  exec_program(${LIBWWW_CONFIG_EXECUTABLE} ARGS --libs    OUTPUT_VARIABLE LIBWWW_LIBS)
-+  exec_program(${LIBWWW_CONFIG_EXECUTABLE} ARGS --cflags  OUTPUT_VARIABLE LIBWWW_CFLAGS)
++  execute_process(COMMAND ${LIBWWW_CONFIG_EXECUTABLE} --version OUTPUT_VARIABLE LIBWWW_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
++  execute_process(COMMAND ${LIBWWW_CONFIG_EXECUTABLE} --libs    OUTPUT_VARIABLE LIBWWW_LIBS OUTPUT_STRIP_TRAILING_WHITESPACE)
++  execute_process(COMMAND ${LIBWWW_CONFIG_EXECUTABLE} --cflags  OUTPUT_VARIABLE LIBWWW_CFLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
 +  message(STATUS "Using libwww ${LIBWWW_VERSION} transport")
 +endif(tmp)
 +ensc_set_bool(MUST_BUILD_LIBWWW_CLIENT ${tmp} "Set iff LibWWW client transport shall be built")
@@ -152,6 +152,11 @@ index 0000000..2876dea
 +set(ENABLE_LIBXML2_BACKEND 1 CACHE BOOL "Set iff libxml2 backend shall be used")
 +set(ENABLE_ABYSS_SERVER    1 CACHE BOOL "Set iff abyss server shall be enabled")
 +set(ENABLE_ABYSS_THREADS   1 CACHE BOOL "Use pthread")
++set(MUST_BUILD_ABYSS_OPENSSL 1 CACHE BOOL "Use OpenSSL")
++
++if(MUST_BUILD_ABYSS_OPENSSL)
++  pkg_check_modules(OPENSSL openssl)
++endif(MUST_BUILD_ABYSS_OPENSSL)
 +
 +if(ENABLE_LIBXML2_BACKEND)
 +  pkg_check_modules(LIBXML2 libxml-2.0)
@@ -330,7 +335,7 @@ new file mode 100644
 index 0000000..1535adf
 --- /dev/null
 +++ b/examples/CMakeLists.txt
-@@ -0,0 +1,68 @@
+@@ -0,0 +1,67 @@
 +# -*- cmake -*-
 +
 +include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -357,7 +362,6 @@ index 0000000..1535adf
 +set(base_LIBS xmlrpc)
 +ensc_add_example(json               c base)
 +ensc_add_example(gen_sample_add_xml c base)
-+ensc_add_example(parse_xml          c base)
 +
 +if(MUST_BUILD_CLIENT)
 +  set(client_LIBS xmlrpc_client)
@@ -460,7 +464,7 @@ new file mode 100644
 index 0000000..b9386b8
 --- /dev/null
 +++ b/include/xmlrpc-c/CMakeLists.txt
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,84 @@
 +# -*- cmake -*-
 +
 +macro(ensc_install_symlink src dst)
@@ -500,7 +504,12 @@ index 0000000..b9386b8
 +    registry.hpp
 +    server_abyss.hpp
 +    packetsocket.hpp
-+    server_pstream.hpp)
++    server_pstream.hpp
++    AbyssEnvironment.hpp
++    AbyssServer.hpp
++    abyss_reqhandler_xmlrpc.hpp
++    AbyssChanSwitch.hpp
++    AbyssChanSwitchUnix.hpp)
 +
 +  list(APPEND compat_links "oldcppwrapper.hpp XmlRpcCpp.h")
 +endif(ENABLE_CPLUSPLUS)
@@ -527,6 +536,10 @@ index 0000000..b9386b8
 +
 +  list(APPEND compat_links "server_cgi.h xmlrpc_cgi.h")
 +endif(ENABLE_CGI_SERVER)
++
++if(MUST_BUILD_OPENSSL)
++  list(APPEND headers openssl_thread.h)
++endif(MUST_BUILD_OPENSSL)
 +
 +install(FILES
 +  ${headers}
@@ -610,7 +623,7 @@ new file mode 100644
 index 0000000..b1813bb
 --- /dev/null
 +++ b/lib/abyss/src/CMakeLists.txt
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,80 @@
 +## -*- cmake -*-
 +
 +set(xmlrpc_abyss_SOURCES
@@ -638,6 +651,8 @@ index 0000000..b1813bb
 +  server.h
 +  session.c
 +  session.h
++  sessionReadRequest.c
++  sessionReadRequest.h
 +  socket.c
 +  socket.h
 +  thread.h
@@ -651,13 +666,16 @@ index 0000000..b1813bb
 +if(WIN32)
 +  list(APPEND xmlrpc_abyss_SOURCES thread_windows.c)
 +else(WIN32)
-+  list(APPEND xmlrpc_abyss_SOURCES socket_unix.c socket_unix.h)
++  list(APPEND xmlrpc_abyss_SOURCES socket_unix.c socket_unix.h sockutil.c sockutil.h)
 +
 +  if(ENABLE_ABYSS_THREADS)
 +    list(APPEND xmlrpc_abyss_SOURCES thread_pthread.c)
 +  else(ENABLE_ABYSS_THREADS)
 +    list(APPEND xmlrpc_abyss_SOURCES thread_fork.c)
 +  endif(ENABLE_ABYSS_THREADS)
++  if(MUST_BUILD_ABYSS_OPENSSL)
++    list(APPEND xmlrpc_abyss_SOURCES socket_openssl.c socket_openssl.h)
++  endif(MUST_BUILD_ABYSS_OPENSSL)
 +endif(WIN32)
 +
 +add_library(xmlrpc_abyss SHARED ${xmlrpc_abyss_SOURCES})
@@ -668,6 +686,11 @@ index 0000000..b1813bb
 +  target_link_libraries(xmlrpc_abyss ${THREAD_LIBS})
 +  ensc_pkgconfig_lib(xmlrpc_abyss "${THREAD_LIBS_PKGCONFIG}")
 +endif(ENABLE_ABYSS_THREADS)
++
++if(MUST_BUILD_ABYSS_OPENSSL)
++  target_link_libraries(xmlrpc_abyss ${OPENSSL_LIBRARIES})
++  ensc_pkgconfig_lib(xmlrpc_abyss "${OPENSSL_LIBRARIES}")
++endif(MUST_BUILD_ABYSS_OPENSSL)
 +
 +install(TARGETS xmlrpc_abyss
 +  RUNTIME DESTINATION ${_bin}
@@ -704,13 +727,24 @@ new file mode 100644
 index 0000000..b1813bb
 --- /dev/null
 +++ b/lib/abyss++/CMakeLists.txt
-@@ -0,0 +1,21 @@
+@@ -0,0 +1,32 @@
 +## -*- cmake -*-
 +
-+add_library(xmlrpc_abyss++ SHARED
++set(abysspp_SOURCES
 +  AbyssChanSwitch.cpp
 +  AbyssEnvironment.cpp
 +  AbyssServer.cpp)
++
++if(WIN32)
++  list(APPEND abysspp_SOURCES AbyssChanSwitchWin.cpp)
++else(WIN32)
++  list(APPEND abysspp_SOURCES AbyssChanSwitchUnix.cpp)
++  if(MUST_BUILD_OPENSSL)
++    list(APPEND abysspp_SOURCESS AbyssChanSwitchOpenSsl.cpp)
++  endif(MUST_BUILD_OPENSSL)
++endif(WIN32)
++
++add_library(xmlrpc_abyss++ SHARED ${abysspp_SOURCES})
 +
 +target_link_libraries(xmlrpc_abyss++ xmlrpc_abyss xmlrpc_util++ xmlrpc_util)
 +
@@ -869,7 +903,7 @@ new file mode 100644
 index 0000000..25ba487
 --- /dev/null
 +++ b/lib/libutil/CMakeLists.txt
-@@ -0,0 +1,30 @@
+@@ -0,0 +1,31 @@
 +# -*- cmake -*-
 +
 +add_library(xmlrpc_util SHARED
@@ -881,6 +915,7 @@ index 0000000..25ba487
 +  lock_none.c
 +  make_printable.c
 +  memblock.c
++  mempool.c
 +  select.c
 +  sleep.c
 +  string_number.c
@@ -1074,9 +1109,9 @@ index 0000000..f51e15b
 +  xmlrpc_build.c xmlrpc_decompose.c xmlrpc_parse.c xmlrpc_serialize.c
 +  xmlrpc_authcookie.c)
 +
-+set_target_properties(xmlrpc
-+  PROPERTIES
-+  COMPILE_FLAGS ${libxml_INCLUDES})
++target_compile_options(xmlrpc
++  PRIVATE
++  ${libxml_INCLUDES})
 +
 +ensc_pkgconfig(xmlrpc)
 +target_link_libraries(xmlrpc ${libxml_LIBS} xmlrpc_util)
@@ -1472,7 +1507,7 @@ new file mode 100644
 index 0000000..e712382
 --- /dev/null
 +++ b/test/CMakeLists.txt
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,42 @@
 +# -*- cmake -*-
 +
 +set(test_SOURCES
@@ -1480,6 +1515,7 @@ index 0000000..e712382
 +  abyss.h
 +  test.c
 +  cgi.c
++  memblock.c
 +  method_registry.c
 +  parse_xml.c
 +  serialize.c
@@ -1912,7 +1948,7 @@ new file mode 100644
 index 0000000..9eff724
 --- /dev/null
 +++ b/xmlrpc_config.h.cmake
-@@ -0,0 +1,184 @@
+@@ -0,0 +1,198 @@
 +/* -*- c -*- */
 +
 +#ifndef H_XMLRPC_C_CONFIG_H
@@ -2094,6 +2130,20 @@ index 0000000..9eff724
 +  #define XMLRPC_CHDIR _chdir
 +#else
 +  #define XMLRPC_CHDIR chdir
++#endif
++
++#if MSVCRT
++  #define XMLRPC_GETPID _getpid
++#else
++  #define XMLRPC_GETPID getpid
++#endif
++
++#define HAVE_ABYSS_OPENSSL 1
++
++#if MSVCRT
++  #define XMLRPC_FINITE _finite
++#else
++  #define XMLRPC_FINITE finite
 +#endif
 +
 +#endif

@@ -1,7 +1,7 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.39.13
+Version:	1.43.08
 Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
@@ -11,16 +11,16 @@ Group:		Libraries
 # and check which version was used for it.
 # for "super stable" versions:
 Source0:	https://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
-# Source0-md5:	393d5450c74baffc94b36a2a0c838c3b
+# Source0-md5:	8df27727547c4831fa858bf5059b6f7c
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
 Patch3:		%{name}-format.patch
+Patch4:		%{name}-libxml2.patch
 # patches 10+ come from Fedora (cmake patch is updated from original version)
 Patch10:	%{name}-cmake.patch
 Patch11:	%{name}-printf-size_t.patch
 Patch12:	%{name}-longlong.patch
-Patch13:	%{name}-uninit-curl.patch
 Patch14:	%{name}-30x-redirect.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	cmake >= 2.6
@@ -276,10 +276,10 @@ XML-RPC.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
-%patch13 -p1
 %patch14 -p1
 %patch1 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 mkdir -p build
@@ -416,6 +416,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so
 %attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so
 %attr(755,root,root) %{_libdir}/libxmlrpc_util++.so
+%{_includedir}/xmlrpc-c/AbyssChanSwitch.hpp
+%{_includedir}/xmlrpc-c/AbyssChanSwitchUnix.hpp
+%{_includedir}/xmlrpc-c/AbyssEnvironment.hpp
+%{_includedir}/xmlrpc-c/AbyssServer.hpp
+%{_includedir}/xmlrpc-c/abyss_reqhandler_xmlrpc.hpp
 %{_includedir}/xmlrpc-c/base.hpp
 %{_includedir}/xmlrpc-c/base64.hpp
 %{_includedir}/xmlrpc-c/girerr.hpp

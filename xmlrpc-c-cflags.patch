@@ -1,12 +1,11 @@
---- xmlrpc-c-1.10.00.org/common.mk	2007-03-23 03:02:14.000000000 +0100
-+++ xmlrpc-c-1.10.00/common.mk	2007-04-11 09:05:10.452171013 +0200
-@@ -28,15 +28,15 @@
- # assertion and crash the program if it isn't really true.  You can add
+--- xmlrpc-c-1.43.08/common.mk.orig	2024-10-26 21:26:23.240673775 +0200
++++ xmlrpc-c-1.43.08/common.mk	2024-10-26 21:30:32.219324942 +0200
+@@ -49,14 +49,14 @@ GCC_CXX_WARNINGS = $(GCC_WARNINGS)  -Wsy
  # -UNDEBUG (in any of various ways) to override this.
  #
--CFLAGS_COMMON = -DNDEBUG
-+CFLAGS_COMMON = -DNDEBUG -fPIC
- CXXFLAGS_COMMON = -DNDEBUG
+ CFLAGS_COMMON = -DNDEBUG $(CFLAGS_PTHREAD)
+-CXXFLAGS_COMMON = -DNDEBUG $(CFLAGS_PTHREAD)
++CXXFLAGS_COMMON = -DNDEBUG $(CFLAGS_PTHREAD) -fPIC
  
  ifeq ($(C_COMPILER_GNU),yes)
 -  CFLAGS_COMMON += $(GCC_C_WARNINGS) -fno-common -g -O3
