@@ -271,15 +271,15 @@ XML-RPC.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch2 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch14 -p1
-%patch1 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P0 -p1
+%patch -P2 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P14 -p1
+%patch -P1 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 %build
 mkdir -p build
