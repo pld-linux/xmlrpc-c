@@ -2,7 +2,7 @@ Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
 Version:	1.43.08
-Release:	1
+Release:	2
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # for feature versions:
