@@ -1,8 +1,8 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.43.08
-Release:	2
+Version:	1.60.05
+Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # for feature versions:
@@ -11,12 +11,10 @@ Group:		Libraries
 # and check which version was used for it.
 # for "super stable" versions:
 Source0:	https://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
-# Source0-md5:	8df27727547c4831fa858bf5059b6f7c
+# Source0-md5:	643abc5b51929400bbb0ceb4c34f2dc4
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
-Patch3:		%{name}-format.patch
-Patch4:		%{name}-libxml2.patch
 # patches 10+ come from Fedora (cmake patch is updated from original version)
 Patch10:	%{name}-cmake.patch
 Patch11:	%{name}-printf-size_t.patch
@@ -278,14 +276,13 @@ XML-RPC.
 %patch -P12 -p1
 %patch -P14 -p1
 %patch -P1 -p1
-%patch -P3 -p1
-%patch -P4 -p1
 
 %build
 mkdir -p build
 cd build
 %cmake .. \
 	-D_lib:STRING=%{_lib} \
+	-DCMAKE_C_FLAGS="-std=gnu17" \
 	-DCMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
 	-DCMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" \
 	-DMUST_BUILD_CURL_CLIENT:BOOL=ON \
