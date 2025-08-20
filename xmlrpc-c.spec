@@ -23,6 +23,7 @@ Patch14:	%{name}-30x-redirect.patch
 URL:		http://xmlrpc-c.sourceforge.net/
 BuildRequires:	cmake >= 2.6
 BuildRequires:	curl-devel
+BuildRequires:	gcc >= 6:7
 BuildRequires:	libstdc++-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	ncurses-devel >= 5.7-21
