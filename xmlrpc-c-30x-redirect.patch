@@ -1,13 +1,14 @@
---- xmlrpc-c-1.60.05/lib/curl_transport/curltransaction.c	2023-12-26 20:30:28.000000000 +0100
-+++ xmlrpc-c-1.60.05/lib/curl_transport/curltransaction.c	2025-08-16 12:09:40.451572875 +0200
-@@ -709,6 +709,10 @@
+--- xmlrpc-1.64.03/lib/curl_transport/curltransaction.c.orig	2025-12-25 04:19:23.000000000 +0100
++++ xmlrpc-1.64.03/lib/curl_transport/curltransaction.c	2026-06-20 19:28:35.805519308 +0200
+@@ -800,6 +800,11 @@ setupCurlSession(xmlrpc_env *
+ 
      curl_easy_setopt(curlSessionP, CURLOPT_POST, 1);
      curl_easy_setopt(curlSessionP, CURLOPT_URL, transP->serverUrl);
- 
++ 
 +    curl_easy_setopt(curlSessionP, CURLOPT_FOLLOWLOCATION, 1);
 +    curl_easy_setopt(curlSessionP, CURLOPT_MAXREDIRS, (long)10);
 +    curl_easy_setopt(curlSessionP, CURLOPT_POSTREDIR, CURL_REDIR_POST_ALL);
 +
-     XMLRPC_MEMBLOCK_APPEND(char, envP, transP->postDataP, "\0", 1);
-     if (!envP->fault_occurred) {
-         curl_easy_setopt(curlSessionP, CURLOPT_POSTFIELDS,
+     if (unixSocketPath) {
+         curl_easy_setopt(curlSessionP,
+                          CURLOPT_UNIX_SOCKET_PATH, unixSocketPath);
