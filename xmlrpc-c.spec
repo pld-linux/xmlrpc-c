@@ -1,3 +1,4 @@
+# TODO: consider packaging static libs?
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
@@ -15,24 +16,21 @@ Source0:	https://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
+Patch3:		%{name}-pc.patch
 # patches 10+ come from Fedora (cmake patch is updated from original version)
-Patch10:	%{name}-cmake.patch
 Patch11:	%{name}-printf-size_t.patch
 Patch12:	%{name}-longlong.patch
 Patch14:	%{name}-30x-redirect.patch
-URL:		http://xmlrpc-c.sourceforge.net/
-BuildRequires:	cmake >= 2.6
+URL:		https://xmlrpc-c.sourceforge.net/
 BuildRequires:	curl-devel
-BuildRequires:	gcc >= 6:7
 BuildRequires:	libstdc++-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	ncurses-devel >= 5.7-21
+BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
 BuildRequires:	rpmbuild(macros) >= 1.605
-BuildRequires:	tar >= 1:1.22
 BuildRequires:	w3c-libwww-devel >= 5.4.0-20
-BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -55,9 +53,9 @@ Summary(pl.UTF-8):	Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	curl-devel
-Requires:	expat-devel
 Requires:	libxml2-devel >= 2.0
 Requires:	w3c-libwww-devel
+Obsoletes:	xmlrpc-c-static < 1.20
 
 %description devel
 C header files for xmlrpc-c base libraries.
@@ -134,6 +132,31 @@ C header files for xmlrpc-c server libraries.
 
 %description server-devel -l pl.UTF-8
 Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c.
+
+%package openssl
+Summary:	XML-RPC OpenSSL library
+Summary(pl.UTF-8):	Biblioteka XML-RPC OpenSSL
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description openssl
+XML-RPC OpenSSL library.
+
+%description openssl -l pl.UTF-8
+Biblioteka XML-RPC OpenSSL.
+
+%package openssl-devel
+Summary:	Development files for XML-RPC OpenSSL library
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki XML-RPC OpenSSL
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-openssl = %{version}-%{release}
+
+%description openssl-devel
+Development files for XML-RPC OpenSSL library.
+
+%description openssl-devel -l pl.UTF-8
+Pliki programistyczne biblioteki XML-RPC OpenSSL.
 
 %package c++
 Summary:	C++ libraries for xmlrpc-c
@@ -252,6 +275,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-c++ = %{version}-%{release}
 Requires:	%{name}-client = %{version}-%{release}
 Requires:	%{name}-client++ = %{version}-%{release}
+Requires:	%{name}-server = %{version}-%{release}
 
 %description apps
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -272,34 +296,34 @@ XML-RPC.
 %setup -q
 %patch -P0 -p1
 %patch -P2 -p1
-%patch -P10 -p1
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P14 -p1
 %patch -P1 -p1
+%patch -P3 -p1
 
 %build
-mkdir -p build
-cd build
-%cmake .. \
-	-D_lib:STRING=%{_lib} \
-	-DCMAKE_C_FLAGS="-std=gnu17" \
-	-DCMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
-	-DCMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" \
-	-DMUST_BUILD_CURL_CLIENT:BOOL=ON \
-	-DMUST_BUILD_LIBWWW_CLIENT:BOOL=ON \
-	-DBUILD_SHARED_LIBS:BOOL=ON \
-	-DENABLE_TOOLS:BOOL=ON
+%configure \
+	--enable-libxml2-backend
 
-%{__make}
+%if "%{_ver_ge %{cc_version} 14.0}" == "1"
+CSTD=-std=gnu17
+%endif
+%{__make} -j1 \
+	CFLAGS="%{rpmcflags} $CSTD" \
+
+%{__make} -C tools -j1 \
+	CFLAGS="%{rpmcflags} $CSTD"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C build install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
+	STATIC_LIBRARIES_TO_INSTALL=
 
-chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so*
+%{__make} -C tools -j1 install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 # Win32-specific
 %{__rm} $RPM_BUILD_ROOT%{_includedir}/xmlrpc_server_w32httpsys.h \
@@ -317,6 +341,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	server -p /sbin/ldconfig
 %postun server -p /sbin/ldconfig
 
+%post	openssl -p /sbin/ldconfig
+%postun	openssl -p /sbin/ldconfig
+
 %post	c++ -p /sbin/ldconfig
 %postun	c++ -p /sbin/ldconfig
 
@@ -329,20 +356,20 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README doc/{COPYING,CREDITS,HISTORY,SECURITY,TODO}
-%attr(755,root,root) %{_libdir}/libxmlrpc-c.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc-c.so.3
-%attr(755,root,root) %{_libdir}/libxmlrpc_abyss.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_abyss.so.3
-%attr(755,root,root) %{_libdir}/libxmlrpc_util.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_util.so.3
+%{_libdir}/libxmlrpc-c.so.*.*
+%ghost %{_libdir}/libxmlrpc-c.so.3
+%{_libdir}/libxmlrpc_abyss.so.*.*
+%ghost %{_libdir}/libxmlrpc_abyss.so.3
+%{_libdir}/libxmlrpc_util.so.*.*
+%ghost %{_libdir}/libxmlrpc_util.so.4
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/{DEVELOPING,TESTING}
 %attr(755,root,root) %{_bindir}/xmlrpc-c-config
-%attr(755,root,root) %{_libdir}/libxmlrpc-c.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_abyss.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_util.so
+%{_libdir}/libxmlrpc-c.so
+%{_libdir}/libxmlrpc_abyss.so
+%{_libdir}/libxmlrpc_util.so
 %dir %{_includedir}/xmlrpc-c
 %{_includedir}/xmlrpc-c/abyss*.h
 %{_includedir}/xmlrpc-c/base.h
@@ -360,30 +387,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %files client
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_client.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client.so.3
+%{_libdir}/libxmlrpc_client.so.*.*
+%ghost %{_libdir}/libxmlrpc_client.so.3
 
 %files client-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_client.so
+%{_libdir}/libxmlrpc_client.so
 %{_includedir}/xmlrpc-c/client*.h
 %{_includedir}/xmlrpc_client.h
 %{_pkgconfigdir}/xmlrpc_client.pc
 
 %files server
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_server.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server.so.3
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_abyss.so.3
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_cgi.so.3
+%{_libdir}/libxmlrpc_server.so.*.*
+%ghost %{_libdir}/libxmlrpc_server.so.3
+%{_libdir}/libxmlrpc_server_abyss.so.*.*
+%ghost %{_libdir}/libxmlrpc_server_abyss.so.3
+%{_libdir}/libxmlrpc_server_cgi.so.*.*
+%ghost %{_libdir}/libxmlrpc_server_cgi.so.3
 
 %files server-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_server.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi.so
+%{_libdir}/libxmlrpc_server.so
+%{_libdir}/libxmlrpc_server_abyss.so
+%{_libdir}/libxmlrpc_server_cgi.so
 %{_includedir}/xmlrpc-c/server.h
 %{_includedir}/xmlrpc-c/server_abyss.h
 %{_includedir}/xmlrpc-c/server_cgi.h
@@ -394,26 +421,36 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/xmlrpc_server_abyss.pc
 %{_pkgconfigdir}/xmlrpc_server_cgi.pc
 
+%files openssl
+%defattr(644,root,root,755)
+%{_libdir}/libxmlrpc_openssl.so.*.*
+%ghost %{_libdir}/libxmlrpc_openssl.so.1
+
+%files openssl-devel
+%defattr(644,root,root,755)
+%{_libdir}/libxmlrpc_openssl.so
+%{_pkgconfigdir}/xmlrpc_openssl.pc
+
 %files c++
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc++.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_abyss++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_abyss++.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_cpp.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_packetsocket.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_util++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_util++.so.8
+%{_libdir}/libxmlrpc++.so.*.*
+%ghost %{_libdir}/libxmlrpc++.so.9
+%{_libdir}/libxmlrpc_abyss++.so.*.*
+%ghost %{_libdir}/libxmlrpc_abyss++.so.9
+%{_libdir}/libxmlrpc_cpp.so.*.*
+%ghost %{_libdir}/libxmlrpc_cpp.so.9
+%{_libdir}/libxmlrpc_packetsocket.so.*.*
+%ghost %{_libdir}/libxmlrpc_packetsocket.so.9
+%{_libdir}/libxmlrpc_util++.so.*.*
+%ghost %{_libdir}/libxmlrpc_util++.so.9
 
 %files c++-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_abyss++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_cpp.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_packetsocket.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_util++.so
+%{_libdir}/libxmlrpc++.so
+%{_libdir}/libxmlrpc_abyss++.so
+%{_libdir}/libxmlrpc_cpp.so
+%{_libdir}/libxmlrpc_packetsocket.so
+%{_libdir}/libxmlrpc_util++.so
 %{_includedir}/xmlrpc-c/AbyssChanSwitch.hpp
 %{_includedir}/xmlrpc-c/AbyssChanSwitchUnix.hpp
 %{_includedir}/xmlrpc-c/AbyssEnvironment.hpp
@@ -437,32 +474,32 @@ rm -rf $RPM_BUILD_ROOT
 
 %files client++
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_client++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_client++.so.8
+%{_libdir}/libxmlrpc_client++.so.*.*
+%ghost %{_libdir}/libxmlrpc_client++.so.9
 
 %files client++-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_client++.so
+%{_libdir}/libxmlrpc_client++.so
 %{_includedir}/xmlrpc-c/client*.hpp
 %{_pkgconfigdir}/xmlrpc_client++.pc
 
 %files server++
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_server++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server++.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_abyss++.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_cgi++.so.8
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_pstream++.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxmlrpc_server_pstream++.so.8
+%{_libdir}/libxmlrpc_server++.so.*.*
+%ghost %{_libdir}/libxmlrpc_server++.so.9
+%{_libdir}/libxmlrpc_server_abyss++.so.*.*
+%ghost %{_libdir}/libxmlrpc_server_abyss++.so.9
+%{_libdir}/libxmlrpc_server_cgi++.so.*.*
+%ghost %{_libdir}/libxmlrpc_server_cgi++.so.9
+%{_libdir}/libxmlrpc_server_pstream++.so.*.*
+%ghost %{_libdir}/libxmlrpc_server_pstream++.so.9
 
 %files server++-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxmlrpc_server++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_abyss++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_cgi++.so
-%attr(755,root,root) %{_libdir}/libxmlrpc_server_pstream++.so
+%{_libdir}/libxmlrpc_server++.so
+%{_libdir}/libxmlrpc_server_abyss++.so
+%{_libdir}/libxmlrpc_server_cgi++.so
+%{_libdir}/libxmlrpc_server_pstream++.so
 %{_includedir}/xmlrpc-c/server_abyss.hpp
 %{_includedir}/xmlrpc-c/server_pstream.hpp
 %{_pkgconfigdir}/xmlrpc_server++.pc
@@ -479,6 +516,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xml-rpc-api2cpp
 %attr(755,root,root) %{_bindir}/xml-rpc-api2txt
 %attr(755,root,root) %{_bindir}/xmlrpc_cpp_proxy
+%attr(755,root,root) %{_bindir}/xmlrpc_dumpserver
 %attr(755,root,root) %{_bindir}/xmlrpc_pstream
 %{_mandir}/man1/xml-rpc-api2cpp.1*
 %{_mandir}/man1/xml-rpc-api2txt.1*

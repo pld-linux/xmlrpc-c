@@ -1,0 +1,65 @@
+Add missing .pc files (they existed in non-upstream cmake files)
+--- xmlrpc-c-1.60.05/src/cpp/Makefile.orig	2026-06-20 13:31:16.305000384 +0200
++++ xmlrpc-c-1.60.05/src/cpp/Makefile	2026-06-20 13:35:05.503758708 +0200
+@@ -76,6 +76,10 @@ PKGCONFIG_FILES_TO_INSTALL := \
+   xmlrpc_client++.pc \
+   xmlrpc_server++.pc \
+   xmlrpc_server_pstream++.pc \
++  xmlrpc_cpp.pc \
++  xmlrpc_packetsocket.pc \
++  xmlrpc_server_abyss++.pc \
++  xmlrpc_server_cgi++.pc \
+ 
+ OMIT_CPP_LIB_RULES = Y
+ MAJ = 9
+@@ -407,6 +411,50 @@ xmlrpc_server_pstream++.pc:
+ 	@echo "Libs:     -L$(LIBDESTDIR) -lxmlrpc_server_pstream++ -lxmlrpc_packetsocket"              >>$@
+ 	@echo "Cflags:   -I$(HEADERDESTDIR)"                               >>$@
+ 
++xmlrpc_cpp.pc:
++	rm -f $@
++	@echo "Echoes to '$@' suppressed here ..."
++	@echo "Name:        xmlrpc_cpp"                                    >>$@
++	@echo "Description: Xmlrpc-c CPP library"                          >>$@
++	@echo "Version:     $(XMLRPC_VERSION_STRING)"                      >>$@
++	@echo	                                                           >>$@
++	@echo "Requires: xmlrpc xmlrpc_server xmlrpc_util"                 >>$@
++	@echo "Libs:     -L$(LIBDESTDIR) -lxmlrpc_cpp"                     >>$@
++	@echo "Cflags:   -I$(HEADERDESTDIR)"                               >>$@
++
++xmlrpc_packetsocket.pc:
++	rm -f $@
++	@echo "Echoes to '$@' suppressed here ..."
++	@echo "Name:        xmlrpc_packetsocket"                           >>$@
++	@echo "Description: Xmlrpc-c packet socket library"                >>$@
++	@echo "Version:     $(XMLRPC_VERSION_STRING)"                      >>$@
++	@echo	                                                           >>$@
++	@echo "Requires: xmlrpc++"                                         >>$@
++	@echo "Libs:     -L$(LIBDESTDIR) -lxmlrpc_packetsocket"            >>$@
++	@echo "Cflags:   -I$(HEADERDESTDIR)"                               >>$@
++
++xmlrpc_server_abyss++.pc:
++	rm -f $@
++	@echo "Echoes to '$@' suppressed here ..."
++	@echo "Name:        xmlrpc_server_abyss++"                         >>$@
++	@echo "Description: Xmlrpc-c C++ Abyss-Server library"             >>$@
++	@echo "Version:     $(XMLRPC_VERSION_STRING)"                      >>$@
++	@echo	                                                           >>$@
++	@echo "Requires: xmlrpc_server++ xmlrpc_server_abyss xmlrpc++ xmlrpc_abyss xmlrpc_util" >>$@
++	@echo "Libs:     -L$(LIBDESTDIR) -lxmlrpc_server_abyss++"          >>$@
++	@echo "Cflags:   -I$(HEADERDESTDIR)"                               >>$@
++
++xmlrpc_server_cgi++.pc:
++	rm -f $@
++	@echo "Echoes to '$@' suppressed here ..."
++	@echo "Name:        xmlrpc_server_cgi++"                           >>$@
++	@echo "Description: Xmlrpc-c C++ CGI-Server library"               >>$@
++	@echo "Version:     $(XMLRPC_VERSION_STRING)"                      >>$@
++	@echo	                                                           >>$@
++	@echo "Requires: xmlrpc_server++ xmlrpc++ xmlrpc"                  >>$@
++	@echo "Libs:     -L$(LIBDESTDIR) -lxmlrpc_server_cgi++"            >>$@
++	@echo "Cflags:   -I$(HEADERDESTDIR)"                               >>$@
++
+ #-----------------------------------------------------------------------------
+ #  MISCELLANEOUS RULES
+ #-----------------------------------------------------------------------------
