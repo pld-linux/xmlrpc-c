@@ -89,6 +89,15 @@
  
  libxmlrpc_server.a: $(LIBXMLRPC_SERVER_MODS:%=%.o)
  libxmlrpc_server.a: LIBOBJECTS = $(LIBXMLRPC_SERVER_MODS:%=%.o)
+@@ -340,7 +340,7 @@ xmlrpc.pc:
+ 	@echo 'Version:     $(XMLRPC_VERSION_STRING)'                      >>$@
+ 	@echo	                                                           >>$@
+ 	@echo 'Requires: xmlrpc_util $(XML_PKGCONFIG_REQ)'                 >>$@
+-	@echo 'Libs:     -L$${libdir} -lxmlrpc'                            >>$@
++	@echo 'Libs:     -L$${libdir} -lxmlrpc-c'                          >>$@
+ 	@echo 'Cflags:   -I$${includedir}'                                 >>$@
+ 
+ xmlrpc_client.pc:
 --- xmlrpc-c-1.14.2/common.mk	2008-05-14 17:43:31.882708000 +0200
 +++ xmlrpc-c-1.14.2/common.mk	2008-05-14 17:59:12.072278970 +0200
 @@ -142,7 +142,7 @@
