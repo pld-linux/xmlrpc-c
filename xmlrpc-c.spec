@@ -2,8 +2,8 @@
 Summary:	XML-RPC C library - an implementation of the xmlrpc protocol
 Summary(pl.UTF-8):	Biblioteka XML-RPC C - implementacja protokołu xmlrpc
 Name:		xmlrpc-c
-Version:	1.64.03
-Release:	2
+Version:	1.64.04
+Release:	1
 License:	XML-RPC for C License (BSD-like)
 Group:		Libraries
 # for feature versions:
@@ -11,8 +11,8 @@ Group:		Libraries
 # Unfortunately, upstream does not tag versions so we must fetch from the branch
 # and check which version was used for it.
 # for "super stable" versions:
-Source0:	https://downloads.sourceforge.net/xmlrpc-c/xmlrpc-%{version}.tgz
-# Source0-md5:	b370bf590adb3d6aa12ce218c01fb777
+Source0:	https://downloads.sourceforge.net/xmlrpc-c/%{name}-%{version}.tgz
+# Source0-md5:	0e0463e63e43ef2522e224e1237ccc84
 Patch0:		%{name}-fastdep.patch
 Patch1:		%{name}-soname.patch
 Patch2:		%{name}-cflags.patch
@@ -51,10 +51,10 @@ Ta biblioteka udostepnia modularną implementacją XML-RPC dla języka C.
 Summary:	C header files for xmlrpc-c base libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	curl-devel
-Requires:	libxml2-devel >= 2.0
-Requires:	w3c-libwww-devel
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	curl-devel%{?_isa}
+Requires:	libxml2-devel%{?_isa} >= 2.0
+Requires:	w3c-libwww-devel%{?_isa}
 Obsoletes:	xmlrpc-c-static < 1.20
 
 %description devel
@@ -67,7 +67,7 @@ Pliki nagłówkowe C dla głównych bibliotek xmlrpc-c.
 Summary:	C client library for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteka kliencka C xmlrpc-c
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description client
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -89,8 +89,8 @@ w języku C.
 Summary:	C header files for xmlrpc-c client library
 Summary(pl.UTF-8):	Pliki nagłówkowe C dla biblioteki klienckiej xmlrpc-c
 Group:		Development/Libraries
-Requires:	%{name}-client = %{version}-%{release}
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-client%{?_isa} = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description client-devel
 C header files for xmlrpc-c client library.
@@ -102,7 +102,7 @@ Pliki nagłówkowe C dla biblioteki klienckiej xmlrpc-c.
 Summary:	C server libraries for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteki serwerowe C xmlrpc-c
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description server
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -124,8 +124,8 @@ serwerów w języku C.
 Summary:	C header files for xmlrpc-c server libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c
 Group:		Development/Libraries
-Requires:	%{name}-server = %{version}-%{release}
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-server%{?_isa} = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description server-devel
 C header files for xmlrpc-c server libraries.
@@ -137,7 +137,7 @@ Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c.
 Summary:	XML-RPC OpenSSL library
 Summary(pl.UTF-8):	Biblioteka XML-RPC OpenSSL
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description openssl
 XML-RPC OpenSSL library.
@@ -149,8 +149,8 @@ Biblioteka XML-RPC OpenSSL.
 Summary:	Development files for XML-RPC OpenSSL library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki XML-RPC OpenSSL
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-openssl = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
+Requires:	%{name}-openssl%{?_isa} = %{version}-%{release}
 
 %description openssl-devel
 Development files for XML-RPC OpenSSL library.
@@ -162,7 +162,7 @@ Pliki programistyczne biblioteki XML-RPC OpenSSL.
 Summary:	C++ libraries for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteki C++ xmlrpc-c
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description c++
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -183,9 +183,9 @@ C++.
 Summary:	C++ header files for xmlrpc-c base libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe C++ głównych bibliotek xmlrpc-c
 Group:		Development/Libraries
-Requires:	%{name}-c++ = %{version}-%{release}
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	libstdc++-devel
+Requires:	%{name}-c++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
+Requires:	libstdc++-devel%{?_isa}
 
 %description c++-devel
 C++ header files for xmlrpc-c base libraries.
@@ -197,8 +197,8 @@ Pliki nagłówkowe C++ głównych bibliotek xmlrpc-c.
 Summary:	C++ client library for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteka kliencka C++ xmlrpc-c
 Group:		Libraries
-Requires:	%{name}-c++ = %{version}-%{release}
-Requires:	%{name}-client = %{version}-%{release}
+Requires:	%{name}-c++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-client%{?_isa} = %{version}-%{release}
 
 %description client++
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -220,9 +220,9 @@ w języku C++.
 Summary:	C++ header files for xmlrpc-c client library
 Summary(pl.UTF-8):	Pliki nagłówkowe C++ biblioteki klienckiej xmlrpc-c
 Group:		Development/Libraries
-Requires:	%{name}-c++-devel = %{version}-%{release}
-Requires:	%{name}-client++ = %{version}-%{release}
-Requires:	%{name}-client-devel = %{version}-%{release}
+Requires:	%{name}-c++-devel%{?_isa} = %{version}-%{release}
+Requires:	%{name}-client++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-client-devel%{?_isa} = %{version}-%{release}
 
 %description client++-devel
 C++ header files for xmlrpc-c client library.
@@ -234,8 +234,8 @@ Pliki nagłówkowe C++ biblioteki klienckiej xmlrpc-c.
 Summary:	C++ server libraries for xmlrpc-c
 Summary(pl.UTF-8):	Biblioteki serwerowe C++ xmlrpc-c
 Group:		Libraries
-Requires:	%{name}-c++ = %{version}-%{release}
-Requires:	%{name}-server = %{version}-%{release}
+Requires:	%{name}-c++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-server%{?_isa} = %{version}-%{release}
 
 %description server++
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -257,9 +257,9 @@ serwerów w języku C++.
 Summary:	C++ header files for xmlrpc-c server libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe C dla bibliotek serwerowych xmlrpc-c
 Group:		Development/Libraries
-Requires:	%{name}-c++-devel = %{version}-%{release}
-Requires:	%{name}-server++ = %{version}-%{release}
-Requires:	%{name}-server-devel = %{version}-%{release}
+Requires:	%{name}-c++-devel%{?_isa} = %{version}-%{release}
+Requires:	%{name}-server++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-server-devel%{?_isa} = %{version}-%{release}
 
 %description server++-devel
 C++ header files for xmlrpc-c server libraries.
@@ -271,11 +271,11 @@ Pliki nagłówkowe C++ dla bibliotek serwerowych xmlrpc-c.
 Summary:	Sample XML-RPC applications
 Summary(pl.UTF-8):	Przykładowe aplikacje XML-RPC
 Group:		Applications/Networking
-Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-c++ = %{version}-%{release}
-Requires:	%{name}-client = %{version}-%{release}
-Requires:	%{name}-client++ = %{version}-%{release}
-Requires:	%{name}-server = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-c++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-client%{?_isa} = %{version}-%{release}
+Requires:	%{name}-client++%{?_isa} = %{version}-%{release}
+Requires:	%{name}-server%{?_isa} = %{version}-%{release}
 
 %description apps
 XML-RPC is a quick-and-easy way to make procedure calls over the
@@ -293,7 +293,7 @@ Ten pakiet zawiera kilka podręcznych aplikacji demonstracyjnych
 XML-RPC.
 
 %prep
-%setup -q -n xmlrpc-%{version}
+%setup -q
 %patch -P0 -p1
 %patch -P2 -p1
 %patch -P11 -p1
